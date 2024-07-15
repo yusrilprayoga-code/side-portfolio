@@ -16,6 +16,9 @@ export default function Home() {
         <Highlight>building products</Highlight> and web apps that can impact
         millions of lives
       </Paragraph>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Download Resume
+      </button>
       <WorkHistory />
     </Container>
   );

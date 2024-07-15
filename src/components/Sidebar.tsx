@@ -85,7 +85,7 @@ export const Navigation = ({
           onClick={() => isMobile() && setOpen(false)}
           className={twMerge(
             "text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm",
-            isActive(link.href) && "bg-white dark:bg-neutral-800 shadow-lg text-primary dark:text-primary"
+            isActive(link.href) && "bg-white dark:bg-neutral-800 shadow-lg text-primary dark:text-gray-200"
           )}
         >
           <link.icon
@@ -128,7 +128,7 @@ export const Navigation = ({
         ) : (
           <IconToggleRight className="h-4 w-4 flex-shrink-0" />
         )}
-        <span>Dark Mode</span>
+        <span>Toggle Dark Mode</span>
       </button>
     </div>
   );
@@ -145,7 +145,7 @@ const SidebarHeader = () => {
         className="object-cover object-top rounded-full flex-shrink-0"
       />
       <div className="flex text-sm flex-col">
-        <p className="font-bold text-primary dark:text-primary">Yusril Prayoga</p>
+        <p className="font-bold text-primary dark:text-gray-200">Yusril Prayoga</p>
         <p className="font-light text-secondary dark:text-neutral-400">Developer</p>
       </div>
     </div>

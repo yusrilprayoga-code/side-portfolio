@@ -16,7 +16,7 @@ export default function Projects() {
   return (
     <Container>
       <span className="text-4xl">⚡</span>
-      <Heading className="font-black mb-10">
+      <Heading className="font-black mb-10 dark:text-gray-300">
         {" "}
         What I&apos;ve been working on
       </Heading>

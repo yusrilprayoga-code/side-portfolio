@@ -4,6 +4,7 @@
 
 /* global.css or similar */
 body.dark {
-    background-color: #1a202c; /* Example dark background color */
+    background-color: #1a202c;
+    color: #e2e8f0;
   }
   
