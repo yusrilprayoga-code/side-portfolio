@@ -1,7 +1,7 @@
 import {
   IconBrandLinkedin,
   IconBrandInstagram,
-  IconBrandYoutube,
+  IconBrandGithub,
 } from "@tabler/icons-react";
 
 export const socials = [
@@ -16,8 +16,8 @@ export const socials = [
     icon: IconBrandLinkedin,
   },
   {
-    href: "https://youtube.com/maninthere",
-    label: "YouTube",
-    icon: IconBrandYoutube,
+    href: "https://github.com/yusrilprayoga-code",
+    label: "Github",
+    icon: IconBrandGithub,
   },
 ];
