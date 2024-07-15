@@ -46,11 +46,10 @@ export const Blogs = ({ blogs }: { blogs: Blog[] }) => {
                   }}
                   exit={{
                     opacity: 0,
-
                     scaleX: 0.95,
                     scaleY: 0.95,
                   }}
-                  className="absolute z-0 pointer-events-none bg-gray-50 inset-0 h-full w-full   rounded-md "
+                  className="absolute z-0 pointer-events-none bg-gray-50 dark:bg-gray-700 inset-0 h-full w-full rounded-md"
                 />
               )}
             </AnimatePresence>
@@ -64,17 +63,17 @@ export const Blogs = ({ blogs }: { blogs: Blog[] }) => {
                 className="rounded-md object-cover h-40 w-60"
               />
               <div className="flex flex-col col-span-3">
-                <Heading className="text-lg md:text-lg lg:text-lg">
+                <Heading className="text-lg md:text-lg lg:text-lg dark:text-white">
                   {blog.title}
                 </Heading>
-                <Paragraph className="text-sm md:text-sm lg:text-sm mt-2">
+                <Paragraph className="text-sm md:text-sm lg:text-sm mt-2 dark:text-gray-300">
                   {blog.description}
                 </Paragraph>
                 <div className="flex space-x-2 flex-wrap mt-4">
                   {blog.tags?.map((tag, index) => (
                     <span
-                      key={`tag-${blog.slug}`}
-                      className="text-xs px-1 py-0.5 text-secondary border border-neutral-200 bg-white rounded-md"
+                      key={`tag-${blog.slug}-${index}`}
+                      className="text-xs px-1 py-0.5 text-secondary border border-neutral-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-md"
                     >
                       {tag}
                     </span>
