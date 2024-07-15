@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const defaultFormState = {
   name: {
@@ -18,44 +19,86 @@ const defaultFormState = {
 export const Contact = () => {
   const [formData, setFormData] = useState(defaultFormState);
   const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    // Write your submit logic here
-    console.log(formData);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: {
+        value,
+        error: "",
+      },
+    });
   };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .send(
+        'service_h9hf4co',
+        'template_kv6gx9t',
+        {
+          from_name: formData.name.value,
+          to_name: "Yusril Prayoga",
+          from_email: formData.email.value,
+          to_email: "yusrilprayoga90@gmail.com",
+          message: formData.message.value,
+        },
+        'FLVTZfnG-Bx5Y3q2X'
+      )
+      .then(
+        () => {
+          setLoading(false);
+          alert("Thank you. I will get back to you as soon as possible.");
+
+          setFormData({
+            name: {
+              value: "",
+              error: "",
+            },
+            email: {
+              value: "",
+              error: "",
+            },
+            message: {
+              value: "",
+              error: "",
+            },
+          });
+        },
+        (error) => {
+          setLoading(false);
+          console.error(error);
+
+          alert("something went wrong. Please try again.");
+        }
+      );
+  };
+
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form" action="" method="POST" onSubmit={handleSubmit} ref={formRef}>
       <div className="flex flex-col md:flex-row justify-between gap-5">
         <input
           type="text"
           placeholder="Your Name"
           className="bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-200 px-2 py-2 rounded-md text-sm text-neutral-700 w-full"
           value={formData.name.value}
-          onChange={(e) => {
-            setFormData({
-              ...formData,
-              name: {
-                value: e.target.value,
-                error: "",
-              },
-            });
-          }}
+          name="name"
+          id="name"
+          onChange={handleChange}
         />
         <input
           type="email"
           placeholder="Your email address"
           className="bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-200 px-2 py-2 rounded-md text-sm text-neutral-700 w-full"
           value={formData.email.value}
-          onChange={(e) => {
-            setFormData({
-              ...formData,
-              email: {
-                value: e.target.value,
-                error: "",
-              },
-            });
-          }}
+          name="email"
+          id="email"
+          onChange={handleChange}
         />
       </div>
       <div>
@@ -64,22 +107,16 @@ export const Contact = () => {
           rows={10}
           className="bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-200 px-2 mt-4 py-2 rounded-md text-sm text-neutral-700 w-full"
           value={formData.message.value}
-          onChange={(e) => {
-            setFormData({
-              ...formData,
-              message: {
-                value: e.target.value,
-                error: "",
-              },
-            });
-          }}
+          name="message"
+          id="message"
+          onChange={handleChange}
         />
       </div>
       <button
         className="w-full px-2 py-2 mt-4 bg-neutral-100 rounded-md font-bold text-neutral-500"
         type="submit"
       >
-        Submit{" "}
+        {loading ? "Sending..." : "Submit"}
       </button>
     </form>
   );
