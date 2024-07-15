@@ -71,7 +71,7 @@ export default function About() {
 
       <div className="max-w-4xl">
         <Paragraph className=" mt-4">
-          Hey there, I&apos;m John Doe - a passionate developer, avid writer,
+          Hey there, I&apos;m Yusril Prayoga - a passionate developer, avid writer,
           and a connoisseur of awesome design. Welcome to my corner of the
           digital world!
         </Paragraph>
