@@ -3,14 +3,14 @@ import { navlinks } from "@/constants/navlinks";
 import { Navlink } from "@/types/navlink";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-import React, { useState } from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Heading } from "./Heading";
 import { socials } from "@/constants/socials";
 import { Badge } from "./Badge";
 import { AnimatePresence, motion } from "framer-motion";
-import { IconLayoutSidebarRightCollapse } from "@tabler/icons-react";
+import { IconLayoutSidebarRightCollapse, IconToggleLeft, IconToggleRight } from "@tabler/icons-react";
 
 const isMobile = () => {
   if (typeof window === "undefined") return false;
@@ -20,6 +20,19 @@ const isMobile = () => {
 
 export const Sidebar = () => {
   const [open, setOpen] = useState(isMobile() ? false : true);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode") === "true";
+    setDarkMode(savedMode);
+    document.body.classList.toggle("dark", savedMode);
+  }, []);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    document.body.classList.toggle("dark", !darkMode);
+    localStorage.setItem("darkMode", !darkMode ? "true" : "false");
+  };
 
   return (
     <>
@@ -30,21 +43,21 @@ export const Sidebar = () => {
             animate={{ x: 0 }}
             transition={{ duration: 0.2, ease: "linear" }}
             exit={{ x: -200 }}
-            className="px-6  z-[100] py-10 bg-neutral-100 max-w-[14rem] lg:w-fit  fixed lg:relative  h-screen left-0 flex flex-col justify-between"
+            className="px-6 z-[100] py-10 bg-neutral-100 dark:bg-neutral-900 max-w-[14rem] lg:w-fit fixed lg:relative h-screen left-0 flex flex-col justify-between"
           >
             <div className="">
               <SidebarHeader />
-              <Navigation setOpen={setOpen} />
+              <Navigation setOpen={setOpen} toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
             </div>
             <Badge href="/resume" text="Read Resume" />
           </motion.div>
         )}
       </AnimatePresence>
       <button
-        className="fixed lg:hidden bottom-4 right-4 h-8 w-8 border border-neutral-200 rounded-full backdrop-blur-sm flex items-center justify-center z-10"
+        className="fixed lg:hidden bottom-4 right-4 h-8 w-8 border border-neutral-200 dark:border-neutral-700 rounded-full backdrop-blur-sm flex items-center justify-center z-10"
         onClick={() => setOpen(!open)}
       >
-        <IconLayoutSidebarRightCollapse className="h-4 w-4 text-secondary" />
+        <IconLayoutSidebarRightCollapse className="h-4 w-4 text-secondary dark:text-neutral-400" />
       </button>
     </>
   );
@@ -52,8 +65,12 @@ export const Sidebar = () => {
 
 export const Navigation = ({
   setOpen,
+  toggleDarkMode,
+  darkMode,
 }: {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleDarkMode: () => void;
+  darkMode: boolean;
 }) => {
   const pathname = usePathname();
 
@@ -67,8 +84,8 @@ export const Navigation = ({
           href={link.href}
           onClick={() => isMobile() && setOpen(false)}
           className={twMerge(
-            "text-secondary hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm",
-            isActive(link.href) && "bg-white shadow-lg text-primary"
+            "text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm",
+            isActive(link.href) && "bg-white dark:bg-neutral-800 shadow-lg text-primary dark:text-primary"
           )}
         >
           <link.icon
@@ -81,7 +98,7 @@ export const Navigation = ({
         </Link>
       ))}
 
-      <Heading as="p" className="text-sm md:text-sm lg:text-sm pt-10 px-2">
+      <Heading as="p" className="text-sm md:text-sm lg:text-sm pt-10 px-2 dark:text-neutral-400">
         Socials
       </Heading>
       {socials.map((link: Navlink) => (
@@ -89,7 +106,7 @@ export const Navigation = ({
           key={link.href}
           href={link.href}
           className={twMerge(
-            "text-secondary hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm"
+            "text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm"
           )}
         >
           <link.icon
@@ -101,6 +118,18 @@ export const Navigation = ({
           <span>{link.label}</span>
         </Link>
       ))}
+
+      <button
+        onClick={toggleDarkMode}
+        className="text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm"
+      >
+        {darkMode ? (
+          <IconToggleLeft className="h-4 w-4 flex-shrink-0" />
+        ) : (
+          <IconToggleRight className="h-4 w-4 flex-shrink-0" />
+        )}
+        <span>Dark Mode</span>
+      </button>
     </div>
   );
 };
@@ -116,8 +145,8 @@ const SidebarHeader = () => {
         className="object-cover object-top rounded-full flex-shrink-0"
       />
       <div className="flex text-sm flex-col">
-        <p className="font-bold text-primary">Yusril Prayoga</p>
-        <p className="font-light text-secondary">Developer</p>
+        <p className="font-bold text-primary dark:text-primary">Yusril Prayoga</p>
+        <p className="font-light text-secondary dark:text-neutral-400">Developer</p>
       </div>
     </div>
   );

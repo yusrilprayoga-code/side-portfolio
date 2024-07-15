@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* global.css or similar */
+body.dark {
+    background-color: #1a202c; /* Example dark background color */
+  }
+  
