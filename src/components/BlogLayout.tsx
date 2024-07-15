@@ -43,7 +43,7 @@ export function BlogLayout({
             <ArrowLeftIcon className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 d" />
           </Link>
 
-          <Heading className=" py-4">{meta.title}</Heading>
+          <Heading className=" py-4 dark:text-gray-300">{meta.title}</Heading>
           <time
             dateTime={meta.date}
             className="flex items-center text-base text-zinc-400 "
