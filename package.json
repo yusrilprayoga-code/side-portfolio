@@ -13,8 +13,6 @@
     "@mapbox/rehype-prism": "^0.8.0",
     "@mdx-js/loader": "^2.3.0",
     "@next/mdx": "^13.4.19",
-    "@react-three/drei": "^9.108.4",
-    "@react-three/fiber": "^8.16.8",
     "@tabler/icons-react": "^2.32.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "20.5.3",
@@ -34,8 +32,6 @@
     "remark-gfm": "^3.0.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
-    "three": "^0.166.1",
-    "three-globe": "^2.31.1",
     "typescript": "5.1.6"
   }
 }
