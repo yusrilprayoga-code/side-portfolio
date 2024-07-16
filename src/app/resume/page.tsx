@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <Container>
       <span className="text-4xl">💼</span>
-      <Heading className="font-black">Work History</Heading>
+      <Heading className="font-black dark:text-gray-300">Work History</Heading>
       <Paragraph className="max-w-xl mt-4">
         I&apos;m a Front-End developer that loves{" "}
         <Highlight className="dark:bg-gray-800">building products</Highlight>{" "}

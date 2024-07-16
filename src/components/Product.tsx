@@ -52,7 +52,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
         ))}
       </div>
       <div className="flex lg:flex-row justify-between items-center flex-col mt-20">
-        <Heading className="font-black mb-2 pb-1"> {product.title}</Heading>
+        <Heading className="font-black mb-2 pb-1 dark:text-gray-300"> {product.title}</Heading>
         <div className="flex space-x-2 md:mb-1 mt-2 md:mt-0">
           {product.stack?.map((stack: string) => (
             <span
@@ -67,7 +67,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
       <div>
         <Paragraph className="max-w-xl mt-4">{product.description}</Paragraph>
       </div>
-      <div className="prose prose-sm md:prose-base max-w-none text-neutral-600">
+      <div className="prose prose-sm md:prose-base max-w-none text-neutral-600 dark:text-gray-300">
         {product?.content}
       </div>
 

@@ -1,16 +1,16 @@
 export const products = [
   {
-    href: "https://aceternity.com",
-    title: "Aceternity",
+    href: "https://b-otomotif.vercel.app/",
+    title: "B-Otomotif",
     description:
       "A design and development studio that focuses on building quality apps.",
-    thumbnail: "/images/sidefolio-aceternity.png",
+    thumbnail: "/images/sidefolio-b-otomotif.png",
     images: [
-      "/images/sidefolio-aceternity.png",
-      "/images/sidefolio-aceternity-2.png",
+      "/images/sidefolio-b-otomotif.png",
+      "/images/sidefolio-b-otomotif-2.png",
     ],
-    stack: ["Nextjs", "Tailwindcss"],
-    slug: "aceternity",
+    stack: ["Nextjs", "Tailwindcss", "Google Cloud"],
+    slug: "B-Otomotif",
     content: (
       <div>
         <p>
