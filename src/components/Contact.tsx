@@ -89,6 +89,7 @@ export const Contact = () => {
           className="bg-neutral-100 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-gray-600 px-2 py-2 rounded-md text-sm text-neutral-700 w-full"
           value={formData.name.value}
           name="name"
+          required
           id="name"
           onChange={handleChange}
         />
@@ -99,6 +100,7 @@ export const Contact = () => {
           value={formData.email.value}
           name="email"
           id="email"
+          required
           onChange={handleChange}
         />
       </div>
@@ -110,6 +112,7 @@ export const Contact = () => {
           value={formData.message.value}
           name="message"
           id="message"
+          required
           onChange={handleChange}
         />
       </div>
