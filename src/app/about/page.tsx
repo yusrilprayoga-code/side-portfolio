@@ -25,7 +25,7 @@ export default function AboutPage() {
   return (
     <Container>
       <span className="text-4xl">💬</span>
-      <Heading className="font-black">About Me</Heading>
+      <Heading className="font-black dark:text-gray-300">About Me</Heading>
       <About />
     </Container>
   );

@@ -33,7 +33,7 @@ export function BlogLayout({
   return (
     <Container>
       <article>
-        <header className="flex flex-col">
+        <header className="flex flex-col dark:text-gray-300">
           <Link
             type="button"
             href="/blog"
@@ -48,7 +48,7 @@ export function BlogLayout({
             dateTime={meta.date}
             className="flex items-center text-base text-zinc-400 "
           >
-            <Paragraph className=" text-zinc-700">
+            <Paragraph className=" text-zinc-700 dark:text-gray-300">
               {formatDate(meta.date)}
             </Paragraph>
           </time>
