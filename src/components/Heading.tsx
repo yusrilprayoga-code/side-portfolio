@@ -2,7 +2,6 @@ import React from "react";
 import localFont from "next/font/local";
 import { twMerge } from "tailwind-merge";
 
-// Font files can be colocated inside of `app`
 const CalSans = localFont({
   src: [{ path: "../../fonts/CalSans-SemiBold.woff2" }],
   display: "swap",
@@ -17,6 +16,7 @@ export const Heading = ({
   children: React.ReactNode;
   as?: keyof JSX.IntrinsicElements;
 }) => {
+
   return (
     <Tag
       className={twMerge(
