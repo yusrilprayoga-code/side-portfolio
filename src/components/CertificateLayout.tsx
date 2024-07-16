@@ -1,10 +1,14 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { CertificatePage } from "./CertificatePage";
+import { Heading } from "./Heading";
 
 export function CertificateLayout() {
   return (
-    <div className="h-screen py-20 w-full">
+    <div className="h-screen py-20 w-full mb-24">
+      <Heading className="font-black dark:text-gray-300 ">
+            Coursera Certification
+        </Heading>
       <CertificatePage cards={cards} />
     </div>
   );
@@ -72,14 +76,26 @@ const SkeletonFive = () => {
 const SkeletonSix = () => {
   return (
     <div>
-      <p className="font-bold text-4xl text-white">IT Automation: It is not that scary!</p>
+      <p className="font-bold text-4xl text-white">Foundations of Cybersecurity</p>
       <p className="font-normal text-base text-white"></p>
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
         This course is designed to provide a full overview of computer networking. In this course, we are going to take a look at the underlying principles of computer networks
       </p>
     </div>
   );
-}
+};
+
+const SkeletonSeven = () => {
+  return (
+    <div>
+      <p className="font-bold text-4xl text-white">Technical Support Fundamentals</p>
+      <p className="font-normal text-base text-white"></p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        This course is designed to provide a full overview of computer networking. In this course, we are going to take a look at the underlying principles of computer networks
+      </p>
+    </div>
+  );
+};
 
 const cards = [
   {
@@ -123,5 +139,12 @@ const cards = [
     className: "col-span-1",
     thumbnail:
       "/certificate/certificate-foundations-of-cybersecurity.png",
-  }
+  },
+  {
+    id: 7,
+    content: <SkeletonSeven />,
+    className: "col-span-1",
+    thumbnail:
+      "/certificate/certificate-technical-support.png",
+  },
 ];

@@ -25,6 +25,7 @@ export default function AccomplishmentsPage() {
         </Paragraph>
         <AccomplishmentsLayout />
         <CertificateLayout />
+        <Heading className="font-black dark:text-gray-300">Dicoding Certification</Heading>
     </Container>
   );
 }
