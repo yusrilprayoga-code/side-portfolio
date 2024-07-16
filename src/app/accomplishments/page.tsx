@@ -1,4 +1,4 @@
-import { BentoGridThirdDemo } from "@/components/AccomplismentsLayout";
+import { AccomplishmentsLayout } from "@/components/AccomplismentsLayout";
 import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
 import { Highlight } from "@/components/Highlight";
@@ -22,7 +22,7 @@ export default function AccomplishmentsPage() {
         <Paragraph className="dark:text-gray-300">
             I have some certification in <Highlight className="dark:text-neutral-800">the field of technology</Highlight>.
         </Paragraph>
-        <BentoGridThirdDemo />
+        <AccomplishmentsLayout />
     </Container>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "../app/utils/cn";
 import React from "react";
-import { BentoGrid, BentoGridItem } from "./AccomplishmentsGrid";
+import { BentoGrid, AccomplishmentsGridItem } from "./AccomplishmentsGrid";
 import {
   IconBoxAlignRightFilled,
   IconClipboardCopy,
@@ -12,11 +12,11 @@ import {
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export function BentoGridThirdDemo() {
+export function AccomplishmentsLayout() {
   return (
     <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] mt-5">
       {items.map((item, i) => (
-        <BentoGridItem
+        <AccomplishmentsGridItem
           key={i}
           title={item.title}
           description={item.description}

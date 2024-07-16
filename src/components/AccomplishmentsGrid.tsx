@@ -19,7 +19,7 @@ export const BentoGrid = ({
   );
 };
 
-export const BentoGridItem = ({
+export const AccomplishmentsGridItem = ({
   className,
   title,
   description,
