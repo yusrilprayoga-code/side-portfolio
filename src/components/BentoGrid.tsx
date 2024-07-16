@@ -107,9 +107,8 @@ export const SkeletonOne = () => {
     <div className="relative flex py-8 px-2 gap-10 h-full">
       <div className="w-full  p-5  mx-auto bg-white dark:bg-neutral-900 shadow-2xl group h-full">
         <div className="flex flex-1 w-full h-full flex-col space-y-2  ">
-          {/* TODO */}
           <Image
-            src="/linear.webp"
+            src="/images/about.webp"
             alt="header"
             width={800}
             height={800}
@@ -127,16 +126,15 @@ export const SkeletonOne = () => {
 export const SkeletonThree = () => {
   return (
     <Link
-      href="https://www.youtube.com/watch?v=RPa3_AD1_Vs"
+      href="https://www.youtube.com/watch?v=CnKgxGO7HcI"
       target="__blank"
       className="relative flex gap-10  h-full group/image"
     >
       <div className="w-full  mx-auto bg-transparent dark:bg-transparent group h-full">
         <div className="flex flex-1 w-full h-full flex-col space-y-2  relative">
-          {/* TODO */}
           <IconBrandYoutubeFilled className="h-20 w-20 absolute z-10 inset-0 text-red-500 m-auto " />
           <Image
-            src="/about.webp"
+            src="https://i.ytimg.com/vi/tg26zn7OqBE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA_Nu-vzS7nC1nZc3It-sv0N6BzrA"
             alt="header"
             width={800}
             height={800}
@@ -226,7 +224,10 @@ export const SkeletonTwo = () => {
 export const SkeletonFour = () => {
   return (
     <div className="h-60 md:h-60  flex flex-col items-center relative bg-transparent dark:bg-transparent mt-10">
-      
+        <div className="w-20 h-20 bg-neutral-900 dark:bg-neutral-200 rounded-full animate-pulse" />
+        <div className="w-20 h-20 bg-neutral-900 dark:bg-neutral-200 rounded-full animate-pulse mt-4" />
+        <div className="w-20 h-20 bg-neutral-900 dark:bg-neutral-200 rounded-full animate-pulse mt-4" />
+        <div className="w-20 h-20 bg-neutral-900 dark:bg-neutral-200 rounded-full animate-pulse mt-4" />
     </div>
   );
 };

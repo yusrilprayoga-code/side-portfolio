@@ -5,8 +5,8 @@ import rehypePrism from "@mapbox/rehype-prism";
 
 const nextConfig = {
   images: {
-    hostname: "media.licdn.com",
-    domains: ["images.unsplash.com", "res.cloudinary.com", "media.licdn.com"],
+    hostname: ["media.licdn.com","i.ytimg.com"],
+    domains: ["images.unsplash.com", "res.cloudinary.com", "media.licdn.com","i.ytimg.com"],
   },
   experimental: {
     mdxRs: true,
