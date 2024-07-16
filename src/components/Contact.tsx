@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { GlobeDemo } from "./GlobeDemo";
 
 const defaultFormState = {
   name: {
@@ -83,7 +82,6 @@ export const Contact = () => {
 
   return (
     <form className="form" action="" method="POST" onSubmit={handleSubmit} ref={formRef}>
-      <GlobeDemo />
       <div className="flex flex-col md:flex-row justify-between gap-5">
         <input
           type="text"
