@@ -57,6 +57,29 @@ const SkeletonFour = () => {
     </div>
   );
 };
+const SkeletonFive = () => {
+  return (
+    <div>
+      <p className="font-bold text-4xl text-white">The Bits and Bytes of Computer Networking</p>
+      <p className="font-normal text-base text-white"></p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        This course is designed to provide a full overview of computer networking. In this course, we’re going to take a look at the underlying principles of computer networks
+      </p>
+    </div>
+  );
+};
+
+const SkeletonSix = () => {
+  return (
+    <div>
+      <p className="font-bold text-4xl text-white">IT Automation: It’s not that scary!</p>
+      <p className="font-normal text-base text-white"></p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        This course is designed to provide a full overview of computer networking. In this course, we’re going to take a look at the underlying principles of computer networks
+      </p>
+    </div>
+  );
+}
 
 const cards = [
   {
@@ -87,4 +110,11 @@ const cards = [
     thumbnail:
       "/certificate/certificate-system-administration.png",
   },
+  {
+    id: 5,
+    content: <SkeletonFive />,
+    className: "md:col-span-2",
+    thumbnail:
+      "/certificate/certificate-bits-and-bytes.png",
+  }
 ];
