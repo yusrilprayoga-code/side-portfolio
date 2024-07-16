@@ -2,7 +2,7 @@ export const ButtonCTA = () => {
   return (
     <div className="absolute top-0 inset-x-0  flex justify-center">
       <a
-        href="https://twitter.com/mannupaaji"
+        href="https://github.com/yusrilprayoga-code"
         target={"_blank"}
         className="bg-black no-underline group  cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6  text-white inline-block"
       >

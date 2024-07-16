@@ -1,4 +1,5 @@
 import { AccomplishmentsLayout } from "@/components/AccomplismentsLayout";
+import { CertificateLayout } from "@/components/CertificateLayout";
 import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
 import { Highlight } from "@/components/Highlight";
@@ -23,6 +24,7 @@ export default function AccomplishmentsPage() {
             I have some certification in <Highlight className="dark:text-neutral-800">the field of technology</Highlight>.
         </Paragraph>
         <AccomplishmentsLayout />
+        <CertificateLayout />
     </Container>
   );
 }
