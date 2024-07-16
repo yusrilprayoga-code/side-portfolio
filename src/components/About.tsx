@@ -1,5 +1,6 @@
 "use client";
 import { Paragraph } from "@/components/Paragraph";
+import { FeaturesSectionDemo } from "./BentoGrid";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
@@ -69,6 +70,7 @@ export default function About() {
       </div>
 
       <div className="max-w-4xl">
+      <FeaturesSectionDemo />
         <Paragraph className=" mt-4 dark:text-gray-300">
           Hey there, I&apos;m Yusril Prayoga - a passionate developer, avid writer,
           and a connoisseur of awesome design. Welcome to my corner of the
