@@ -116,5 +116,12 @@ const cards = [
     className: "md:col-span-2",
     thumbnail:
       "/certificate/certificate-bits-and-bytes.png",
+  },
+  {
+    id: 5,
+    content: <SkeletonSix />,
+    className: "col-span-1",
+    thumbnail:
+      "/certificate/certificate-foundations-of-cybersecurity.png",
   }
 ];
