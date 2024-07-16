@@ -52,7 +52,7 @@ const SkeletonFour = () => {
       <p className="font-bold text-4xl text-white">System Administration and IT Infrastructure Services</p>
       <p className="font-normal text-base text-white"></p>
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        This course will transition you from working on a single computer to an entire fleet. Systems administration is the field of IT that’s responsible for maintaining reliable computers systems in a multi-user environment.
+        This course will transition you from working on a single computer to an entire fleet. Systems administration is the field of IT that&atos;s responsible for maintaining reliable computers systems in a multi-user environment.
       </p>
     </div>
   );
@@ -63,7 +63,7 @@ const SkeletonFive = () => {
       <p className="font-bold text-4xl text-white">The Bits and Bytes of Computer Networking</p>
       <p className="font-normal text-base text-white"></p>
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        This course is designed to provide a full overview of computer networking. In this course, we’re going to take a look at the underlying principles of computer networks
+        This course is designed to provide a full overview of computer networking. In this course, we&atos;re going to take a look at the underlying principles of computer networks
       </p>
     </div>
   );
@@ -72,10 +72,10 @@ const SkeletonFive = () => {
 const SkeletonSix = () => {
   return (
     <div>
-      <p className="font-bold text-4xl text-white">IT Automation: It’s not that scary!</p>
+      <p className="font-bold text-4xl text-white">IT Automation: It&atos;s not that scary!</p>
       <p className="font-normal text-base text-white"></p>
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        This course is designed to provide a full overview of computer networking. In this course, we’re going to take a look at the underlying principles of computer networks
+        This course is designed to provide a full overview of computer networking. In this course, we&atos;re going to take a look at the underlying principles of computer networks
       </p>
     </div>
   );
@@ -118,7 +118,7 @@ const cards = [
       "/certificate/certificate-bits-and-bytes.png",
   },
   {
-    id: 5,
+    id: 6,
     content: <SkeletonSix />,
     className: "col-span-1",
     thumbnail:
