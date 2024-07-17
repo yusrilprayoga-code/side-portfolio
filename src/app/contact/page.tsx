@@ -4,6 +4,7 @@ import { Heading } from "@/components/Heading";
 import { Highlight } from "@/components/Highlight";
 import { Paragraph } from "@/components/Paragraph";
 import { Products } from "@/components/Products";
+import { AnimatedTooltipPreview } from "@/constants/tooltip";
 import { Metadata } from "next";
 import Image from "next/image";
 
@@ -22,6 +23,7 @@ export default function Projects() {
         to you ASAP - I promise.{" "}
       </Paragraph>
       <Contact />
+      <AnimatedTooltipPreview />
     </Container>
   );
 }
