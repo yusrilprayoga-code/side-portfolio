@@ -3,7 +3,7 @@ import { BlogLayout } from "@/components/BlogLayout";
 import { CodeWindow } from "@/components/CodeWindow";
 
 export const meta = {
-  date: "2023-08-18",
+  date: "2024-07-17",
   title: "Writing Clean Code With React",
   description:
     "Effective and efficient ways to write clean code with React while keeping in mind the performance and maintainability of the codebase.",
@@ -14,15 +14,41 @@ export const meta = {
 
 export default (props) => <BlogLayout meta={meta} {...props} />;
 
-Velit cillum fugiat proident pariatur anim proident laborum incididunt magna in labore adipisicing veniam quis. Ut et exercitation dolor in enim quis. Et est excepteur exercitation voluptate in qui duis nulla in anim ut commodo deserunt nisi. Dolor pariatur irure occaecat Lorem mollit veniam adipisicing.
+## Tips and Conventions to Write Cleaner Code
 
-Deserunt qui ea do et laborum ad id. Tempor laborum aute fugiat tempor eu. Amet sint sint proident pariatur eiusmod mollit excepteur excepteur. Dolore cillum nulla enim tempor ad.
+### Effectiveness, Efficiency and Simplicity
 
-Laborum quis proident ut anim consectetur. Consequat fugiat eiusmod qui officia duis eu minim cillum do qui. Sunt sit veniam minim ad id sunt magna est enim.
+Whenever I need to think about how to implement a new feature into an already existing codebase, or how to tackle the solution of a specific problem, I always prioritize this three simple things.
 
-Consectetur est sunt minim culpa quis aute officia incididunt ea laboris nulla officia dolor. Cupidatat cupidatat esse veniam cillum labore ullamco aliqua ex. Cillum incididunt ipsum laborum dolor enim incididunt consectetur id consectetur magna. Consequat mollit non ea cupidatat exercitation. Consequat reprehenderit eiusmod nisi ea esse id ut est consequat eu aliqua do quis.
+#### Effectiveness
+First, our code should be effective, meaning it should solve the problem it's supposed to solve. Of course this is the most basic expectation we could have for our code, but if our implementation doesn't actually work, it's worthless to think about any other thing.
 
-Occaecat commodo velit ea consectetur ut sit. Duis eiusmod ad tempor nisi magna dolore incididunt ea dolore. Commodo proident eiusmod consequat cupidatat consectetur adipisicing dolor commodo tempor labore non dolore Lorem consectetur.
+#### Efficiency
+Second, once we know our code solves the problem, we should check if it does so efficiently. Does the program run using a reasonable amount of resources in terms of time and space? Can it run faster and with less space?
+
+To expand upon efficiency, here are two examples of a function that calculates the sum of all numbers in an array.
+
+This implementation of the sumArrayInefficient function iterates over the array using a for loop and adds each element to the sum variable. This is a valid solution, but it is not very efficient because it requires iterating over the entire array, regardless of its length.
+
+#### Simplicity
+And last comes simplicity. This is the toughest one to evaluate because its subjective, it depends on the person who reads the code. But some guidelines we can follow are:
+
+1. Can you easily understand what the program does at each line?
+2. Do functions and variables have names that clearly represent their responsibilities?
+3. Is the code indented correctly and spaced with the same format all along the codebase?
+4. Is there any documentation available for the code? Are comments used to explain complex parts of the program?
+5. How quick can you identify in which part of the codebase are certain features of the program? 
+6. Can you delete/add new features without the need of modifying many other parts of the code?
+7. Does the code follow a modular approach, with different features separated in components?
+8. Is code reused when possible?
+9. Are the same architecture, design, and implementation decisions followed equally all along the codebase?
+
+By following and prioritizing these three concepts of effectiveness, efficiency, and simplicity, we can always have a guideline to follow when thinking about how to implement a solution. Now let's expand upon some of the guidelines that can help us simplify our code.
+
+#### Format and Syntax
+Using consistent formatting and syntax throughout a codebase is an important aspect of writing clean code. This is because consistent formatting and syntax make the code more readable and easier to understand.
+
+When code is consistent, developers can easily identify patterns and understand how the code works, which makes it easier to debug, maintain, and update the codebase over time. Consistency also helps to reduce errors, as it ensures that all developers are following the same standards and conventions.
 
 ## Code Snippet
 
