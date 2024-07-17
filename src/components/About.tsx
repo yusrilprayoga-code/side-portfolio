@@ -4,6 +4,7 @@ import { FeaturesSectionDemo } from "./BentoGrid";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
+import { TextGenerateEffectDemo } from "./TextGeneratePage";
 
 export default function About() {
   const images = [
@@ -71,11 +72,7 @@ export default function About() {
 
       <div className="max-w-4xl">
       <FeaturesSectionDemo />
-        <Paragraph className=" mt-4 dark:text-gray-300">
-          Hey there, I&apos;m Yusril Prayoga - a passionate developer, avid writer,
-          and a connoisseur of awesome design. Welcome to my corner of the
-          digital world!
-        </Paragraph>
+      <TextGenerateEffectDemo />
         <Paragraph className=" mt-4 dark:text-gray-300">
           Since the early days of my journey, I&apos;ve been captivated by the
           art of crafting exceptional digital experiences. As a developer, I
