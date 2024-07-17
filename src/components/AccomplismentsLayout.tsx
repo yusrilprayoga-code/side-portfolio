@@ -296,7 +296,7 @@ const SkeletonFive = () => {
 };
 const items = [
   {
-    title: "AI Content Generation",
+    title: "Content Generation",
     description: (
       <span className="text-sm">
         Experience the power of AI in generating unique content.
@@ -310,7 +310,7 @@ const items = [
     title: "Automated Proofreading",
     description: (
       <span className="text-sm">
-        Let AI handle the proofreading of your documents.
+        Get your text proofread by AI for grammatical errors.
       </span>
     ),
     header: <SkeletonTwo />,
