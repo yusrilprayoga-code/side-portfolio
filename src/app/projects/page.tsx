@@ -1,4 +1,5 @@
 import { Container } from "@/components/Container";
+import { FlipWordsDemo } from "@/components/FlipWordsLayout";
 import { Heading } from "@/components/Heading";
 import { Highlight } from "@/components/Highlight";
 import { Paragraph } from "@/components/Paragraph";
@@ -20,7 +21,7 @@ export default function Projects() {
         {" "}
         What I&apos;ve been working on
       </Heading>
-
+      <FlipWordsDemo />
       <Products />
     </Container>
   );
