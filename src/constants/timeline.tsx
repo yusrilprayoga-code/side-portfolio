@@ -2,7 +2,7 @@ export const timeline = [
   {
     company: "Bangkit Academy 2024 By Google, GoTo, Traveloka - Cloud Computing Learning Path ",
     title: "Cloud Computing Learning Path",
-    date: "2024 - Present",
+    date: "Feb 2024 - June 2024",
     description: "Building BatikLens - A platform to help people to find the best Batik",
     responsibilities: [
       "Developed a new feature that improves the user experience",
