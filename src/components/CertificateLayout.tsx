@@ -5,7 +5,7 @@ import { Heading } from "./Heading";
 
 export function CertificateLayout() {
   return (
-    <div className="h-screen py-20 w-full mb-24">
+    <div className="h-screen py-20 w-full mb-28">
       <Heading className="font-black dark:text-gray-300 ">
             Coursera Certification
         </Heading>

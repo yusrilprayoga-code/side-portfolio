@@ -4,6 +4,7 @@ import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
 import { Highlight } from "@/components/Highlight";
 import { Paragraph } from "@/components/Paragraph";
+import { ParallaxScrollDemo } from "@/constants/certificate";
 import { Metadata } from "next";
 
 
@@ -25,7 +26,7 @@ export default function AccomplishmentsPage() {
         </Paragraph>
         <AccomplishmentsLayout />
         <CertificateLayout />
-        <Heading className="font-black dark:text-gray-300">Dicoding Certification</Heading>
+        <ParallaxScrollDemo />
     </Container>
   );
 }
