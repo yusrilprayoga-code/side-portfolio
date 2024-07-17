@@ -61,9 +61,18 @@ export function ThreeDCardDemo() {
         >
             Learn to build Apps, Machine Learning, and Cloud Computing with Google Cloud Platform, GoTo, and Traveloka.
         </CardItem>
-        <CardItem translateZ="100" className="w-full mt-4">
+        <CardItem translateZ="100" translateX="100" className="w-full mt-4">
           <Image
             src="/certificate/certificate-bangkit.png"
+            height="1000"
+            width="1000"
+            className="h-full w-full object-cover rounded-xl group-hover/card:shadow-xl"
+            alt="thumbnail"
+          />
+        </CardItem>
+        <CardItem translateZ="100" translateX="-100" className="w-full mt-4">
+        <Image
+            src="/certificate/certificate-bangkit-2.png"
             height="1000"
             width="1000"
             className="h-full w-full object-cover rounded-xl group-hover/card:shadow-xl"
