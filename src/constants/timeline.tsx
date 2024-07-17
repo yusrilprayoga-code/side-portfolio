@@ -14,7 +14,7 @@ export const timeline = [
   {
     company: "PT Solutionlabs Group Indonesia",
     title: "Front End Developer",
-    date: "2023 - 2024",
+    date: "Des 2023 - Jan 2024",
     description: "Building the future of E-Learning",
     responsibilities: [
       "Improved the E-Learning platform to enhance user experience",
@@ -26,7 +26,7 @@ export const timeline = [
   {
     company: "Staff of Communication and Information Media Department",
     title: "Video Editor",
-    date: "2023 - 2024",
+    date: "May 2023 - May 2024",
     description: "Building video content for the department",
     responsibilities: [
       "Improved the video editing process to enhance the quality of the videos",

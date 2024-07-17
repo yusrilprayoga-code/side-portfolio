@@ -14,11 +14,14 @@ export const meta = {
 
 export default (props) => <BlogLayout meta={meta} {...props} />;
 
-Velit cillum fugiat proident pariatur anim proident laborum incididunt magna in labore adipisicing veniam quis. Ut et exercitation dolor in enim quis. Et est excepteur exercitation voluptate in qui duis nulla in anim ut commodo deserunt nisi. Dolor pariatur irure occaecat Lorem mollit veniam adipisicing.
+## Styling Based on Other Elements
+#### Tailwind CSS has some features that allow you to style an element based on another element.
 
-Deserunt qui ea do et laborum ad id. Tempor laborum aute fugiat tempor eu. Amet sint sint proident pariatur eiusmod mollit excepteur excepteur. Dolore cillum nulla enim tempor ad.
+* Styling children from parent element (&_*)
+Generally, you can just put utility classes on any element to style it. But, there is a case where you don't have control over certain elements, like when you are using an external component.
 
-Laborum quis proident ut anim consectetur. Consequat fugiat eiusmod qui officia duis eu minim cillum do qui. Sunt sit veniam minim ad id sunt magna est enim.
+* Styling based on Parent state (group-*)
+Let's say you have a card component that has text, a link, and an icon inside it. When the user hovers over the card, you want to apply a style to text, link, and icon. To do that, you can put group class to the card element and put group-hover:{utility-class} to the text, link, and icon that you want to style.
 
 Consectetur est sunt minim culpa quis aute officia incididunt ea laboris nulla officia dolor. Cupidatat cupidatat esse veniam cillum labore ullamco aliqua ex. Cillum incididunt ipsum laborum dolor enim incididunt consectetur id consectetur magna. Consequat mollit non ea cupidatat exercitation. Consequat reprehenderit eiusmod nisi ea esse id ut est consequat eu aliqua do quis.
 
