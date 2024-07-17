@@ -4,6 +4,7 @@ import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
 import { Highlight } from "@/components/Highlight";
 import { Paragraph } from "@/components/Paragraph";
+import { ThreeDCardDemo } from "@/components/ThreeDCardPage";
 import { ParallaxScrollDemo } from "@/constants/certificate";
 import { Metadata } from "next";
 
@@ -27,6 +28,7 @@ export default function AccomplishmentsPage() {
         <AccomplishmentsLayout />
         <CertificateLayout />
         <ParallaxScrollDemo />
+        <ThreeDCardDemo />
     </Container>
   );
 }
