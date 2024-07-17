@@ -141,8 +141,8 @@ export const products = [
       "/images/sidefolio-yusril-prayoga.png",
       "/images/sidefolio-yusril-prayoga-2.png",
     ],
-    stack: ["Reactjs", "Tailwindcss"],
-    slug: "arcipe",
+    stack: ["Reactjs", "Tailwindcss", "Threejs"],
+    slug: "3dportfolio",
     content: (
       <div>
         <p>
