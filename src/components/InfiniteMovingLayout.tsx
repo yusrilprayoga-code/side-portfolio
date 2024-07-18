@@ -21,14 +21,14 @@ export function InfiniteMovingCardsDemo() {
 
 const testimonials = [
   {
-    image: "/certificate/certificate-ai.png",
-    name: "Charles Dickens",
-    title: "A Tale of Two Cities",
+    image: "/certificate/certificate-kubernetes.png",
+    name: "Deploy Kubernetes Applications on Google Cloud",
+    title: "May 13, 2024",
   },
   {
-    image: "/certificate/certificate-ai.png",
-    name: "William Shakespeare",
-    title: "Hamlet",
+    image: "/certificate/certificate-cloud-network.png",
+    name: "Develop your Google Cloud Network",
+    title: "Mar 30, 2024",
   },
   {
     image: "/certificate/certificate-ai.png",
