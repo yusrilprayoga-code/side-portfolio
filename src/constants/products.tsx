@@ -86,20 +86,24 @@ export const products = [
     content: (
       <div>
         <p>
-          Sit eiusmod ex mollit sit quis ad deserunt. Sint aliqua aliqua ullamco
-          dolore nulla amet tempor sunt est ipsum. Dolor laborum eiusmod
-          cupidatat consectetur velit ipsum. Deserunt nisi in culpa laboris
-          cupidatat elit velit aute mollit nisi. Officia ad exercitation laboris
-          non cupidatat duis esse velit ut culpa et.{" "}
+          Nike is a sleek and engaging landing page dedicated to providing
+          comprehensive information about Nike shoes. Designed for both casual
+          shoppers and dedicated sneaker enthusiasts, the website showcases a
+          wide array of Nike footwear, highlighting the brand is latest
+          innovations, iconic designs, and performance features. Visitors can
+          explore detailed descriptions, high-quality images, and customer
+          reviews, all aimed at helping them find the perfect pair of Nike shoes
+          to match their style and needs.{" "}
         </p>
         <p>
-          Exercitation pariatur enim occaecat adipisicing nostrud adipisicing
-          Lorem tempor ullamco exercitation quis et dolor sint. Adipisicing sunt
-          sit aute fugiat incididunt nostrud consequat proident fugiat id.
-          Officia aliquip laborum labore eu culpa dolor reprehenderit eu ex enim
-          reprehenderit. Cillum Lorem veniam eu magna exercitation.
-          Reprehenderit adipisicing minim et officia enim et veniam Lorem
-          excepteur velit adipisicing et Lorem magna.
+          The landing page features a user-friendly layout, making it easy for
+          visitors to navigate through various shoe categories, from running and
+          training to lifestyle and fashion. Each product page offers in-depth
+          information about the shoe is construction, materials, and unique
+          technologies, ensuring that customers are well-informed before making
+          a purchase. With a focus on delivering a seamless and informative
+          shopping experience, the Nike landing page is the ultimate destination
+          for discovering the best of what Nike has to offer in footwear.
         </p>{" "}
       </div>
     ),
@@ -116,20 +120,23 @@ export const products = [
     content: (
       <div>
         <p>
-          Sit eiusmod ex mollit sit quis ad deserunt. Sint aliqua aliqua ullamco
-          dolore nulla amet tempor sunt est ipsum. Dolor laborum eiusmod
-          cupidatat consectetur velit ipsum. Deserunt nisi in culpa laboris
-          cupidatat elit velit aute mollit nisi. Officia ad exercitation laboris
-          non cupidatat duis esse velit ut culpa et.{" "}
+          ArCipe is a vibrant and comprehensive website dedicated to sharing a
+          diverse array of cooking recipes. Designed for both novice cooks and
+          seasoned chefs, ArCipe offers an extensive collection of recipes
+          spanning various cuisines and dietary preferences. From quick and easy
+          weekday meals to gourmet dishes for special occasions, the website
+          provides detailed instructions, ingredient lists, and cooking tips to
+          ensure successful culinary experiences.{" "}
         </p>
         <p>
-          Exercitation pariatur enim occaecat adipisicing nostrud adipisicing
-          Lorem tempor ullamco exercitation quis et dolor sint. Adipisicing sunt
-          sit aute fugiat incididunt nostrud consequat proident fugiat id.
-          Officia aliquip laborum labore eu culpa dolor reprehenderit eu ex enim
-          reprehenderit. Cillum Lorem veniam eu magna exercitation.
-          Reprehenderit adipisicing minim et officia enim et veniam Lorem
-          excepteur velit adipisicing et Lorem magna.
+          The user-friendly interface of ArCipe makes it simple for visitors to
+          search for specific recipes, browse through different categories, and
+          discover new culinary inspirations. Each recipe page includes
+          step-by-step instructions, high-quality images, and nutritional
+          information, allowing users to make informed choices about their
+          meals. Whether you are looking to expand your cooking repertoire or
+          find inspiration for your next meal, ArCipe is your go-to resource for
+          delicious and reliable cooking recipes.
         </p>{" "}
       </div>
     ),
@@ -149,20 +156,24 @@ export const products = [
     content: (
       <div>
         <p>
-          Sit eiusmod ex mollit sit quis ad deserunt. Sint aliqua aliqua ullamco
-          dolore nulla amet tempor sunt est ipsum. Dolor laborum eiusmod
-          cupidatat consectetur velit ipsum. Deserunt nisi in culpa laboris
-          cupidatat elit velit aute mollit nisi. Officia ad exercitation laboris
-          non cupidatat duis esse velit ut culpa et.{" "}
+          3D Portfolio is a cutting-edge website that showcases the design and
+          development work of Yusril Prayoga, a talented and creative
+          professional. The site features an impressive collection of 3D
+          animations, visual effects, and interactive projects that highlight
+          Yusril is skills and expertise in the field of design and technology.
+          Visitors can explore a variety of captivating and innovative
+          portfolios, each offering a unique and engaging experience that
+          showcases Yusril is creativity and technical prowess.{" "}
         </p>
         <p>
-          Exercitation pariatur enim occaecat adipisicing nostrud adipisicing
-          Lorem tempor ullamco exercitation quis et dolor sint. Adipisicing sunt
-          sit aute fugiat incididunt nostrud consequat proident fugiat id.
-          Officia aliquip laborum labore eu culpa dolor reprehenderit eu ex enim
-          reprehenderit. Cillum Lorem veniam eu magna exercitation.
-          Reprehenderit adipisicing minim et officia enim et veniam Lorem
-          excepteur velit adipisicing et Lorem magna.
+          The website is designed with a focus on user experience, ensuring that
+          visitors can easily navigate through the different projects, view
+          detailed information, and interact with the various elements. With a
+          combination of stunning visuals, dynamic animations, and cutting-edge
+          technologies, 3D Portfolio provides an immersive and inspiring journey
+          into the world of digital design. Whether you are a fellow designer,
+          potential client, or simply an admirer of creative work, 3D Portfolio
+          offers a glimpse into the talent and vision of Yusril Prayoga.
         </p>{" "}
       </div>
     ),
@@ -182,20 +193,26 @@ export const products = [
     content: (
       <div>
         <p>
-          Sit eiusmod ex mollit sit quis ad deserunt. Sint aliqua aliqua ullamco
-          dolore nulla amet tempor sunt est ipsum. Dolor laborum eiusmod
-          cupidatat consectetur velit ipsum. Deserunt nisi in culpa laboris
-          cupidatat elit velit aute mollit nisi. Officia ad exercitation laboris
-          non cupidatat duis esse velit ut culpa et.{" "}
+          Tailwind Master Kit is a versatile and extensive library of Tailwind
+          CSS components designed to help developers build modern and
+          responsive websites and applications. With a wide range of
+          customizable elements, styles, and layouts, Tailwind Master Kit
+          provides a comprehensive toolkit for creating beautiful and
+          functional user interfaces. The library includes components for
+          navigation menus, hero sections, pricing tables, testimonials, and
+          more, making it easy to design and develop professional-looking
+          websites with minimal effort.{" "}
         </p>
         <p>
-          Exercitation pariatur enim occaecat adipisicing nostrud adipisicing
-          Lorem tempor ullamco exercitation quis et dolor sint. Adipisicing sunt
-          sit aute fugiat incididunt nostrud consequat proident fugiat id.
-          Officia aliquip laborum labore eu culpa dolor reprehenderit eu ex enim
-          reprehenderit. Cillum Lorem veniam eu magna exercitation.
-          Reprehenderit adipisicing minim et officia enim et veniam Lorem
-          excepteur velit adipisicing et Lorem magna.
+          The components in Tailwind Master Kit are built with accessibility,
+          responsiveness, and usability in mind, ensuring that developers can
+          create inclusive and user-friendly interfaces. Each component is
+          fully customizable, allowing for easy integration into existing
+          projects and seamless adaptation to different design requirements.
+          Whether you are working on a personal portfolio, a corporate website,
+          or a web application, Tailwind Master Kit offers a wealth of
+          high-quality components to enhance your development workflow and
+          elevate your design capabilities.
         </p>{" "}
       </div>
     ),
