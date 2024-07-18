@@ -3,6 +3,7 @@ import { CertificateLayout } from "@/components/CertificateLayout";
 import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
 import { Highlight } from "@/components/Highlight";
+import { InfiniteMovingCardsDemo } from "@/components/InfiniteMovingLayout";
 import { Paragraph } from "@/components/Paragraph";
 import { ThreeDCardDemo } from "@/components/ThreeDCardPage";
 import { ParallaxScrollDemo } from "@/constants/certificate";
@@ -29,6 +30,7 @@ export default function AccomplishmentsPage() {
         <CertificateLayout />
         <ParallaxScrollDemo />
         <ThreeDCardDemo />
+        <InfiniteMovingCardsDemo />
     </Container>
   );
 }
