@@ -33,18 +33,18 @@ const testimonials = [
     title: "Mar 30, 2024",
   },
   {
-    image: "/certificate/certificate-terraform.png",
-    name: "Build Infrastructure with Terraform on Google Cloud",
-    title: "Mar 29, 2024",
+    image: "/certificate/certificate-secure-networks.png",
+    name: "Build and Secure Networks in Google Cloud",
+    title: "Mar 6, 2024",
   },
   {
-    image: "/certificate/certificate-terraform.png",
-    name: "Build Infrastructure with Terraform on Google Cloud",
-    title: "Mar 29, 2024",
+    image: "/certificate/certificate-data-ml.png",
+    name: "Perform Foundational Data, ML, and AI Tasks in Google Cloud",
+    title: "Mar 5, 2024",
   },
   {
-    image: "/certificate/certificate-terraform.png",
-    name: "Build Infrastructure with Terraform on Google Cloud",
-    title: "Mar 29, 2024",
+    image: "/certificate/certificate-environment.png",
+    name: "Perform Foundational Infrastructure Tasks in Google Cloud",
+    title: "Mar 5, 2024",
   },
 ];
