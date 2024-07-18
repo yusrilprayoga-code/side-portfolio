@@ -41,7 +41,7 @@ const testimonials = [
     title: "Pride and Prejudice",
   },
   {
-    image: "/certificate-ai.png",
+    image: "/certificate/certificate-ai.png",
     name: "Herman Melville",
     title: "Moby-Dick",
   },
