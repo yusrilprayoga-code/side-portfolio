@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { InfiniteMovingCards } from "./InfiniteMovingPage";
 import { Heading } from "./Heading";
+import { Badge } from "./Badge";
 
 export function InfiniteMovingCardsDemo() {
   return (
@@ -10,6 +11,7 @@ export function InfiniteMovingCardsDemo() {
       <Heading className="font-black mb-2 dark:text-gray-300">
         Google Cloud Skill Boost
         </Heading>
+        <Badge href="https://www.cloudskillsboost.google/public_profiles/3985e6aa-47ee-4d99-a370-fffcfdb5a690" text="View Public Profile" />
       <InfiniteMovingCards
         items={testimonials}
         direction="right"
@@ -31,18 +33,18 @@ const testimonials = [
     title: "Mar 30, 2024",
   },
   {
-    image: "/certificate/certificate-ai.png",
-    name: "Edgar Allan Poe",
-    title: "A Dream Within a Dream",
+    image: "/certificate/certificate-terraform.png",
+    name: "Build Infrastructure with Terraform on Google Cloud",
+    title: "Mar 29, 2024",
   },
   {
-    image: "/certificate/certificate-ai.png",
-    name: "Jane Austen",
-    title: "Pride and Prejudice",
+    image: "/certificate/certificate-terraform.png",
+    name: "Build Infrastructure with Terraform on Google Cloud",
+    title: "Mar 29, 2024",
   },
   {
-    image: "/certificate/certificate-ai.png",
-    name: "Herman Melville",
-    title: "Moby-Dick",
+    image: "/certificate/certificate-terraform.png",
+    name: "Build Infrastructure with Terraform on Google Cloud",
+    title: "Mar 29, 2024",
   },
 ];
