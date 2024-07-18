@@ -47,4 +47,9 @@ const testimonials = [
     name: "Perform Foundational Infrastructure Tasks in Google Cloud",
     title: "Mar 5, 2024",
   },
+  {
+    image: "/certificate/certificate-load-balancing.png",
+    name: "Create and Manage Cloud Resources",
+    title: "Mar 5, 2024",
+  },
 ];
