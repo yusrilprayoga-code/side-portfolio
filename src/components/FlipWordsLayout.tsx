@@ -3,13 +3,13 @@ import { FlipWords } from "./FlipWordsPage";
 
 export function FlipWordsDemo() {
   const words = [
-    "beautiful",
-    "fast",
-    "responsive",
-    "accessible",
+    "Beautiful",
+    "Fast",
+    "Responsive",
+    "Accessible",
     "modern",
-    "scalable",
-    "secure",
+    "Scalable",
+    "Secure",
   ];
 
   return (
