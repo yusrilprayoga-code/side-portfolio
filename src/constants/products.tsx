@@ -109,7 +109,7 @@ export const products = [
     ),
   },
   {
-    href: "https://nike-landing-page-chi.vercel.app/",
+    href: "https://arcipe.netlify.app/",
     title: "ArCipe",
     description:
       "ArCipe is a design and development studio that focuses on building quality apps.",
