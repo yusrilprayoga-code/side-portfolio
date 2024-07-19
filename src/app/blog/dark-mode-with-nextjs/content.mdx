@@ -33,7 +33,7 @@ Once Next.js is installed, we can install Tailwind CSS by running the following 
 
     npm install tailwindcss
 
-After installing Tailwind CSS, we need to create the basic structure of our application. We can do this by creating a new file called `index.js` in the `pages` directory of our project.
+After installing Tailwind CSS, we need to create the basic structure of our application. We can do this by creating a new file called index.js in the pages directory of our project.
 
 In this file, we can add some basic HTML to display our content:
 
@@ -55,7 +55,7 @@ In this file, we can add some basic HTML to display our content:
     </html>
 ```
 
-We can then add some basic styling to our application using Tailwind CSS. We can do this by creating a new file called `styles.css` in the `styles` directory of our project.
+We can then add some basic styling to our application using Tailwind CSS. We can do this by creating a new file called styles.css in the styles directory of our project.
 
 In this file, we can add the following code to apply some basic styles to our application:
 
@@ -96,17 +96,17 @@ To do this, we need to create a state variable to track the user's preferred the
       );
 ```
 
-In this code, we are using the `useState` hook from React to create a state variable called `theme`. The default value of `theme` is set to `"light"`.
+In this code, we are using the useState hook from React to create a state variable called theme. The default value of theme is set to light.
 
 We are also using a ternary operator to conditionally apply a background color to our application based on the user's preferred theme. If the user has selected the light theme, we apply a white background color. If the user has selected the dark theme, we apply a dark gray background color.
 
-We are also using an `onClick` event handler to toggle the user's preferred theme between light and dark.
+We are also using an onClick event handler to toggle the user's preferred theme between light and dark.
 
 ## Improving the User Experience
 
 Now that we have implemented the basic functionality of our dark mode toggle, we can improve the user experience by adding some additional features.
 
-First, we can persist the user's theme preference using localStorage. We can do this by adding the following code to our `index.js` file:
+First, we can persist the user's theme preference using localStorage. We can do this by adding the following code to our index.js file:
 
 ```
     import { useEffect, useState from "react";
@@ -138,7 +138,7 @@ First, we can persist the user's theme preference using localStorage. We can do 
       );
 ```
 
-In this code, we are using the `useEffect` hook from React to load the user's preferred theme from localStorage when the component mounts. We are also using another `useEffect` hook to save the user's preferred theme to localStorage whenever it changes.
+In this code, we are using the `useEffect` hook from React to load the user's preferred theme from localStorage when the component mounts. We are also using another useEffect hook to save the user's preferred theme to localStorage whenever it changes.
 
 Next, we can add some animations to our toggle button to enhance user feedback. We can do this by adding the following code to our `styles.css` file:
 
