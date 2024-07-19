@@ -11,6 +11,7 @@ import { socials } from "@/constants/socials";
 import { Badge } from "./Badge";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconLayoutSidebarRightCollapse, IconToggleLeft, IconToggleRight } from "@tabler/icons-react";
+import { IconSun, IconMoon } from "@tabler/icons-react";
 
 const isMobile = () => {
   if (typeof window === "undefined") return false;
@@ -124,11 +125,11 @@ export const Navigation = ({
         className="text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm"
       >
         {darkMode ? (
-          <IconToggleLeft className="h-4 w-4 flex-shrink-0" />
+          <IconSun className="h-4 w-4 flex-shrink-0" />
         ) : (
-          <IconToggleRight className="h-4 w-4 flex-shrink-0" />
+          <IconMoon className="h-4 w-4 flex-shrink-0" />
         )}
-        <span>Toggle Dark Mode</span>
+        <span>Dark Mode</span>
       </button>
     </div>
   );
