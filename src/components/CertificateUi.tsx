@@ -15,8 +15,8 @@ export const CertificateUi = ({
 }) => {
   const gridRef = useRef<any>(null);
   const { scrollYProgress } = useScroll({
-    container: gridRef, // remove this if your container is not fixed height
-    offset: ["start start", "end start"], // remove this if your container is not fixed height
+    container: gridRef,
+    offset: ["start start", "end start"], 
   });
 
   const translateFirst = useTransform(scrollYProgress, [0, 1], [0, -200]);

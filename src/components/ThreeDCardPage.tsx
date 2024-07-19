@@ -79,6 +79,15 @@ export function ThreeDCardDemo() {
             alt="thumbnail"
           />
         </CardItem>
+        <CardItem translateZ="100" className="w-full mt-4">
+        <Image
+            src="/certificate/certificate-tbi.png"
+            height="1000"
+            width="1000"
+            className="h-full w-full object-cover rounded-xl group-hover/card:shadow-xl"
+            alt="thumbnail"
+          />
+        </CardItem>
         <div className="flex justify-between items-center mt-20">
           <CardItem
             translateZ={20}
