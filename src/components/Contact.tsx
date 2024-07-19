@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import toast, { Toaster } from 'react-hot-toast';
 
 const defaultFormState = {
   name: {
@@ -21,6 +22,7 @@ export const Contact = () => {
   const [formData, setFormData] = useState(defaultFormState);
   const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const notify = () => toast('Message sent successfully!');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -54,7 +56,7 @@ export const Contact = () => {
       .then(
         () => {
           setLoading(false);
-          alert("Thank you. I will get back to you as soon as possible.");
+          notify();
 
           setFormData({
             name: {
@@ -120,8 +122,22 @@ export const Contact = () => {
         className="w-full px-2 py-2 mt-4 bg-neutral-100 dark:bg-gray-800 dark:text-white rounded-md font-bold text-neutral-500"
         type="submit"
       >
-        {loading ? "Sending..." : "Submit"}
+        {loading ? "Sending..." : "Send Message"}
       </button>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={
+          {
+            duration: 4000,
+            style: {
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        }
+      />
     </form>
   );
 };
