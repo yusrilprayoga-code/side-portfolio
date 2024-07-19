@@ -97,6 +97,18 @@ const SkeletonSeven = () => {
   );
 };
 
+const SkeletonEight = () => {
+  return (
+    <div>
+      <p className="font-bold text-4xl text-white">Play It Safe: Manage Security Risks</p>
+      <p className="font-normal text-base text-white"></p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        This course is designed to provide a full overview of computer networking. In this course, we are going to take a look at the underlying principles of computer networks
+      </p>
+    </div>
+  );
+}
+
 const cards = [
   {
     id: 1,
@@ -146,5 +158,12 @@ const cards = [
     className: "col-span-1",
     thumbnail:
       "/certificate/certificate-technical-support.png",
+  },
+  {
+    id: 8,
+    content: <SkeletonEight />,
+    className: "md:col-span-2",
+    thumbnail:
+      "/certificate/certificate-play-it-safe.png",
   },
 ];
