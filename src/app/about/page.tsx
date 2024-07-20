@@ -8,6 +8,7 @@ import Image from "next/image";
 
 import { motion } from "framer-motion";
 import About from "@/components/About";
+import { CardStackDemo } from "@/components/CardStackPage";
 
 export const metadata: Metadata = {
   title: "About | Yusril Prayoga",
@@ -27,6 +28,7 @@ export default function AboutPage() {
       <span className="text-4xl">💬</span>
       <Heading className="font-black dark:text-gray-300">About Me</Heading>
       <About />
+      <CardStackDemo />
     </Container>
   );
 }
