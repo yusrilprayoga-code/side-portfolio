@@ -269,25 +269,26 @@ export const products = [
     content: (
       <div>
         <p>
-          Ecommerce App is a mobile application that provides users
-          with personalized movie recommendations based on their preferences and
-          viewing history. The app utilizes advanced algorithms to analyze user
-          data and generate tailored movie suggestions, ensuring that users
-          discover new films that match their tastes and interests. With a
-          sleek and intuitive interface, Movie Recommendation App offers a
-          seamless and engaging experience, allowing users to easily browse
-          through recommended movies, view detailed information, and save
-          favorites for later viewing.{" "}
+          ArCipe is a web application talk about recipe food, this is a UI/UX
+          design for the application. The design is focused on providing users
+          with a seamless and enjoyable experience, allowing them to easily
+          browse through different recipes, view detailed information, and
+          interact with the various elements. With a combination of stunning
+          visuals, dynamic animations, and cutting-edge technologies, ArCipe
+          provides an immersive and inspiring journey into the world of digital
+          design. Whether you are a fellow designer, potential client, or simply
+          an admirer of creative work, ArCipe offers a glimpse into the talent
+          and vision of Yusril Prayoga.{" "}
         </p>
         <p>
-          The app is designed to enhance the movie-watching experience by
-          providing users with relevant and high-quality recommendations that
-          align with their preferences. By leveraging cutting-edge machine
-          learning and data analysis techniques, Movie Recommendation App offers
-          a curated selection of movies that cater to a wide range of genres,
-          themes, and styles. Whether you are a casual moviegoer or a dedicated
-          film buff, Movie Recommendation App is your go-to source for
-          discovering new and exciting films to enjoy.
+          The website is designed with a focus on user experience, ensuring that
+          visitors can easily navigate through the different projects, view
+          detailed information, and interact with the various elements. With a
+          combination of stunning visuals, dynamic animations, and cutting-edge
+          technologies, ArCipe provides an immersive and inspiring journey into
+          the world of digital design. Whether you are a fellow designer,
+          potential client, or simply an admirer of creative work, ArCipe offers
+          a glimpse into the talent and vision of Yusril Prayoga.
         </p>{" "}
       </div>
     ),
@@ -307,26 +308,24 @@ export const products = [
     content: (
       <div>
         <p>
-          Tailwind Master Kit is a versatile and extensive library of Tailwind
-          CSS components designed to help developers build modern and
-          responsive websites and applications. With a wide range of
-          customizable elements, styles, and layouts, Tailwind Master Kit
-          provides a comprehensive toolkit for creating beautiful and
-          functional user interfaces. The library includes components for
-          navigation menus, hero sections, pricing tables, testimonials, and
-          more, making it easy to design and develop professional-looking
-          websites with minimal effort.{" "}
+          Netflix Redesign is a project that focuses on redesigning the user
+          interface of the popular streaming platform Netflix. The goal of the
+          project is to create a more modern, visually appealing, and
+          user-friendly design that enhances the overall viewing experience for
+          Netflix users. By incorporating new layouts, color schemes, and
+          interactive elements, the redesigned interface aims to provide a
+          seamless and engaging experience for users, making it easier to
+          discover and enjoy their favorite movies and TV shows.{" "}
         </p>
         <p>
-          The components in Tailwind Master Kit are built with accessibility,
-          responsiveness, and usability in mind, ensuring that developers can
-          create inclusive and user-friendly interfaces. Each component is
-          fully customizable, allowing for easy integration into existing
-          projects and seamless adaptation to different design requirements.
-          Whether you are working on a personal portfolio, a corporate website,
-          or a web application, Tailwind Master Kit offers a wealth of
-          high-quality components to enhance your development workflow and
-          elevate your design capabilities.
+          The redesigned interface features a clean and intuitive layout that
+          allows users to navigate through different categories, search for
+          specific titles, and access personalized recommendations. With a focus
+          on enhancing usability and accessibility, the new design offers
+          improved functionality and aesthetics, ensuring that users can easily
+          find and enjoy the content they love. Whether you are a casual viewer
+          or a dedicated binge-watcher, Netflix Redesign is designed to elevate
+          your streaming experience and make it more enjoyable and engaging.
         </p>{" "}
       </div>
     ),
