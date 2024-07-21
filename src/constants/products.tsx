@@ -179,6 +179,120 @@ export const products = [
     ),
   },
   {
+    href: "https://github.com/yusrilprayoga-code/Movie-Tmdb-App.git",
+    title: "Movie Recommendation App",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-movie.png",
+    images: [
+      "/images/sidefolio-movie-2.png",
+      "/images/sidefolio-movie-3.png",
+    ],
+    stack: ["Flutter", "Hive", "Lottie"],
+    slug: "movie-recommendation-app",
+    content: (
+      <div>
+        <p>
+          Movie Recommendation App is a mobile application that provides users
+          with personalized movie recommendations based on their preferences and
+          viewing history. The app utilizes advanced algorithms to analyze user
+          data and generate tailored movie suggestions, ensuring that users
+          discover new films that match their tastes and interests. With a
+          sleek and intuitive interface, Movie Recommendation App offers a
+          seamless and engaging experience, allowing users to easily browse
+          through recommended movies, view detailed information, and save
+          favorites for later viewing.{" "}
+        </p>
+        <p>
+          The app is designed to enhance the movie-watching experience by
+          providing users with relevant and high-quality recommendations that
+          align with their preferences. By leveraging cutting-edge machine
+          learning and data analysis techniques, Movie Recommendation App offers
+          a curated selection of movies that cater to a wide range of genres,
+          themes, and styles. Whether you are a casual moviegoer or a dedicated
+          film buff, Movie Recommendation App is your go-to source for
+          discovering new and exciting films to enjoy.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
+    href: "https://github.com/yusrilprayoga-code/ecommerce-app.git",
+    title: "Ecommerce App",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-ecommerce.png",
+    images: [
+      "/images/sidefolio-ecommerce.png",
+      "/images/sidefolio-ecommerce.png",
+    ],
+    stack: ["Flutter", "Hive", "Lottie"],
+    slug: "ecommerce-app",
+    content: (
+      <div>
+        <p>
+          Ecommerce App is a mobile application that provides users
+          with personalized movie recommendations based on their preferences and
+          viewing history. The app utilizes advanced algorithms to analyze user
+          data and generate tailored movie suggestions, ensuring that users
+          discover new films that match their tastes and interests. With a
+          sleek and intuitive interface, Movie Recommendation App offers a
+          seamless and engaging experience, allowing users to easily browse
+          through recommended movies, view detailed information, and save
+          favorites for later viewing.{" "}
+        </p>
+        <p>
+          The app is designed to enhance the movie-watching experience by
+          providing users with relevant and high-quality recommendations that
+          align with their preferences. By leveraging cutting-edge machine
+          learning and data analysis techniques, Movie Recommendation App offers
+          a curated selection of movies that cater to a wide range of genres,
+          themes, and styles. Whether you are a casual moviegoer or a dedicated
+          film buff, Movie Recommendation App is your go-to source for
+          discovering new and exciting films to enjoy.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
+    href: "https://www.linkedin.com/posts/dheaintanc_arcipe-app-ugcPost-7161342836234215425-HyJz?utm_source=share&utm_medium=member_desktop",
+    title: "ArCipe UI/UX",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-uiux.png",
+    images: [
+      "/images/sidefolio-uiux.png",
+      "/images/sidefolio-uiux.png",
+    ],
+    stack: ["Flutter", "Hive", "Lottie"],
+    slug: "arcipe-ui-ux",
+    content: (
+      <div>
+        <p>
+          Ecommerce App is a mobile application that provides users
+          with personalized movie recommendations based on their preferences and
+          viewing history. The app utilizes advanced algorithms to analyze user
+          data and generate tailored movie suggestions, ensuring that users
+          discover new films that match their tastes and interests. With a
+          sleek and intuitive interface, Movie Recommendation App offers a
+          seamless and engaging experience, allowing users to easily browse
+          through recommended movies, view detailed information, and save
+          favorites for later viewing.{" "}
+        </p>
+        <p>
+          The app is designed to enhance the movie-watching experience by
+          providing users with relevant and high-quality recommendations that
+          align with their preferences. By leveraging cutting-edge machine
+          learning and data analysis techniques, Movie Recommendation App offers
+          a curated selection of movies that cater to a wide range of genres,
+          themes, and styles. Whether you are a casual moviegoer or a dedicated
+          film buff, Movie Recommendation App is your go-to source for
+          discovering new and exciting films to enjoy.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
     href: "https://tailwindmasterkit.com",
     title: "Tailwind Master Kit",
     description:
