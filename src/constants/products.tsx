@@ -264,7 +264,7 @@ export const products = [
       "/images/sidefolio-uiux.png",
       "/images/sidefolio-uiux.png",
     ],
-    stack: ["Flutter", "Hive", "Lottie"],
+    stack: ["Figma", "Adobe XD"],
     slug: "arcipe-ui-ux",
     content: (
       <div>
@@ -288,6 +288,45 @@ export const products = [
           themes, and styles. Whether you are a casual moviegoer or a dedicated
           film buff, Movie Recommendation App is your go-to source for
           discovering new and exciting films to enjoy.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
+    href: "https://github.com/yusrilprayoga-code/Redesign-UI-Netflix.git",
+    title: "Netflix Redesign",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-netflix.png",
+    images: [
+      "/images/sidefolio-netflix.png",
+      "/images/sidefolio-netflix.png",
+    ],
+    stack: ["Html", "Css"],
+    slug: "netflix-redesign",
+    content: (
+      <div>
+        <p>
+          Tailwind Master Kit is a versatile and extensive library of Tailwind
+          CSS components designed to help developers build modern and
+          responsive websites and applications. With a wide range of
+          customizable elements, styles, and layouts, Tailwind Master Kit
+          provides a comprehensive toolkit for creating beautiful and
+          functional user interfaces. The library includes components for
+          navigation menus, hero sections, pricing tables, testimonials, and
+          more, making it easy to design and develop professional-looking
+          websites with minimal effort.{" "}
+        </p>
+        <p>
+          The components in Tailwind Master Kit are built with accessibility,
+          responsiveness, and usability in mind, ensuring that developers can
+          create inclusive and user-friendly interfaces. Each component is
+          fully customizable, allowing for easy integration into existing
+          projects and seamless adaptation to different design requirements.
+          Whether you are working on a personal portfolio, a corporate website,
+          or a web application, Tailwind Master Kit offers a wealth of
+          high-quality components to enhance your development workflow and
+          elevate your design capabilities.
         </p>{" "}
       </div>
     ),
