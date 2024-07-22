@@ -142,38 +142,77 @@ export const products = [
     ),
   },
   {
-    href: "https://yusrilprayoga.netlify.app/",
-    title: "3D Portfolio",
+    href: "https://github.com/yusrilprayoga-code/sistem-tsunami-warning-center.git",
+    title: "Tsunami Warning Center System",
     description:
-      "3d Portfolio is a design and development studio that focuses on building quality apps.",
-    thumbnail: "/images/sidefolio-yusril-prayoga.png",
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-tsunami.png",
     images: [
-      "/images/sidefolio-yusril-prayoga.png",
-      "/images/sidefolio-yusril-prayoga-2.png",
+      "/images/sidefolio-tsunami.png",
+      "/images/sidefolio-tsunami.png",
     ],
-    stack: ["Reactjs", "Tailwindcss", "Threejs"],
-    slug: "3dportfolio",
+    stack: ["PHP Native", "MySql"],
+    slug: "tsunami-warning-center-system",
     content: (
       <div>
         <p>
-          3D Portfolio is a cutting-edge website that showcases the design and
-          development work of Yusril Prayoga, a talented and creative
-          professional. The site features an impressive collection of 3D
-          animations, visual effects, and interactive projects that highlight
-          Yusril is skills and expertise in the field of design and technology.
-          Visitors can explore a variety of captivating and innovative
-          portfolios, each offering a unique and engaging experience that
-          showcases Yusril is creativity and technical prowess.{" "}
+          Tsunami Warning Center System is a web application that provides
+          real-time monitoring and alerting services for potential tsunami
+          events. The system is designed to collect data from various sources,
+          analyze seismic activity, and issue warnings to coastal communities
+          in the event of a tsunami threat. By leveraging advanced algorithms
+          and predictive models, the system can accurately predict the
+          likelihood and severity of a tsunami, allowing authorities to take
+          timely and effective action to protect lives and property.{" "}
         </p>
         <p>
-          The website is designed with a focus on user experience, ensuring that
-          visitors can easily navigate through the different projects, view
-          detailed information, and interact with the various elements. With a
-          combination of stunning visuals, dynamic animations, and cutting-edge
-          technologies, 3D Portfolio provides an immersive and inspiring journey
-          into the world of digital design. Whether you are a fellow designer,
-          potential client, or simply an admirer of creative work, 3D Portfolio
-          offers a glimpse into the talent and vision of Yusril Prayoga.
+          The web application features a user-friendly interface that displays
+          real-time data, maps, and alerts, enabling users to stay informed
+          about potential tsunami risks in their area. With customizable
+          settings and notifications, the system ensures that relevant
+          information is delivered to the right people at the right time,
+          minimizing the impact of tsunamis on vulnerable populations. Whether
+          you are a government agency, emergency response organization, or
+          concerned citizen, Tsunami Warning Center System is a vital tool for
+          ensuring the safety and well-being of coastal communities.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
+    href: "https://github.com/yusrilprayoga-code/bakatyec.git",
+    title: "YEC Bakat",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-yecbakat.png",
+    images: [
+      "/images/sidefolio-yecbakat.png",
+      "/images/sidefolio-yecbakat.png",
+    ],
+    stack: ["Vue js", "MySql", "Laravel"],
+    slug: "yec-bakat",
+    content: (
+      <div>
+        <p>
+          YEC Bakat is a web application that provides a platform for young
+          talents to showcase their skills and connect with potential
+          opportunities. The platform allows users to create profiles, upload
+          portfolios, and participate in talent competitions, enabling them to
+          gain exposure, recognition, and valuable feedback from industry
+          professionals. With a focus on empowering young creatives and
+          performers, YEC Bakat aims to foster talent development, networking,
+          and collaboration within the creative community.{" "}
+        </p>
+        <p>
+          The web application features a sleek and intuitive interface that
+          allows users to easily navigate through different sections, view
+          talent profiles, and engage with interactive features. By providing a
+          centralized hub for talent discovery and promotion, YEC Bakat offers a
+          valuable resource for aspiring artists, musicians, dancers, and other
+          creatives to showcase their work and connect with like-minded
+          individuals. Whether you are a talent scout, event organizer, or
+          talent seeker, YEC Bakat is your go-to platform for discovering and
+          supporting emerging talents in the arts and entertainment industry.
         </p>{" "}
       </div>
     ),
