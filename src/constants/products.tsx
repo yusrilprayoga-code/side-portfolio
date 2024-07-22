@@ -294,6 +294,43 @@ export const products = [
     ),
   },
   {
+    href: "https://github.com/yusrilprayoga-code/Redesign-UI-Netflix.git",
+    title: "Netflix Redesign",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-netflix.png",
+    images: [
+      "/images/sidefolio-netflix.png",
+      "/images/sidefolio-netflix.png",
+    ],
+    stack: ["Html", "Css"],
+    slug: "netflix-redesign",
+    content: (
+      <div>
+        <p>
+          Netflix Redesign is a project that focuses on redesigning the user
+          interface of the popular streaming platform Netflix. The goal of the
+          project is to create a more modern, visually appealing, and
+          user-friendly design that enhances the overall viewing experience for
+          Netflix users. By incorporating new layouts, color schemes, and
+          interactive elements, the redesigned interface aims to provide a
+          seamless and engaging experience for users, making it easier to
+          discover and enjoy their favorite movies and TV shows.{" "}
+        </p>
+        <p>
+          The redesigned interface features a clean and intuitive layout that
+          allows users to navigate through different categories, search for
+          specific titles, and access personalized recommendations. With a focus
+          on enhancing usability and accessibility, the new design offers
+          improved functionality and aesthetics, ensuring that users can easily
+          find and enjoy the content they love. Whether you are a casual viewer
+          or a dedicated binge-watcher, Netflix Redesign is designed to elevate
+          your streaming experience and make it more enjoyable and engaging.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
     href: "https://www.linkedin.com/posts/dheaintanc_arcipe-app-ugcPost-7161342836234215425-HyJz?utm_source=share&utm_medium=member_desktop",
     title: "ArCipe UI/UX",
     description:
@@ -328,43 +365,6 @@ export const products = [
           the world of digital design. Whether you are a fellow designer,
           potential client, or simply an admirer of creative work, ArCipe offers
           a glimpse into the talent and vision of Yusril Prayoga.
-        </p>{" "}
-      </div>
-    ),
-  },
-  {
-    href: "https://github.com/yusrilprayoga-code/Redesign-UI-Netflix.git",
-    title: "Netflix Redesign",
-    description:
-      "A design and development studio that focuses on building quality apps.",
-    thumbnail: "/images/sidefolio-netflix.png",
-    images: [
-      "/images/sidefolio-netflix.png",
-      "/images/sidefolio-netflix.png",
-    ],
-    stack: ["Html", "Css"],
-    slug: "netflix-redesign",
-    content: (
-      <div>
-        <p>
-          Netflix Redesign is a project that focuses on redesigning the user
-          interface of the popular streaming platform Netflix. The goal of the
-          project is to create a more modern, visually appealing, and
-          user-friendly design that enhances the overall viewing experience for
-          Netflix users. By incorporating new layouts, color schemes, and
-          interactive elements, the redesigned interface aims to provide a
-          seamless and engaging experience for users, making it easier to
-          discover and enjoy their favorite movies and TV shows.{" "}
-        </p>
-        <p>
-          The redesigned interface features a clean and intuitive layout that
-          allows users to navigate through different categories, search for
-          specific titles, and access personalized recommendations. With a focus
-          on enhancing usability and accessibility, the new design offers
-          improved functionality and aesthetics, ensuring that users can easily
-          find and enjoy the content they love. Whether you are a casual viewer
-          or a dedicated binge-watcher, Netflix Redesign is designed to elevate
-          your streaming experience and make it more enjoyable and engaging.
         </p>{" "}
       </div>
     ),
