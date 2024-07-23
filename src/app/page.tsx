@@ -11,11 +11,11 @@ export default function Home() {
     <Container>
       <div className="flex flex-col items-center text-center">
         <Image
-          src="https://media.licdn.com/dms/image/D5603AQEwz5nmhy87-g/profile-displayphoto-shrink_200_200/0/1715179622045?e=1726704000&v=beta&t=lOsGxfCJDsK9DD4POC9qIK-ODKnVs-JcqzuCTdk86ac"
+          src="/images/yusril.png"
           width={300}
           height={300}
           alt="Yusril Prayoga"
-          className="rounded-full mt-4"
+          className="rounded-full mt-4 object-cover"
         />
         <Heading className="font-black dark:text-gray-300 mt-4">
           Hello there! I&apos;m Yusril Prayoga
@@ -36,7 +36,7 @@ export default function Home() {
           as="h2"
           className="font-black text-lg md:text-lg lg:text-lg mb-4 dark:text-gray-300"
         >
-          What I&apos;ve been working on
+          What I&apos;ve been working on 🛸
         </Heading>
         <Products />
         <TechStack />

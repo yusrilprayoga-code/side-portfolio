@@ -10,7 +10,7 @@ import { Heading } from "./Heading";
 import { socials } from "@/constants/socials";
 import { Badge } from "./Badge";
 import { AnimatePresence, motion } from "framer-motion";
-import { IconLayoutSidebarRightCollapse, IconToggleLeft, IconToggleRight } from "@tabler/icons-react";
+import { IconLayoutSidebarRightCollapse } from "@tabler/icons-react";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 
 const isMobile = () => {
@@ -139,7 +139,7 @@ const SidebarHeader = () => {
   return (
     <div className="flex space-x-2">
       <Image
-        src="https://media.licdn.com/dms/image/D5603AQEwz5nmhy87-g/profile-displayphoto-shrink_200_200/0/1715179622045?e=1726704000&v=beta&t=lOsGxfCJDsK9DD4POC9qIK-ODKnVs-JcqzuCTdk86ac"
+        src="/images/yusril.png"
         alt="Avatar"
         height="40"
         width="40"
