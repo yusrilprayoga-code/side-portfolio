@@ -23,7 +23,7 @@ Welcome to my portfolio! Here you can find information about my projects, skills
 
 ### Experience
 
-- Company 1: Position, Date range
+- Company 1: 
     - Description of responsibilities and achievements.
 
 - Company 2: Position, Date range

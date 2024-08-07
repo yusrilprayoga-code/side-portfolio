@@ -331,6 +331,44 @@ export const products = [
     ),
   },
   {
+    href: "https://github.com/yusrilprayoga-code/wisata-web.git",
+    title: "Pariwisata",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-nomads.jpeg",
+    images: [
+      "/images/sidefolio-nomads.jpeg",
+      "/images/sidefolio-nomads2.jpeg",
+    ],
+    stack: ["PHP", "MySql"],
+    slug: "pariwisata",
+    content: (
+      <div>
+        <p>
+          Pariwisata is a web application that provides users with information
+          about popular tourist destinations, attractions, and activities in
+          Indonesia. The platform is designed to help travelers discover new and
+          exciting places to visit, plan their trips, and learn more about the
+          cultural and natural heritage of the country. With detailed
+          descriptions, high-quality images, and interactive maps, Pariwisata
+          offers a comprehensive guide to the best travel destinations in
+          Indonesia, making it easy for users to explore and experience the
+          beauty and diversity of the archipelago.{" "}
+        </p>
+        <p>
+          The web application features a user-friendly interface that allows
+          visitors to search for specific destinations, read reviews, and
+          connect with local tour operators. Whether you are looking for
+          pristine beaches, lush rainforests, ancient temples, or vibrant
+          cities, Pariwisata has something for everyone. With a focus on
+          promoting sustainable tourism and cultural exchange, the platform
+          offers a valuable resource for travelers seeking authentic and
+          memorable experiences in Indonesia.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
     href: "https://www.linkedin.com/posts/dheaintanc_arcipe-app-ugcPost-7161342836234215425-HyJz?utm_source=share&utm_medium=member_desktop",
     title: "ArCipe UI/UX",
     description:
