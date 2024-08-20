@@ -17,7 +17,7 @@ export default function Home() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      window.open("/viewcv.pdf", "_blank");
+      window.open("/mycv.pdf", "_blank");
     }, 2000);
   };
 
@@ -57,7 +57,7 @@ export default function Home() {
       {showPreview && (
         <div className="mt-4">
           <iframe
-            src="/viewcv.pdf"
+            src="/mycv.pdf"
             className="w-full h-96 border border-neutral-200 dark:border-gray-600"
             title="Resume Preview"
           ></iframe>
