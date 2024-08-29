@@ -294,6 +294,44 @@ export const products = [
     ),
   },
   {
+    href: "https://github.com/yusrilprayoga-code/ecommerce-app.git",
+    title: "PicStash",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-picstash.png",
+    images: [
+      "/images/sidefolio-picstash.png",
+      "/images/sidefolio-picstash2.png",
+    ],
+    stack: ["Nextjs", "Tailwindcss","Postgres","Prisma"],
+    slug: "picstash",
+    content: (
+      <div>
+        <p>
+          PicStash is a Web Application that provides users
+          to Share and Store their Photos. Same as Unsplash but with more
+          features. The app utilizes advanced algorithms to analyze user
+          data and generate tailored Photos, ensuring that users discover new
+          Photos that match their tastes and interests. With a
+          sleek and intuitive interface, PicStash offers a
+          seamless and engaging experience, allowing users to easily browse
+          through Photos, view detailed information, and save
+          favorites for later viewing.{" "}
+        </p>
+        <p>
+          The app is designed to enhance the Photo-sharing experience by
+          providing users with relevant and high-quality Photos that
+          align with their preferences. By leveraging cutting-edge machine
+          learning and data analysis techniques, PicStash offers
+          a curated selection of Photos that cater to a wide range of genres,
+          themes, and styles. Whether you are a casual Photo lover or a dedicated
+          Photo buff, PicStash is your go-to source for
+          discovering new and exciting Photos to enjoy
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
     href: "https://github.com/yusrilprayoga-code/Redesign-UI-Netflix.git",
     title: "Netflix Redesign",
     description:
