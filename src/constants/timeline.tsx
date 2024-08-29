@@ -1,5 +1,17 @@
 export const timeline = [
   {
+    company: "Junior Web Developer ",
+    title: "Digital Talent Scholarship",
+    date: "Aug 2024 - Aug 2024",
+    description: "Building a platform to help people find the best place to holiday",
+    responsibilities: [
+      "Developed a new feature that improves the user experience",
+      "Implemented a recommendation algorithm to suggest the best place to holiday",
+      "Enhanced the news feed algorithm to show more relevant posts",
+      "Built a feature for tracking user activity",
+    ],
+  },
+  {
     company: "Bangkit Academy 2024 By Google, GoTo, Traveloka - Cloud Computing Learning Path ",
     title: "Cloud Computing Learning Path",
     date: "Feb 2024 - June 2024",
