@@ -6,6 +6,7 @@ import { Products } from "@/components/Products";
 import { getAllBlogs } from "../../../lib/getAllBlogs";
 import { Blogs } from "@/components/Blogs";
 import { Metadata } from "next";
+import { CarouselArticlesPage } from "@/components/CarouselArticlesPage";
 
 export const metadata: Metadata = {
   title: "Blogs | Yusril Prayoga",
@@ -25,6 +26,7 @@ export default async function Blog() {
         Ever since <Highlight className="dark:text-gray-800"> I was a kid</Highlight>, I&apos;ve been
         fascinated by technology.
       </Paragraph>
+      <CarouselArticlesPage />
       <Blogs blogs={data} />
     </Container>
   );
