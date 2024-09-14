@@ -294,7 +294,7 @@ export const products = [
     ),
   },
   {
-    href: "https://github.com/yusrilprayoga-code/upload-image-with-vercel.git",
+    href: "https://upload-image-nine-phi.vercel.app/",
     title: "PicStash",
     description:
       "A design and development studio that focuses on building quality apps.",

@@ -23,7 +23,9 @@ export default async function Blog() {
       <span className="text-4xl">📝</span>
       <Heading className="font-black pb-4 dark:text-gray-300">I write about technology</Heading>
       <Paragraph className="pb-10 dark:text-gray-300">
-        Ever since <Highlight className="dark:text-gray-800"> I was a kid</Highlight>, I&apos;ve been
+        Ever since <Highlight className="dark:text-gray-800">
+          I got my first computer
+        </Highlight>, I&apos;ve been
         fascinated by technology.
       </Paragraph>
       <CarouselArticlesPage />
