@@ -1,7 +1,7 @@
 export const timeline = [
   {
     company: "PT. Indotech Berkah Abadi",
-    title: "Full Stack Developer",
+    title: "Back End Developer",
     date: "Sep 24 - Present",
     description: "Building a platform to help people manage their finances",
     responsibilities: [
