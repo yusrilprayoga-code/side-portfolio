@@ -21,7 +21,7 @@ export function CarouselArticlesPage() {
 const DummyContent = () => {
   return (
     <>
-      {[...new Array(3).fill(1)].map((_, index) => {
+      {[...new Array(1).fill(1)].map((_, index) => {
         return (
           <div
             key={"dummy-content" + index}
@@ -29,12 +29,9 @@ const DummyContent = () => {
           >
             <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
               <span className="font-bold text-neutral-700 dark:text-neutral-200">
-                The first rule of Apple club is that you boast about Apple club.
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae dicta non optio tempore perspiciatis et.
               </span>{" "}
-              Keep a journal, quickly jot down a grocery list, and take amazing
-              class notes. Want to convert those notes to text? No problem.
-              Langotiya jeetu ka mara hua yaar is ready to capture every
-              thought.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, cum asperiores dolorem veritatis temporibus sed nobis ullam voluptates dolor vitae, perferendis ducimus esse explicabo quisquam aspernatur, delectus fugit dolores voluptas.
             </p>
             <Image
               src="https://assets.aceternity.com/macbook.png"
