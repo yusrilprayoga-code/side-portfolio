@@ -1,5 +1,79 @@
 export const products = [
   {
+    href: "https://cleaniqueacademy.com/",
+    title: "Cleanique Academy",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-cleanique-academy.png",
+    images: [
+      "/images/sidefolio-cleanique-academy.png",
+      "/images/sidefolio-cleanique-academy.png",
+    ],
+    stack: ["Laravel", "Tailwindcss", "Mysql"],
+    slug: "cleanique-academy",
+    content: (
+      <div>
+        <p>
+          Cleanique Academy is a modern and innovative online learning platform
+          that offers a wide range of courses and training programs for
+          cleaning professionals. The platform is designed to provide
+          high-quality education and practical skills training to individuals
+          seeking to enhance their knowledge and expertise in the cleaning
+          industry. With a focus on professional development and career
+          advancement, Cleanique Academy offers a comprehensive curriculum,
+          interactive learning materials, and expert instruction to help
+          students succeed in their chosen field.{" "}
+        </p>
+        <p>
+          The website features a user-friendly interface that allows students to
+          browse through different courses, enroll in programs, and access
+          educational resources from anywhere in the world. With a commitment to
+          excellence and innovation, Cleanique Academy is dedicated to
+          empowering cleaning professionals with the knowledge and skills they
+          need to excel in their careers. Whether you are a seasoned cleaning
+          expert or a newcomer to the industry, Cleanique Academy is your
+          go-to destination for quality education and professional development.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
+    href: "https://ai-email-beta.vercel.app/",
+    title: "AI Gmail Powered by OpenAI",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-ai-gmail.png",
+    images: [
+      "/images/sidefolio-ai-gmail.png",
+      "/images/sidefolio-ai-gmail.png",
+    ],
+    stack: ["Nextjs", "Tailwindcss", "T3 web", "Neon Tech", "OpenAI"],
+    slug: "ai-gmail",
+    content: (
+      <div>
+        <p>
+          AI Email is a cutting-edge email client that leverages artificial
+          intelligence to enhance productivity and efficiency. The platform is
+          designed to help users manage their email communications more
+          effectively by providing smart features, automated responses, and
+          intelligent suggestions. By integrating advanced AI algorithms and
+          natural language processing capabilities, AI Email offers a seamless
+          and intuitive experience that streamlines the email workflow and
+          improves overall communication.{" "}
+        </p>
+        <p>
+          The email client features a sleek and user-friendly interface that
+          allows users to compose, send, and organize emails with ease. With
+          smart search functions, automated categorization, and personalized
+          recommendations, AI Email helps users stay organized, focused, and
+          responsive to their email correspondence. Whether you are a busy
+          professional, a student, or a casual email user, AI Email is your
+          go-to tool for managing your inbox efficiently and effectively.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
     href: "https://b-otomotif.vercel.app/",
     title: "B-Otomotif",
     description:

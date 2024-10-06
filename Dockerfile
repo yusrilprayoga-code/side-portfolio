@@ -1,5 +1,5 @@
 FROM node:20
-WORKDIR /usr/src/app
+WORKDIR /usr/
 ENV PORT=3000
 COPY . . 
 RUN npm install
