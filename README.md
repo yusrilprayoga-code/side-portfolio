@@ -1,45 +1,100 @@
-## Sidefolio - Portfolio
+# Yusril Prayoga - Portfolio Website
 
+## Description
+Welcome to the repository of my personal portfolio website. This site showcases my skills, projects, and professional journey as a developer. Built with modern web technologies, it offers a sleek, responsive design that highlights my work and expertise.
 
-## My Portfolio
+Visit the live site: [https://yusrilprayoga.vercel.app/](https://yusrilprayoga.vercel.app/)
 
-Welcome to my portfolio! Here you can find information about my projects, skills, and experience.
+## Features
+- 🎨 Modern and responsive design
+- 🚀 Fast performance with Next.js
+- 💼 Showcase of projects and skills
+- 📱 Mobile-friendly layout
+- 🌓 Dark mode support
+- 🔧 Easy to update and maintain
 
-### Projects
+## Technologies Used
+- [Next.js](https://nextjs.org/) - React framework for production
+- [Aceternity UI](https://ui.aceternity.com/) - Modern UI components for Next.js
+- [React](https://reactjs.org/) - JavaScript library for building user interfaces
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [TypeScript](https://www.typescriptlang.org/) - Typed superset of JavaScript
+- [Vercel](https://vercel.com/) - Platform for deploying and hosting
 
-- Project 1: [Project Name](https://github.com/username/project1)
-    - Description: Brief description of the project.
-    - Technologies used: List of technologies used in the project.
+## Prerequisites
+- Node.js (v14 or later)
+- npm or yarn
 
-- Project 2: [Project Name](https://github.com/username/project2)
-    - Description: Brief description of the project.
-    - Technologies used: List of technologies used in the project.
+## Installation
 
-### Skills
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/portfolio-website.git
+   cd portfolio-website
+   ```
 
-- Skill 1: Description of skill 1.
-- Skill 2: Description of skill 2.
-- Skill 3: Description of skill 3.
+2. Install dependencies:
+   ```
+   npm install
+   ```
+   or
+   ```
+   yarn install
+   ```
 
-### Experience
+3. Run the development server:
+   ```
+   npm run dev
+   ```
+   or
+   ```
+   yarn dev
+   ```
 
-- Company 1: 
-    - Description of responsibilities and achievements.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-- Company 2: Position, Date range
-    - Description of responsibilities and achievements.
+## Usage
 
-### Contact
+### Customizing Content
+1. Navigate to the `data` directory.
+2. Edit the JSON files to update your personal information, projects, and skills.
 
-Feel free to reach out to me at [email@example.com](mailto:email@example.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/yourname).
+### Adding New Projects
+1. Go to `data/projects.js`.
+2. Add a new project object with details like title, description, image, and links.
 
+### Modifying Styles
+1. Tailwind classes can be modified directly in the component files.
+2. For custom styles, edit the `styles/globals.css` file.
 
-As seen on [Aceternity UI](https://ui.aceternity.com/templtes/sidefolio)
+### Deploying
+This project is set up for easy deployment on Vercel:
+1. Push your changes to your GitHub repository.
+2. Connect your repository to Vercel.
+3. Vercel will automatically deploy your site on every push to the main branch.
 
-## Built with
-- Next.js
-- Tailwindcss
-- Framer motion
-- MDX
+## Project Structure
+```
+├── components/     # React components
+├── pages/          # Next.js pages
+├── public/         # Static assets
+├── styles/         # CSS styles
+├── data/           # Content data
+├── lib/            # Utility functions
+└── README.md       # This file
+```
 
-Checkout all the templates at [Aceternity UI](https://ui.aceternity.com/templates)
+## Contributing
+This is a personal portfolio website, so I'm not actively seeking contributions. However, if you have suggestions or find bugs, feel free to open an issue.
+
+## License
+This project is open source and available under the [MIT License](LICENSE).
+
+## Acknowledgements
+- [Aceternity UI](https://ui.aceternity.com/) for the beautiful UI components
+- [Next.js Documentation](https://nextjs.org/docs) for the excellent guides
+- [Vercel Platform](https://vercel.com/) for hosting and continuous deployment
+
+---
+
+Created with ❤️ by Yusril Prayoga. Connect with me on [LinkedIn](https://www.linkedin.com/in/yusrilprayoga/) or [Twitter](https://twitter.com/yourusername).
