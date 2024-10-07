@@ -1,0 +1,6 @@
+services:
+  web:
+    image: "side-portfolio:0.1"
+    ports:
+      - "8000:3000"
+  
