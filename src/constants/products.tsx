@@ -39,7 +39,7 @@ export const products = [
   },
   {
     href: "https://ai-email-beta.vercel.app/",
-    title: "AI Gmail Powered by OpenAI",
+    title: "Mailverra Powered by OpenAI",
     description:
       "A design and development studio that focuses on building quality apps.",
     thumbnail: "/images/sidefolio-ai-gmail.png",
