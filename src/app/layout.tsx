@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "Yusril Prayoga - Developer",
   description:
     "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
+  keywords: ["developer", "writer", "speaker", "digital", "remote work", "yusrilprayoga", "yusrilprayoga-code", "portfolio"],
 };
 
 export default function RootLayout({
