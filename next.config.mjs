@@ -13,7 +13,7 @@ const nextConfig = {
     ],
   },
   experimental: {
-    mdxRs: false,
+    mdxRs: true,
   },
   typescript: {
     ignoreBuildErrors: true,
