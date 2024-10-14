@@ -27,20 +27,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Lint
+      - name: Lint and Test
         run: |
-          npm run lint > lint_output.txt
-          if grep -q "error" lint_output.txt; then
-            echo "Linting errors found:"
-            cat lint_output.txt
-            exit 1
-          elif grep -q "warn" lint_output.txt; then
-            echo "Linting warnings found:"
-            cat lint_output.txt
-            echo "Continuing despite warnings..."
-          else
-            echo "Linting passed without errors or warnings."
-          fi
+          npm run lint
+          npm run test
 
       - name: Build the project
         run: npm run build
@@ -50,15 +40,3 @@ jobs:
         with:
           name: nextjs-build
           path: .next
-
-      - name: Check for experimental features warning
-        run: |
-          if grep -q "You have enabled experimental feature (mdxRs)" lint_output.txt; then
-            echo "Warning: Experimental feature mdxRs is enabled. This is expected for this project."
-          fi
-
-      - name: Check for TypeScript and ESLint ignore settings
-        run: |
-          if grep -q "ignoreBuildErrors: true" next.config.mjs && grep -q "ignoreDuringBuilds: true" next.config.mjs; then
-            echo "Warning: TypeScript build errors and ESLint checks are currently ignored during builds. Consider addressing these before deploying to production."
-          fi
