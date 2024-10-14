@@ -1,12 +1,6 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-    "react-refresh/only-export-components": [
-      "warn",
-      {
-        "allowMutableExports": true
-      }
-    ],
     "react-hooks/exhaustive-deps": "off"
   }
   
