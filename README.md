@@ -29,7 +29,7 @@ Visit the live site: [https://yusrilprayoga.vercel.app/](https://yusrilprayoga.v
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/portfolio-website.git
+   git clone https://github.com/yusrilprayoga-code/portfolio-website.git
    cd portfolio-website
    ```
 
