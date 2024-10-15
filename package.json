@@ -10,6 +10,8 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "@ai-sdk/cohere": "^0.0.25",
+    "@ai-sdk/openai": "^0.0.67",
     "@emailjs/browser": "^4.4.1",
     "@mapbox/rehype-prism": "^0.8.0",
     "@mdx-js/loader": "^2.3.0",
@@ -19,9 +21,11 @@
     "@types/node": "20.5.3",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "ai": "^3.4.10",
     "autoprefixer": "10.4.15",
     "axios": "^1.7.2",
     "clsx": "^2.0.0",
+    "cohere-ai": "^7.14.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.1",

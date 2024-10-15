@@ -18,6 +18,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    serverActions: true,
+  }
 };
 
 const withMDX = nextMDX({
