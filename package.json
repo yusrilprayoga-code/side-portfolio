@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --passWithNoTests"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
