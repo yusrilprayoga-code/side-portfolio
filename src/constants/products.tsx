@@ -149,6 +149,43 @@ export const products = [
     ),
   },
   {
+    href: "https://chatbot-free.netlify.app",
+    title: "Chatbot-Free",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-chatbot.png",
+    images: [
+      "/images/sidefolio-chatbot.png",
+      "/images/sidefolio-chatbot.png",
+    ],
+    stack: ["Nextjs", "Tailwindcss", "Axios"],
+    slug: "carshowroom",
+    content: (
+      <div>
+        <p>
+          CarShowroom is an informative website designed to provide
+          comprehensive details about car rental services. Catering to a wide
+          audience, from travelers seeking convenient transportation options to
+          locals in need of temporary vehicle solutions, CarShowroom serves as a
+          one-stop resource for all things related to car rentals. The website
+          features a vast array of information on various rental car options,
+          pricing, and rental locations, helping users make informed decisions
+          that best suit their needs.{" "}
+        </p>
+        <p>
+          With a focus on user experience, CarShowroom offers an intuitive
+          interface that makes it easy for visitors to browse through different
+          car models, compare rental rates, and read reviews from other
+          customers. The platform is committed to ensuring transparency and
+          convenience, allowing users to quickly find the most suitable rental
+          cars for their specific requirements. Whether planning a weekend
+          getaway or needing a reliable vehicle for daily errands, CarShowroom
+          is the ultimate guide for hassle-free car rentals.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
     href: "https://nike-landing-page-chi.vercel.app/",
     title: "Nike",
     description:

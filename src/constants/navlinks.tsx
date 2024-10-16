@@ -4,6 +4,7 @@ import {
   IconBriefcase2,
   IconMail,
   IconMessage2,
+  IconRobot,
   IconStar
 } from "@tabler/icons-react";
 
@@ -37,5 +38,10 @@ export const navlinks = [
     href: "/accomplishments",
     label: "Accomplishments",
     icon: IconStar,
-  }
+  },
+  // {
+  //   href: '/chatbot',
+  //   label: 'Chatbot',
+  //   icon: IconRobot,
+  // }
 ];
