@@ -159,28 +159,28 @@ export const products = [
       "/images/sidefolio-chatbot.png",
     ],
     stack: ["Nextjs", "Tailwindcss", "Axios"],
-    slug: "carshowroom",
+    slug: "chatbot-free",
     content: (
       <div>
         <p>
-          CarShowroom is an informative website designed to provide
-          comprehensive details about car rental services. Catering to a wide
-          audience, from travelers seeking convenient transportation options to
-          locals in need of temporary vehicle solutions, CarShowroom serves as a
-          one-stop resource for all things related to car rentals. The website
-          features a vast array of information on various rental car options,
-          pricing, and rental locations, helping users make informed decisions
-          that best suit their needs.{" "}
+          Chatbot-Free is a user-friendly and interactive chatbot that provides
+          personalized assistance and support to website visitors. The chatbot
+          is designed to engage with users, answer questions, provide
+          information, and offer recommendations, creating a seamless and
+          engaging experience for customers. By leveraging advanced artificial
+          intelligence algorithms and natural language processing capabilities,
+          Chatbot-Free offers a human-like interaction that enhances customer
+          satisfaction and drives conversions.{" "}
         </p>
         <p>
-          With a focus on user experience, CarShowroom offers an intuitive
-          interface that makes it easy for visitors to browse through different
-          car models, compare rental rates, and read reviews from other
-          customers. The platform is committed to ensuring transparency and
-          convenience, allowing users to quickly find the most suitable rental
-          cars for their specific requirements. Whether planning a weekend
-          getaway or needing a reliable vehicle for daily errands, CarShowroom
-          is the ultimate guide for hassle-free car rentals.
+          The chatbot features a sleek and intuitive interface that allows users
+          to easily communicate with the system, ask questions, and receive
+          instant responses. With customizable settings and automated workflows,
+          Chatbot-Free ensures that users can quickly find the information they
+          need and complete their desired actions. Whether you are a business
+          owner, a customer service representative, or a website visitor,
+          Chatbot-Free is your go-to tool for enhancing user engagement and
+          providing exceptional customer support.
         </p>{" "}
       </div>
     ),

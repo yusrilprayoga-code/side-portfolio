@@ -39,9 +39,9 @@ export const navlinks = [
     label: "Accomplishments",
     icon: IconStar,
   },
-  // {
-  //   href: '/chatbot',
-  //   label: 'Chatbot',
-  //   icon: IconRobot,
-  // }
+  {
+    href: '/chatbot',
+    label: 'Chatbot',
+    icon: IconRobot,
+  }
 ];
