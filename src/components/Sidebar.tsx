@@ -125,11 +125,11 @@ export const Navigation = ({
         className="text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm"
       >
         {darkMode ? (
-          <IconSun className="h-4 w-4 flex-shrink-0" />
+          <IconSun className="h-4 w-4 flex-shrink-0 mr-2" />
         ) : (
-          <IconMoon className="h-4 w-4 flex-shrink-0" />
+          <IconMoon className="h-4 w-4 flex-shrink-0 mr-2" />
         )}
-        <span>Dark Mode</span>
+        {darkMode ? "Light Mode" : "Dark Mode"}
       </button>
     </div>
   );
