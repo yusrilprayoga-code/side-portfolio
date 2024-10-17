@@ -92,6 +92,13 @@ export default function AIChatbotWithSidebar() {
     - AI Integration: OpenAI
     - Design: Figma, Adobe XD
 
+    Work Experience:
+    - Full Stack Developer at B-Otomotif 2018 - Present
+    - Full Stack Developer at Cleanique Academy (PT. Indotech Berkah Abadi) Internship Sep 24 - Present
+    - Bangkit Academy 2024 By Google, GoTo, Traveloka - Cloud Computing Learning Path Feb 2024 - June 2024
+    - Frontend Developer at PT Solutionlabs Group Indonesia (Internship) Des 2023 - Feb 2024
+    - Staff of Communication and Information Media Department at UPN Veteran Yogyakarta May 2023 - May 2024
+
     Yusril Prayoga has expertise in full-stack web development, with a focus on creating responsive and efficient web applications.
   `;
 
