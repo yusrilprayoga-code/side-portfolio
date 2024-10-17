@@ -29,6 +29,29 @@ export default function AIChatbotWithSidebar() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [shouldStop, setShouldStop] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  
+  const autoInput = " Hi, I'm Yusril Prayoga. Can you tell me more about your portfolio?";
+
+  React.useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+    }
+  }, [input]);
+
+  React.useEffect(() => {
+    if (shouldStop) {
+      setIsGenerating(false);
+      setShouldStop(false);
+    }
+  }, [shouldStop]);
+
+  const handleAutoSend = () => {
+    setInput(autoInput);
+    handleSend();
+  };
 
   const currentSession =
     chatSessions.find((session) => session.id === currentSessionId) ||
@@ -45,7 +68,6 @@ export default function AIChatbotWithSidebar() {
     [currentSessionId]
   );
 
- 
   const portfolioInfo = `
     Yusril Prayoga is a Full Stack Developer with experience in web development you can find in this github https://github.com/yusrilprayoga-code.
     Projects in the portfolio include:
@@ -87,7 +109,7 @@ export default function AIChatbotWithSidebar() {
 
     try {
       const combinedPrompt = `${portfolioInfo}\n\nUser query: ${input}\n\nPlease provide a response based on the portfolio information above. If the query is not related to the portfolio, politely redirect the conversation back to the portfolio contents.`;
-      
+
       const { output } = await generatePortfolio(combinedPrompt, "");
       let botResponse = "";
 
@@ -182,13 +204,54 @@ export default function AIChatbotWithSidebar() {
   );
 
   return (
-    <div className="flex flex-col h-[100vh] bg-white dark:bg-gray-900">
+    <div className="flex flex-col h-[100vh] bg-white dark:bg-neutral-900">
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center space-x-2">
-          <Bot className="h-6 w-6 text-blue-500" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
-          <h1 className="text-xl font-bold">AI Chatbot by YusrilPrayoga</h1>
+          <Bot
+            className="h-6 w-6 text-blue-500"
+            strokeWidth={2}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
+          <h1 className="text-xl font-bold">AI Chatbot</h1>
+          <p>
+            <span className="text-gray-500 dark:text-gray-400">Powered by</span>{" "}
+            <span className="text-blue-500">Cohere Ai</span>
+          </p>
         </div>
       </div>
+
+      {/* main page description */}
+      {currentSession.messages.length === 0 && (
+        <div className="flex-grow flex items-center justify-center">
+        <div className="text-center">
+          <Bot
+            className="h-24 w-24 text-blue-500 items-center mx-auto"
+            strokeWidth={2}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
+          <h2 className="text-xl font-bold mt-4">Welcome to AI Chatbot</h2>
+          <p className="text-gray-500 dark:text-gray-400">
+            Start a conversation by typing a message below.
+          </p>
+          <div className="flex items-center mt-4 mx-auto w-full h-full">
+            <button
+              onClick={handleAutoSend}
+              disabled={isGenerating}
+              className="bg-white text-black w-full border border-gray-300 rounded-lg shadow-md flex items-center justify-center p-4 hover:bg-gray-100 transition-colors"
+            >
+              <div className="flex items-center space-x-2 flex-col">
+                <h1 className="text-lg font-semibold">{autoInput}</h1>
+                <p className="text-sm font-normal">
+                  Click to start the conversation
+                </p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      )}
 
       <div className="flex-grow overflow-auto p-4" ref={scrollAreaRef}>
         <AnimatePresence>
@@ -252,6 +315,7 @@ export default function AIChatbotWithSidebar() {
       <div className="border-t border-gray-200 dark:border-gray-700 p-4">
         <div className="flex items-center space-x-2">
           <textarea
+            ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -260,17 +324,30 @@ export default function AIChatbotWithSidebar() {
             rows={1}
           />
           {isGenerating ? (
-            <button onClick={handleStopThinking} className="p-2 rounded-full bg-red-500 text-white">
-              <X className="h-4 w-4" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+            <button
+              onClick={handleStopThinking}
+              className="p-2 rounded-full bg-red-500 text-white"
+            >
+              <X
+                className="h-4 w-4"
+                strokeWidth={2}
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
               <span className="sr-only">Stop thinking</span>
             </button>
           ) : (
-            <button 
-              onClick={handleSend} 
+            <button
+              onClick={handleSend}
               disabled={isGenerating || input.trim() === ""}
               className="p-2 rounded-full bg-blue-500 text-white disabled:opacity-50"
             >
-              <Send className="h-4 w-4" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+              <Send
+                className="h-4 w-4"
+                strokeWidth={2}
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
               <span className="sr-only">Send</span>
             </button>
           )}
