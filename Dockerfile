@@ -1,4 +1,4 @@
-FROM node:20-alpine AS base
+FROM node:20-alpine AS base 
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
@@ -24,6 +24,10 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/public/images ./public/images
+COPY --from=builder /app/public/images/logos ./public/images/logos
+COPY --from=builder /app/public/certificate ./public/certificate
+COPY --from=builder /app/fonts ./fonts
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
@@ -32,6 +36,7 @@ USER nextjs
 
 EXPOSE 3000
 
+ENV COHERE_API_KEY='tIME2YnOrwgvR9mhBcSdsFvRJteupl95nVuwTLce'
 ENV PORT 3000
 
 CMD ["npm", "start"]
