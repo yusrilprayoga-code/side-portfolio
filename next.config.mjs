@@ -4,6 +4,10 @@ import remarkGfm from "remark-gfm";
 import rehypePrism from "@mapbox/rehype-prism";
 
 const nextConfig = {
+  output: 'standalone',
+  experimental: {
+    outputStandalone: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -11,6 +15,7 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+    unoptimazed: true,
   },
   typescript: {
     ignoreBuildErrors: true,
