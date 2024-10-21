@@ -11,6 +11,7 @@
 # next.js
 /.next/
 /out/
+public/
 
 # production
 /build
@@ -30,6 +31,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Docker 
+.Dockerfile
+.compose.yaml
 
 # typescript
 *.tsbuildinfo
