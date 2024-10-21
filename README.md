@@ -98,4 +98,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-Created with ❤️ by Yusril Prayoga. Connect with me on [LinkedIn](https://www.linkedin.com/in/yusrilprayoga/) or [Twitter](https://twitter.com/yourusername).
+Created by Yusril Prayoga. Connect with me on [LinkedIn](https://www.linkedin.com/in/yusrilprayoga/) or [Twitter](https://twitter.com/yourusername).
