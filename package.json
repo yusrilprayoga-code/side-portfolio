@@ -21,6 +21,7 @@
     "@types/node": "20.5.3",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "@vercel/analytics": "^1.4.1",
     "ai": "^3.4.10",
     "autoprefixer": "10.4.15",
     "axios": "^1.7.2",
