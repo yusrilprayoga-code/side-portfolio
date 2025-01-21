@@ -24,6 +24,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
 };
 
 const withMDX = nextMDX({
@@ -33,5 +34,6 @@ const withMDX = nextMDX({
     rehypePlugins: [rehypePrism],
   },
 });
+
 
 export default withMDX(nextConfig);

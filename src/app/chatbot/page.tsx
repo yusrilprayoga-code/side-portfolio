@@ -7,7 +7,6 @@ import { generatePortfolio } from "@/app/api/chat";
 import { readStreamableValue } from "ai/rsc";
 import { Message } from "@/types/message";
 import FormattedMessage from "@/components/formattedMessage";
-import toast from "react-hot-toast";
 
 type Props = {
   onGenerate: (value: string) => void;
@@ -132,7 +131,7 @@ export default function AIChatbotWithSidebar() {
         ...prev,
         messages: [...prev.messages, { role: "bot", content: botResponse }],
       }));
-      toast.success("AI message generated successfully!");
+
     } catch (error) {
       console.error("Error generating response:", error);
       updateCurrentSession((prev) => ({
