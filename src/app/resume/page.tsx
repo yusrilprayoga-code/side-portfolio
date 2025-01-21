@@ -10,9 +10,10 @@ import { IconDownload, IconEye, IconEyeOff } from "@tabler/icons-react";
 import Image from "next/image";
 import { Metadata } from "next";
 
-export const metadata:Metadata = {
-  title: "Resume | Yusril Prayoga",
-  description: "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
+export const metadata: Metadata = {
+  title: "Projects | Yusril Prayoga",
+  description:
+    "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
   keywords: [
     "developer",
     "writer",
@@ -37,7 +38,7 @@ export const metadata:Metadata = {
     "yusrilprayoga-code tech portfolio",
     "yusrilprayoga-code tech portfolio",
   ],
-}
+};
 
 export default function Home() {
   const [loading, setLoading] = useState(false);

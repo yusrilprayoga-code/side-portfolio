@@ -10,8 +10,8 @@ import FormattedMessage from "@/components/formattedMessage";
 import toast from "react-hot-toast";
 import { Metadata } from "next";
 
-export const metadata:Metadata = {
-  title: "AI Chatbot | Yusril Prayoga",
+export const metadata: Metadata = {
+  title: "Projects | Yusril Prayoga",
   description:
     "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
   keywords: [
@@ -38,7 +38,7 @@ export const metadata:Metadata = {
     "yusrilprayoga-code tech portfolio",
     "yusrilprayoga-code tech portfolio",
   ],
-}
+};
 
 type Props = {
   onGenerate: (value: string) => void;
