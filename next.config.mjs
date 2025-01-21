@@ -4,18 +4,19 @@ import remarkGfm from "remark-gfm";
 import rehypePrism from "@mapbox/rehype-prism";
 
 const nextConfig = {
-  output: 'standalone',
+  output: "standalone",
   experimental: {
-    outputStandalone: true,
+    serverActions: {}, // Jika Anda tidak menggunakan fitur ini, biarkan kosong
   },
   images: {
+    // Perbaikan: Ejaan kunci yang benar
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: "https",
+        hostname: "**",
       },
     ],
-    unoptimazed: true,
+    unoptimized: true, // Ganti 'unoptimazed' dengan 'unoptimized'
   },
   typescript: {
     ignoreBuildErrors: true,
@@ -23,9 +24,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  experimental: {
-    serverActions: true,
-  }
 };
 
 const withMDX = nextMDX({
