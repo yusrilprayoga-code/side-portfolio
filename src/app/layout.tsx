@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { Footer } from "@/components/Footer";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,7 +15,30 @@ export const metadata: Metadata = {
   title: "Yusril Prayoga - Developer",
   description:
     "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
-  keywords: ["developer", "writer", "speaker", "digital", "remote work", "yusrilprayoga", "yusrilprayoga-code", "portfolio"],
+  keywords: [
+    "developer",
+    "writer",
+    "speaker",
+    "digital",
+    "remote work",
+    "yusrilprayoga",
+    "yusrilprayoga-code",
+    "portfolio",
+    "yusril prayoga",
+    "yusrilprayoga code",
+    "yusrilprayoga portfolio",
+    "yusril prayoga portfolio",
+    "yusrilprayoga-code portfolio",
+    "yusrilprayoga-code portfolio",
+    "yusrilprayoga code portfolio",
+    "yusril prayoga tech",
+    "yusrilprayoga tech",
+    "yusrilprayoga-code tech",
+    "yusrilprayoga code tech",
+    "yusrilprayoga tech portfolio",
+    "yusrilprayoga-code tech portfolio",
+    "yusrilprayoga-code tech portfolio",
+  ],
 };
 
 export default function RootLayout({
