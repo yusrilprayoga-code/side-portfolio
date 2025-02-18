@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, Send, User, X, Copy } from "lucide-react";
-import { generatePortfolio } from "@/app/api/chat";
+import { generatePortfolio } from "../api/route";
 import { readStreamableValue } from "ai/rsc";
 import { Message } from "@/types/message";
 import FormattedMessage from "@/components/formattedMessage";
