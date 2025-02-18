@@ -3,9 +3,15 @@
     "functions": {
       "src/app/api/chat/route.ts": {
         "runtime": "nodejs18.x",
-        "maxDuration": 30,
-        "memory": 1024
+        "memory": 1024,
+        "maxDuration": 30
       }
-    }
+    },
+    "routes": [
+      {
+        "src": "/api/chat",
+        "dest": "src/app/api/chat/route.ts"
+      }
+    ]
   }
   
