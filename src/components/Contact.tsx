@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import toast, { Toaster } from "react-hot-toast";
 import { useTheme } from "next-themes";
-import { generateChat } from "@/app/api/chat";
+import { generateChat } from "@/app/api/route";
 import { readStreamableValue } from "ai/rsc";
 import { Message } from "@/types/message";
 
