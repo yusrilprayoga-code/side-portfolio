@@ -122,7 +122,7 @@ export async function generatePortfolio(context: string, prompt: string) {
       - If the user asks for a list, provide a detailed list with explanations or examples.
       - If the user asks for a definition, provide a clear and concise definition with additional information or examples.
       - If the user asks for advice, provide thoughtful and practical advice with reasoning and examples.`,
-        model: "command-r-08-2024",
+        model: "command-r7b-12-2024",
         temperature: 0.7,
         promptTruncation: "AUTO",
         connectors: [{ id: "web-search" }]

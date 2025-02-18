@@ -38,6 +38,44 @@ export const products = [
     ),
   },
   {
+    href: "https://maduretno.vercel.app/",
+    title: "Website Profile Desa Maduretno",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-maduretno.png",
+    images: [
+      "/images/sidefolio-maduretno.png",
+      "/images/sidefolio-maduretno-2.png",
+    ],
+    stack: ["Nextjs", "Tailwindcss"],
+    slug: "maduretno",
+    content: (
+      <div>
+        <p>
+          Website Profile Desa Maduretno is a modern and innovative online
+          platform that offers a wide range of information about the village of
+          Maduretno. The website is designed to provide residents and visitors
+          with comprehensive details about the village is history, culture,
+          attractions, and community events. With a focus on promoting local
+          heritage and tourism, Website Profile Desa Maduretno offers a
+          user-friendly interface, interactive maps, and engaging content that
+          showcases the unique charm and character of the village.{" "}
+        </p>
+        <p>
+          The website features a sleek and intuitive design that allows users to
+          explore different sections, read articles, view photos, and connect
+          with local businesses and organizations. With a commitment to
+          authenticity and community engagement, Website Profile Desa Maduretno
+          is dedicated to preserving the rich cultural heritage and natural
+          beauty of the village. Whether you are a resident, a visitor, or a
+          history enthusiast, Website Profile Desa Maduretno is your go-to
+          destination for discovering the hidden gems and local treasures of
+          Maduretno.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
     href: "https://mailverra.vercel.app/",
     title: "Mailverra Powered by OpenAI",
     description:
