@@ -1,10 +1,9 @@
 {
     "version": 2,
     "functions": {
-      "src/api/chat.ts": {
-        "runtime": "nodejs18.x",
-        "maxDuration": 30
-      }
+      "api/chat/**/*.ts": {
+      "maxDuration": 30
+    }
     },
     "routes": [
       {
