@@ -1,0 +1,26 @@
+{
+    "version": 2,
+    "functions": {
+      "src/api/chat.ts": {
+        "runtime": "nodejs18.x",
+        "maxDuration": 30
+      }
+    },
+    "routes": [
+      {
+        "src": "/api/chat",
+        "dest": "/src/api/chat.ts"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/api/chat",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+          { "key": "Connection", "value": "keep-alive" },
+          { "key": "Content-Encoding", "value": "none" }
+        ]
+      }
+    ]
+  }
+  
