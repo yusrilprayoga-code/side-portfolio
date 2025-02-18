@@ -11,11 +11,13 @@ export default function Home() {
     <Container>
       <div className="flex flex-col items-center text-center">
         <Image
-          src="/images/yusril.png"
-          width={300}
+          src="/images/profil.JPG"
+          width={250}
           height={300}
           alt="Yusril Prayoga"
-          className="rounded-full mt-4 object-cover"
+          className="rounded-3xl mt-4 object-cover 
+            shadow-md hover:shadow-xl  hover:scale-105 transition duration-300 ease-in-out
+          "
         />
         <Heading className="font-black dark:text-gray-300 mt-4">
           Hello there! I&apos;m Yusril Prayoga
