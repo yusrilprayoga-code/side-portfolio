@@ -11,17 +11,13 @@ const cohere = new CohereClient({
 });
 
 // Retry logic to handle retries with exponential backoff
-const retry = async (fn: () => Promise<Stream<StreamedChatResponse>>, retries = 3, delay = 1000) => {
+const retry = async (fn: () => Promise<Stream<StreamedChatResponse>>, retries = 2, delay = 500) => {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       return await fn();
     } catch (error) {
-      console.error(`Attempt ${attempt} failed:`, error);
-      if (attempt < retries) {
-        await new Promise(resolve => setTimeout(resolve, delay * attempt));
-      } else {
-        throw new Error("Maximum retries reached");
-      }
+      if (attempt >= retries) throw error;
+      await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, attempt)));
     }
   }
 };
