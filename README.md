@@ -4,7 +4,7 @@
 Welcome to the repository of my personal portfolio website. This site showcases my skills, projects, and professional journey as a developer. Built with modern web technologies, it offers a sleek, responsive design that highlights my work and expertise.
 
 Visit the live site: [https://yusrilprayoga.vercel.app/](https://yusrilprayoga.vercel.app/)
-visit the cloud run: [https://yusril-koinkmz7dq-et.a.run.app](https://yusril-koinkmz7dq-et.a.run.app)
+visit the cloud run: [https://yusril-koinkmz7dq-et.a.run.app](https://portfolio-koinkmz7dq-et.a.run.app)
 
 ## Features
 - 🎨 Modern and responsive design
