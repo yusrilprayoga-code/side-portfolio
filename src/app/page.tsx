@@ -5,22 +5,33 @@ import { Paragraph } from "@/components/Paragraph";
 import { Products } from "@/components/Products";
 import { TechStack } from "@/components/TechStack";
 import Image from "next/image";
+import CircularText from "@/blocks/TextAnimations/CircularText/CircularText";
 
 export default function Home() {
   return (
-    
     <Container>
-      
       <div className="flex flex-col items-center text-center">
-        <Image
-          src="/images/profil.JPG"
-          width={250}
-          height={300}
-          alt="Yusril Prayoga"
-          className="rounded-3xl mt-4 object-cover 
-            shadow-md hover:shadow-xl  hover:scale-105 transition duration-300 ease-in-out
-          "
-        />
+        <div className="relative w-[250px] mb-14">
+          {/* Profile Image */}
+          <Image
+            src="/images/profil.JPG"
+            width={250}
+            height={300}
+            alt="Yusril Prayoga"
+            className="rounded-3xl mt-4 object-cover shadow-md 
+      hover:shadow-xl hover:scale-105 transition duration-300 ease-in-out"
+          />
+
+          {/* Circular Text di sudut kanan bawah */}
+          <div className="absolute bottom-[-60px] right-[-70px]">
+            <CircularText
+              text="LET'S TALK • LET'S TALK • LET'S TALK •"
+              spinDuration={20}
+              className="w-[170px] h-[170px] animate-spin-slow dark:text-gray-300 text-gray-800"
+            />
+          </div>
+        </div>
+
         <Heading className="font-black dark:text-gray-300 mt-4">
           Hello there! I&apos;m Yusril Prayoga
         </Heading>
