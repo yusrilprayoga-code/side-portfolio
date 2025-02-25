@@ -8,7 +8,9 @@ import Image from "next/image";
 
 export default function Home() {
   return (
+    
     <Container>
+      
       <div className="flex flex-col items-center text-center">
         <Image
           src="/images/profil.JPG"
@@ -24,13 +26,18 @@ export default function Home() {
         </Heading>
         <Paragraph className="max-w-xl mt-4 dark:text-gray-300">
           I&apos;m a Front End developer that loves{" "}
-          <Highlight className="dark:text-gray-800">building products</Highlight> and web apps that can impact
-          millions of lives.
+          <Highlight className="dark:text-gray-800">
+            building products
+          </Highlight>{" "}
+          and web apps that can impact millions of lives.
         </Paragraph>
         <Paragraph className="max-w-xl mt-4 dark:text-gray-300">
           I&apos;m a Junior software engineer with{" "}
-          <Highlight className="dark:text-gray-800">2 years of experience</Highlight> building scalable web apps
-          that are performance optimized and good looking.
+          <Highlight className="dark:text-gray-800">
+            2 years of experience
+          </Highlight>{" "}
+          building scalable web apps that are performance optimized and good
+          looking.
         </Paragraph>
       </div>
       <div className="mt-20">
