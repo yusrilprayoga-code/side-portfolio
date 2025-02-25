@@ -28,7 +28,6 @@ export default async function Blog() {
         </Highlight>, I&apos;ve been
         fascinated by technology.
       </Paragraph>
-      <CarouselArticlesPage />
       <Blogs blogs={data} />
     </Container>
   );

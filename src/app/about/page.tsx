@@ -8,7 +8,7 @@ import Image from "next/image";
 
 import { motion } from "framer-motion";
 import About from "@/components/About";
-import { CardStackDemo } from "@/components/CardStackPage";
+import ScrollVelocity from "@/blocks/TextAnimations/ScrollVelocity/ScrollVelocity";
 
 export const metadata: Metadata = {
   title: "About | Yusril Prayoga",
@@ -50,9 +50,15 @@ export default function AboutPage() {
   return (
     <Container>
       <span className="text-4xl">💬</span>
-      <Heading className="font-black dark:text-gray-300">About Me</Heading>
+      <Heading className="font-black dark:text-gray-300 mb-3">About Me</Heading>
+      <ScrollVelocity
+        texts={[
+          "Developer",
+          "Content Creator",
+        ]}
+        className="custom-scroll-text"
+      />
       <About />
-      <CardStackDemo />
     </Container>
   );
 }
