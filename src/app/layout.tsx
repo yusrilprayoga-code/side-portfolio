@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import Threads from "@/blocks/Backgrounds/Threads/Threads";
+import SplashCursor from "@/blocks/Animations/SplashCursor/SplashCursor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -55,15 +56,21 @@ export default function RootLayout({
           "flex antialiased h-screen overflow-hidden bg-gray-100"
         )}
       >
+        <SplashCursor />
         <Sidebar />
         <div className="lg:pl-2 lg:pt-2 bg-gray-100 flex-1 overflow-y-auto">
           <div className="flex-1 bg-white min-h-screen lg:rounded-tl-xl border border-transparent lg:border-neutral-200 overflow-y-auto dark:bg-neutral-900">
-            <div style={{ width: "100%",height: "100%", position: "absolute", 
-               top: 0,
-               left: 0,
-               pointerEvents: "none",
-
-            }} className="">
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                pointerEvents: "none",
+              }}
+              className=""
+            >
               <Threads
                 amplitude={1}
                 distance={2}

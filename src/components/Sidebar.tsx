@@ -12,6 +12,7 @@ import { Badge } from "./Badge";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconLayoutSidebarRightCollapse } from "@tabler/icons-react";
 import { IconSun, IconMoon } from "@tabler/icons-react";
+import SplashCursor from "@/blocks/Animations/SplashCursor/SplashCursor";
 
 const isMobile = () => {
   if (typeof window === "undefined") return false;
@@ -79,6 +80,7 @@ export const Navigation = ({
 
   return (
     <div className="flex flex-col space-y-1 my-10 relative z-[100]">
+      <SplashCursor />
       {navlinks.map((link: Navlink) => (
         <Link
           key={link.href}
