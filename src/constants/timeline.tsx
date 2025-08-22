@@ -1,8 +1,20 @@
 export const timeline = [
   {
+    company: "PT. Pertamina Hulu Indonesia",
+    title: "Dataiku Development",
+    date: "Aug 25 - Present",
+    description: "Building a platform to help people manage their data",
+    responsibilities: [
+      "Developed a new feature that improves the user experience",
+      "Implemented a recommendation algorithm to suggest the best data management practices",
+      "Enhanced the platform's performance to handle large datasets",
+      "Built a feature for tracking user activity",
+    ],
+  },
+  {
     company: "PT. Indotech Berkah Abadi",
     title: "Back End Developer",
-    date: "Sep 24 - Present",
+    date: "Sep 24 - Jan 25",
     description: "Building a platform to help people manage their finances",
     responsibilities: [
       "Developed a new feature that improves the user experience",

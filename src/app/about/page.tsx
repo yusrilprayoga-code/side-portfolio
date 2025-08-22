@@ -38,6 +38,19 @@ export const metadata: Metadata = {
     "yusrilprayoga-code tech portfolio",
     "yusrilprayoga-code tech portfolio",
   ],
+  openGraph: {
+    title: "About | Yusril Prayoga",
+    description:
+      "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
+    images: [
+      {
+        url: "https://yusrilprayoga.tech",
+        width: 1200,
+        height: 630,
+        alt: "Yusril Prayoga - About Page",
+      },
+    ],
+  },
 };
 
 export default function AboutPage() {
