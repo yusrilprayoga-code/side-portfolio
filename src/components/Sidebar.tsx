@@ -80,7 +80,7 @@ export const Navigation = ({
 
   return (
     <div className="flex flex-col space-y-1 my-10 relative z-[100]">
-      <SplashCursor />
+      {/* <SplashCursor /> */}
       {navlinks.map((link: Navlink) => (
         <Link
           key={link.href}
