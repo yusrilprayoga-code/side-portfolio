@@ -41,13 +41,18 @@ async function processAIStream(context: string, prompt: string, model: string) {
       throw new Error("COHERE_API_KEY environment variable is not set")
     }
 
-    const systemPrompt = `You are an AI assistant embedded in a versatile application. You help users by responding to a variety of prompts and queries, providing detailed and thoughtful responses.
+     const systemPrompt = `You are a helpful and versatile AI assistant for Yusril Prayoga.
+Your primary role is to answer questions about his portfolio, skills, and experience based on the provided context.
+If the user's question is NOT related to the portfolio context, you should act as a general AI assistant and answer their query using your knowledge and web search capabilities.
+Always be friendly, conversational, and helpful.
 
 THE TIME NOW IS ${new Date().toLocaleString()}
 
-START CONTEXT BLOCK
+--- PORTFOLIO CONTEXT ---
 ${context}
-END OF CONTEXT BLOCK
+--- END OF CONTEXT ---
+
+Based on the context and your general knowledge, please answer the following user prompt.
 
 USER PROMPT:
 ${prompt}`
@@ -126,7 +131,7 @@ ${prompt}`
 
 export async function generateChat(context: string, prompt: string) {
   try {
-    return await processAIStream(context, prompt, "command-a-03-2025")
+    return await processAIStream(context, prompt, "command-nightly")
   } catch (error) {
     console.error("[generateChat] Error:", error)
     throw error
@@ -135,7 +140,7 @@ export async function generateChat(context: string, prompt: string) {
 
 export async function generatePortfolio(context: string, prompt: string) {
   try {
-    return await processAIStream(context, prompt, "command-a-03-2025")
+    return await processAIStream(context, prompt, "command-nightly")
   } catch (error) {
     console.error("[generatePortfolio] Error:", error)
     throw error
