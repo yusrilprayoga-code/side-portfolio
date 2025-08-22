@@ -336,9 +336,9 @@ export default function AIChatbotWithSidebar() {
             </div>
             <div className="bg-card border border-border/50 rounded-2xl px-4 py-3 shadow-sm">
               <div className="flex space-x-1">
-                <div className="w-2 h-2 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 rounded-full animate-bounce delay-100"></div>
-                <div className="w-2 h-2 rounded-full animate-bounce delay-200"></div>
+                <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:0ms]" />
+                <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:150ms]" />
+                <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:300ms]" />
               </div>
             </div>
           </div>
