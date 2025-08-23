@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import { gsap } from "gsap";
+import { useTheme } from "next-themes";
 
 export interface TargetCursorProps {
   targetSelector?: string;
@@ -12,6 +13,7 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
   spinDuration = 2,
   hideDefaultCursor = true,
 }) => {
+  const { resolvedTheme } = useTheme();
   const cursorRef = useRef<HTMLDivElement>(null);
   const cornersRef = useRef<NodeListOf<HTMLDivElement>>(null);
   const spinTl = useRef<gsap.core.Timeline>(null);
@@ -24,6 +26,20 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     }),
     []
   );
+
+  // Get cursor colors based on theme
+  const getCursorColors = () => {
+    if (resolvedTheme === 'dark') {
+      return {
+        dot: '#f1f5f9',
+        border: '#f1f5f9',
+      };
+    }
+    return {
+      dot: '#475569',
+      border: '#475569',
+    };
+  };
 
   const moveCursor = useCallback((x: number, y: number) => {
     if (!cursorRef.current) return;
@@ -47,6 +63,21 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     cornersRef.current = cursor.querySelectorAll<HTMLDivElement>(
       ".target-cursor-corner"
     );
+
+    // Update cursor colors when theme changes
+    const updateCursorColors = () => {
+      const colors = getCursorColors();
+      if (dotRef.current) {
+        dotRef.current.style.backgroundColor = colors.dot;
+      }
+      if (cornersRef.current) {
+        cornersRef.current.forEach(corner => {
+          corner.style.borderColor = colors.border;
+        });
+      }
+    };
+
+    updateCursorColors();
 
     let activeTarget: Element | null = null;
     let currentTargetMove: ((ev: Event) => void) | null = null;
@@ -321,7 +352,7 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
       spinTl.current?.kill();
       document.body.style.cursor = originalCursor;
     };
-  }, [targetSelector, spinDuration, moveCursor, constants, hideDefaultCursor]);
+  }, [targetSelector, spinDuration, moveCursor, constants, hideDefaultCursor, resolvedTheme]);
 
   useEffect(() => {
     if (!cursorRef.current || !spinTl.current) return;
@@ -334,6 +365,19 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     }
   }, [spinDuration]);
 
+  // Update cursor colors when theme changes
+  useEffect(() => {
+    const colors = getCursorColors();
+    if (dotRef.current) {
+      dotRef.current.style.backgroundColor = colors.dot;
+    }
+    if (cornersRef.current) {
+      cornersRef.current.forEach(corner => {
+        corner.style.borderColor = colors.border;
+      });
+    }
+  }, [resolvedTheme]);
+
   return (
     <div 
       ref={cursorRef} 
@@ -341,24 +385,39 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
       style={{ willChange: 'transform' }}
     >
       <div ref={dotRef}
-        className="absolute left-1/2 top-1/2 w-1 h-1 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2" 
-        style={{ willChange: 'transform' }}
+        className="absolute left-1/2 top-1/2 w-1 h-1 rounded-full transform -translate-x-1/2 -translate-y-1/2" 
+        style={{ 
+          willChange: 'transform',
+          backgroundColor: getCursorColors().dot
+        }}
       />
       <div 
-        className="target-cursor-corner absolute left-1/2 top-1/2 w-3 h-3 border-[3px] border-white transform -translate-x-[150%] -translate-y-[150%] border-r-0 border-b-0" 
-        style={{ willChange: 'transform' }}
+        className="target-cursor-corner absolute left-1/2 top-1/2 w-3 h-3 border-[3px] transform -translate-x-[150%] -translate-y-[150%] border-r-0 border-b-0" 
+        style={{ 
+          willChange: 'transform',
+          borderColor: getCursorColors().border
+        }}
       />
       <div 
-        className="target-cursor-corner absolute left-1/2 top-1/2 w-3 h-3 border-[3px] border-white transform translate-x-1/2 -translate-y-[150%] border-l-0 border-b-0" 
-        style={{ willChange: 'transform' }}
+        className="target-cursor-corner absolute left-1/2 top-1/2 w-3 h-3 border-[3px] transform translate-x-1/2 -translate-y-[150%] border-l-0 border-b-0" 
+        style={{ 
+          willChange: 'transform',
+          borderColor: getCursorColors().border
+        }}
       />
       <div 
-        className="target-cursor-corner absolute left-1/2 top-1/2 w-3 h-3 border-[3px] border-white transform translate-x-1/2 translate-y-1/2 border-l-0 border-t-0" 
-        style={{ willChange: 'transform' }}
+        className="target-cursor-corner absolute left-1/2 top-1/2 w-3 h-3 border-[3px] transform translate-x-1/2 translate-y-1/2 border-l-0 border-t-0" 
+        style={{ 
+          willChange: 'transform',
+          borderColor: getCursorColors().border
+        }}
       />
       <div 
-        className="target-cursor-corner absolute left-1/2 top-1/2 w-3 h-3 border-[3px] border-white transform -translate-x-[150%] translate-y-1/2 border-r-0 border-t-0" 
-        style={{ willChange: 'transform' }}
+        className="target-cursor-corner absolute left-1/2 top-1/2 w-3 h-3 border-[3px] transform -translate-x-[150%] translate-y-1/2 border-r-0 border-t-0" 
+        style={{ 
+          willChange: 'transform',
+          borderColor: getCursorColors().border
+        }}
       />
     </div>
   );
