@@ -35,8 +35,8 @@ const retry = async (fn: () => Promise<Stream<StreamedChatResponse>>, retries = 
 
 async function processAIStream(context: string, prompt: string, model: string, options?: { maxTotalTokens?: number }) {
   const stream = createStreamableValue("")
-  const maxTotalTokens = options?.maxTotalTokens ?? Number(process.env.COHERE_DEFAULT_MAX_TOKENS) ?? 6000
-  const modelMaxTokens = Number(process.env.COHERE_MODEL_MAX_TOKENS) || 6000
+  const maxTotalTokens = options?.maxTotalTokens ?? Number(process.env.COHERE_DEFAULT_MAX_TOKENS) ?? 8192
+  const modelMaxTokens = Number(process.env.COHERE_MODEL_MAX_TOKENS) || 8192
 
   try {
     if (!process.env.COHERE_API_KEY) {
