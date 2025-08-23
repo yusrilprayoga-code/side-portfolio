@@ -79,7 +79,7 @@ export const Navigation = ({
   const isActive = (href: string) => pathname === href;
 
   return (
-    <div className="flex flex-col space-y-1 my-10 relative z-[100]">
+    <div className="flex flex-col space-y-1 my-10 relative z-[100] mb-10">
       {/* <SplashCursor /> */}
       {navlinks.map((link: Navlink) => (
         <Link

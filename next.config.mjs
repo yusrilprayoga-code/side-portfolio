@@ -8,6 +8,7 @@ const nextConfig = {
   experimental: {
     serverActions: {}, // Jika Anda tidak menggunakan fitur ini, biarkan kosong
   },
+  outputFileTracingRoot: process.cwd(),
   images: {
     // Perbaikan: Ejaan kunci yang benar
     remotePatterns: [

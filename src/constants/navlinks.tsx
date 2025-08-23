@@ -5,7 +5,8 @@ import {
   IconMail,
   IconMessage2,
   IconRobot,
-  IconStar
+  IconStar,
+  IconBrandSpotify
 } from "@tabler/icons-react";
 
 export const navlinks = [
@@ -38,6 +39,11 @@ export const navlinks = [
     href: "/accomplishments",
     label: "Accomplishments",
     icon: IconStar,
+  },
+  {
+    href: "/spotify",
+    label: "Spotify",
+    icon: IconBrandSpotify,
   },
   {
     href: '/chatbot',

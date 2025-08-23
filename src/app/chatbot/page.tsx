@@ -1,4 +1,4 @@
-import AIChatbotWithSidebar from "../../components/ai-chatbot";
+import AIChatbotWithSidebar from "../../components/AiChatbot";
 
 
 export default function Home() {
