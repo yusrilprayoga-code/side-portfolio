@@ -135,7 +135,7 @@ export default function AIChatbotWithSidebar() {
 
       // Request a moderately long total generation (target ~5000 tokens) to reduce provider timeouts
       const generatePromise = generatePortfolio(combinedPrompt, "", {
-        maxTotalTokens: 5000,
+        maxTotalTokens: 6000,
       });
 
       const result = (await Promise.race([
