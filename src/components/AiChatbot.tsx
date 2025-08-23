@@ -1,11 +1,11 @@
 "use client"
 
 import React, { useState, useRef, useEffect } from "react"
-import { Bot, Send, X, Copy, AlertCircle, Sparkles, MessageCircle } from "lucide-react"
+import { Bot, Send, X, Copy, AlertCircle, Sparkles, MessageCircle, User } from "lucide-react"
 import { readStreamableValue } from "ai/rsc"
 import type { Message } from "@/types/message"
 import FormattedMessage from "@/components/formatted-message"
-import { generatePortfolio } from '@/app/api/route';
+import { generatePortfolio } from "@/app/api/route"
 
 type ChatSession = {
   id: string
@@ -23,7 +23,7 @@ export default function AIChatbotWithSidebar() {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
 
-  const autoInput = " Hi, I'm Yusril Prayoga. Can you tell me more about your portfolio?"
+  const autoInput = " Hi, Can you tell me more about your portfolio?"
 
   React.useEffect(() => {
     if (textareaRef.current) {
@@ -76,12 +76,13 @@ export default function AIChatbotWithSidebar() {
     - Design: Figma, Adobe XD
 
     Work Experience:
+    - Dataiku Development at Pertamina Hulu Indonesia Aug 25 - Present
     - Full Stack Developer at B-Otomotif 2018 - Present
-    - Full Stack Developer at Cleanique Academy (PT. Indotech Berkah Abadi) Internship Sep 24 - Present
+    - Full Stack Developer at Cleanique Academy (PT. Indotech Berkah Abadi) Internship Sep 24 - Jan 25
     - Bangkit Academy 2024 By Google, GoTo, Traveloka - Cloud Computing Learning Path Feb 2024 - June 2024
     - Frontend Developer at PT Solutionlabs Group Indonesia (Internship) Des 2023 - Feb 2024
     - Staff of Communication and Information Media Department at UPN Veteran Yogyakarta May 2023 - May 2024
-
+    
     Yusril Prayoga has expertise in full-stack web development, with a focus on creating responsive and efficient web applications.
   `
 
@@ -101,15 +102,17 @@ export default function AIChatbotWithSidebar() {
     setError(null)
 
     try {
-      const combinedPrompt = `${portfolioInfo}\n\nUser query: ${currentInput}\n\nPlease provide a response based on the portfolio information above. If the query is not related to the portfolio, politely redirect the conversation back to the portfolio contents.`
+  const combinedPrompt = `${portfolioInfo}\n\nUser query: ${currentInput}\n\nInstructions:\n- If the user's question is about the portfolio, answer using only the portfolio information above.\n- If the user's question is outside the portfolio, answer directly and helpfully based on the question.\n- If the user's query asks for programming help or includes code, detect the programming language and explain step-by-step how to solve the problem. Provide a clear, runnable code example inside a fenced code block with the appropriate language tag (for example \`\`\`js).\n- When providing code examples, keep them concise and runnable, and include any commands required to run them.\n- Prefer short, actionable guidance and state any assumptions you make.\n`
 
       console.log("[Chatbot] Starting AI generation...")
 
       const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error("Request timeout after 30 seconds")), 30000)
+        // increase client-side timeout to 2 minutes to allow long streaming generations
+        setTimeout(() => reject(new Error("Request timeout after 120 seconds")), 120000)
       })
 
-      const generatePromise = generatePortfolio(combinedPrompt, "")
+      // Request a moderately long total generation (target ~5000 tokens) to reduce provider timeouts
+      const generatePromise = generatePortfolio(combinedPrompt, "", { maxTotalTokens: 5000 })
 
       const result = (await Promise.race([generatePromise, timeoutPromise])) as any
       const { output } = result
@@ -223,159 +226,169 @@ export default function AIChatbotWithSidebar() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-background text-foreground">
-      <div className="relative bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 border-b border-border/50 backdrop-blur-sm">
-        <div className="flex items-center justify-between p-6">
-          <div className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="absolute inset-0 bg-primary/20 rounded-full blur-md"></div>
-              <div className="relative bg-gradient-to-br from-primary to-accent p-2 rounded-full">
-                <Sparkles className="h-6 w-6 text-white" strokeWidth={2} />
-              </div>
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text">
-                AI Portfolio Assistant
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                Powered by <span className="font-medium text-accent">Cohere AI</span>
-              </p>
-            </div>
+    <div className="flex flex-col h-screen bg-white">
+      {/* Header - Simple and Clean */}
+      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
+          <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+            <Sparkles className="h-5 w-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-lg font-medium text-gray-900">Portfolio Assistant</h1>
           </div>
         </div>
       </div>
 
+      {/* Error Message */}
       {error && (
-        <div className="animate-slide-up bg-destructive/10 border border-destructive/20 p-4 m-4 rounded-xl flex items-center space-x-3 shadow-sm">
-          <div className="bg-destructive/20 p-1 rounded-full">
-            <AlertCircle className="h-4 w-4 text-destructive" />
+        <div className="mx-6 mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <AlertCircle className="h-4 w-4 text-red-500" />
+            <span className="text-sm text-red-700">{error}</span>
           </div>
-          <span className="text-sm text-destructive flex-1">{error}</span>
           <button
             onClick={() => setError(null)}
-            className="text-destructive hover:text-destructive/80 transition-colors p-1 rounded-full hover:bg-destructive/10"
+            className="text-red-500 hover:text-red-700"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
       )}
 
+      {/* Welcome Screen */}
       {currentSession.messages.length === 0 && (
-        <div className="flex-grow flex items-center justify-center p-8">
-          <div className="text-center max-w-2xl animate-fade-in">
-            <div className="relative mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-3xl"></div>
-              <div className="relative bg-gradient-to-br from-primary/10 to-accent/10 p-8 rounded-full border border-border/50 backdrop-blur-sm">
-                <MessageCircle className="h-16 w-16 text-primary mx-auto" strokeWidth={1.5} />
-              </div>
+        <div className="flex-1 flex items-center justify-center p-8">
+          <div className="text-center max-w-md">
+            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <MessageCircle className="h-8 w-8 text-orange-600" />
             </div>
-            <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text">
-              Welcome to AI Portfolio Assistant
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+              Portfolio Assistant
             </h2>
-            <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
-              Discover Yusril Prayoga portfolio through intelligent conversation. Ask about projects, skills, or
-              experience.
+            <p className="text-gray-600 mb-8 leading-relaxed">
+              Ask me anything about Yusril Prayoga&apos;s projects, skills, and experience as a Full Stack Developer.
             </p>
-            <div className="w-full max-w-lg mx-auto">
-              <button
-                onClick={handleAutoSend}
-                disabled={isGenerating}
-                className="group w-full bg-card hover:bg-card/80 border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 disabled:opacity-50"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="text-left flex-1">
-                    <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {autoInput}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">Click to start exploring the portfolio</p>
-                  </div>
-                  <div className="ml-4 bg-primary/10 group-hover:bg-primary/20 p-3 rounded-full transition-colors">
-                    <Send className="h-5 w-5 text-primary" strokeWidth={2} />
-                  </div>
+            <button
+              onClick={handleAutoSend}
+              disabled={isGenerating}
+              className="w-full p-4 text-left bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors disabled:opacity-50"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-medium text-gray-900 mb-1">Get started</div>
+                  <div className="text-sm text-gray-500">Ask about the portfolio</div>
                 </div>
-              </button>
-            </div>
+                <Send className="h-5 w-5 text-gray-400" />
+              </div>
+            </button>
           </div>
         </div>
       )}
 
-      <div className="flex-grow overflow-auto p-6 space-y-6" ref={scrollAreaRef}>
-        {currentSession.messages.map((message, idx) => (
-          <div key={idx} className="animate-fade-in">
-            <div className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-              <div className="flex items-start space-x-3 max-w-[85%]">
-                {message.role === "bot" && (
-                  <div className="bg-gradient-to-br from-primary/10 to-accent/10 p-2 rounded-full border border-border/50 flex-shrink-0">
-                    <Bot className="h-4 w-4 text-primary" strokeWidth={2} />
-                  </div>
-                )}
-                <div
-                  className={`rounded-2xl px-4 py-3 shadow-sm border ${
-                    message.role === "user"
-                      ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground border-primary/20"
-                      : "bg-card text-card-foreground border-border/50 shadow-black/20"
-                  }`}
-                >
-                  <FormattedMessage content={message.content} role={message.role} />
+      {/* Messages */}
+      <div className="flex-1 overflow-auto" ref={scrollAreaRef}>
+        <div className="max-w-4xl mx-auto px-6 py-4">
+          {currentSession.messages.map((message, idx) => (
+            <div key={idx} className="mb-8">
+              <div className="flex items-start space-x-4">
+                {/* Avatar */}
+                <div className="flex-shrink-0 mt-1">
+                  {message.role === "user" ? (
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                      <User className="h-4 w-4 text-white" />
+                    </div>
+                  ) : (
+                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                      <Bot className="h-4 w-4 text-white" />
+                    </div>
+                  )}
                 </div>
-                <button
-                  onClick={() => copyToClipboard(message.content)}
-                  className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-muted/50 flex-shrink-0"
-                >
-                  <Copy className="h-4 w-4" strokeWidth={2} />
-                </button>
+                
+                {/* Message Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <span className="text-sm font-medium text-gray-900">
+                      {message.role === "user" ? "You" : "Assistant"}
+                    </span>
+                  </div>
+                  <div className="prose prose-gray max-w-none">
+                    <FormattedMessage content={message.content} role={message.role} />
+                  </div>
+                  
+                  {/* Copy Button */}
+                  <div className="flex items-center justify-end mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={() => copyToClipboard(message.content)}
+                      className="p-1.5 text-gray-400 hover:text-gray-600 rounded"
+                    >
+                      <Copy className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
 
-        {isGenerating && (
-          <div className="flex items-start space-x-3 animate-fade-in">
-            <div className="bg-gradient-to-br from-primary/10 to-accent/10 p-2 rounded-full border border-border/50">
-              <Bot className="h-4 w-4 text-primary" strokeWidth={2} />
-            </div>
-            <div className="bg-card border border-border/50 rounded-2xl px-4 py-3 shadow-sm">
-              <div className="flex space-x-1">
-                <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:0ms]" />
-                <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:150ms]" />
-                <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:300ms]" />
+          {/* Typing Indicator */}
+          {isGenerating && (
+            <div className="mb-8">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                    <Bot className="h-4 w-4 text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <span className="text-sm font-medium text-gray-900">Assistant</span>
+                  </div>
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse delay-75"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse delay-150"></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
-      <div className="border-t border-border/50 bg-background/80 backdrop-blur-sm p-6">
-        <div className="flex items-end space-x-4 max-w-4xl mx-auto">
-          <div className="flex-grow relative">
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Ask about projects, skills, or experience..."
-              className="w-full resize-none rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm px-4 py-3 pr-12 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all disabled:cursor-not-allowed disabled:opacity-50 shadow-sm"
-              rows={1}
-              disabled={isGenerating}
-              style={{ minHeight: "48px", maxHeight: "120px" }}
-            />
+      {/* Input Area */}
+      <div className="border-t border-gray-200 bg-white p-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center space-x-4">
+            <div className="flex-1 relative">
+              <textarea
+                ref={textareaRef}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Ask about projects, skills, or experience..."
+                className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:opacity-50"
+                rows={1}
+                disabled={isGenerating}
+                style={{ minHeight: "48px", maxHeight: "120px" }}
+              />
+            </div>
+            
+            {isGenerating ? (
+              <button
+                onClick={handleStopThinking}
+                className="flex-shrink-0 self-center w-12 h-12 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition-colors flex items-center justify-center"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            ) : (
+              <button
+                onClick={handleSend}
+                disabled={isGenerating || input.trim() === ""}
+                className="flex-shrink-0 self-center w-12 h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              >
+                <Send className="h-5 w-5" />
+              </button>
+            )}
           </div>
-          {isGenerating ? (
-            <button
-              onClick={handleStopThinking}
-              className="bg-destructive hover:bg-destructive/90 text-destructive-foreground p-3 rounded-2xl transition-all shadow-sm hover:shadow-md flex-shrink-0"
-            >
-              <X className="h-5 w-5" strokeWidth={2} />
-            </button>
-          ) : (
-            <button
-              onClick={handleSend}
-              disabled={isGenerating || input.trim() === ""}
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed p-3 rounded-2xl transition-all shadow-sm hover:shadow-md hover:shadow-primary/20 flex-shrink-0"
-            >
-              <Send className="h-5 w-5" strokeWidth={2} />
-            </button>
-          )}
         </div>
       </div>
     </div>
