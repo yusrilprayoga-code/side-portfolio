@@ -13,6 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { IconLayoutSidebarRightCollapse } from "@tabler/icons-react";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import SplashCursor from "@/blocks/Animations/SplashCursor/SplashCursor";
+import TargetCursor from "./CursorTarget";
 
 const isMobile = () => {
   if (typeof window === "undefined") return false;
@@ -81,13 +82,17 @@ export const Navigation = ({
   return (
     <div className="flex flex-col space-y-1 my-10 relative z-[100]">
       {/* <SplashCursor /> */}
+      <TargetCursor 
+        spinDuration={2}
+        hideDefaultCursor={true}
+      />
       {navlinks.map((link: Navlink) => (
         <Link
           key={link.href}
           href={link.href}
           onClick={() => isMobile() && setOpen(false)}
           className={twMerge(
-            "text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm",
+            "text-secondary cursor-target dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm",
             isActive(link.href) && "bg-white dark:bg-neutral-800 shadow-lg text-primary dark:text-gray-200"
           )}
         >
@@ -109,7 +114,7 @@ export const Navigation = ({
           key={link.href}
           href={link.href}
           className={twMerge(
-            "text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm"
+            "text-secondary cursor-target dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm"
           )}
         >
           <link.icon
@@ -124,7 +129,7 @@ export const Navigation = ({
 
       <button
         onClick={toggleDarkMode}
-        className="text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm"
+        className="text-secondary cursor-target dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition duration-200 flex items-center space-x-2 py-2 px-2 rounded-md text-sm"
       >
         {darkMode ? (
           <IconSun className="h-4 w-4 flex-shrink-0 mr-2" />

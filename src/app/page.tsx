@@ -19,7 +19,7 @@ export default function Home() {
             height={300}
             alt="Yusril Prayoga"
             className="rounded-3xl mt-4 object-cover shadow-md 
-      hover:shadow-xl hover:scale-105 transition duration-300 ease-in-out"
+            hover:shadow-xl hover:scale-105 transition duration-300 ease-in-out"
           />
 
           {/* Circular Text di sudut kanan bawah */}
