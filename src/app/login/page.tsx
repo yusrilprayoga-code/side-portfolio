@@ -31,7 +31,7 @@ export default function LoginPage() {
             </div>
             <h2 className="text-xl font-bold text-white mb-2">Ready to Connect?</h2>
             <p className="text-gray-400 text-sm mb-6">
-              We'll access your top tracks, recently played songs, and playlists to create your personalized music
+              We&apos;ll access your top tracks, recently played songs, and playlists to create your personalized music
               profile.
             </p>
           </div>
@@ -64,7 +64,7 @@ export default function LoginPage() {
           </Button>
 
           <p className="text-xs text-gray-500 text-center">
-            By connecting, you agree to Spotify's terms of service and privacy policy.
+            By connecting, you agree to Spotify&apos;s terms of service and privacy policy.
           </p>
         </CardContent>
       </Card>
