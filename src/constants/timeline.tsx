@@ -1,6 +1,6 @@
 export const timeline = [
   {
-    company: "PT. Pertamina Hulu Indonesia",
+    company: "PT. Pertamina Hulu Rokan",
     title: "Dataiku Development",
     date: "Aug 25 - Present",
     description: "Building a platform to help people manage their data",
