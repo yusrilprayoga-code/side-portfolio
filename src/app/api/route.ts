@@ -17,13 +17,17 @@ const retry = async (fn: () => Promise<Stream<StreamedChatResponse>>, retries = 
       console.error(`Attempt ${attempt} failed:`, {
         message: error?.message,
         status: error?.status,
+        statusCode: error?.statusCode,
         code: error?.code,
+        body: error?.body,
+        name: error?.name,
+        fullError: JSON.stringify(error, null, 2),
         attempt,
         retries,
       })
 
       if (attempt >= retries) {
-        throw new Error(`Failed after ${retries} attempts: ${error?.message || "Unknown error"}`)
+        throw error // throw the original error instead of wrapping it
       }
 
       // Exponential backoff with jitter
@@ -35,8 +39,9 @@ const retry = async (fn: () => Promise<Stream<StreamedChatResponse>>, retries = 
 
 async function processAIStream(context: string, prompt: string, model: string, options?: { maxTotalTokens?: number }) {
   const stream = createStreamableValue("")
-  const maxTotalTokens = options?.maxTotalTokens ?? Number(process.env.COHERE_DEFAULT_MAX_TOKENS) ?? 8192
-  const modelMaxTokens = Number(process.env.COHERE_MODEL_MAX_TOKENS) || 8192
+  const maxTotalTokens = options?.maxTotalTokens ?? Number(process.env.COHERE_DEFAULT_MAX_TOKENS) ?? 4096
+  // command-r-plus supports up to 128k tokens, but we use 4096 as default safe limit
+  const modelMaxTokens = Number(process.env.COHERE_MODEL_MAX_TOKENS) || 128000
 
   try {
     if (!process.env.COHERE_API_KEY) {
@@ -60,6 +65,8 @@ USER PROMPT:
 ${prompt}`
 
   console.log("[AI Stream] Starting request with model:", model, "targetTokens:", maxTotalTokens)
+  console.log("[AI Stream] Model max tokens:", modelMaxTokens)
+  console.log("[AI Stream] API Key present:", !!process.env.COHERE_API_KEY)
 
   let fullResponse = ""
 
@@ -86,13 +93,19 @@ ${prompt}`
 
     // If requested total is within single-call model limit, stream normally
     if (maxTotalTokens <= modelMaxTokens) {
+      console.log("[AI Stream] Making single API call with params:", {
+        model,
+        maxTokens: maxTotalTokens,
+        temperature: 0.7,
+        messageLength: systemPrompt.length
+      })
+      
       const chatStream = await retry(async () => {
         return await cohere.chatStream({
           message: systemPrompt,
           model,
           temperature: 0.7,
           promptTruncation: "AUTO",
-          connectors: [{ id: "web-search" }],
           maxTokens: maxTotalTokens,
         })
       })
@@ -135,7 +148,6 @@ ${prompt}`
           model,
           temperature: 0.6,
           promptTruncation: "AUTO",
-          connectors: [{ id: "web-search" }],
           maxTokens: 800,
         })
       })
@@ -169,7 +181,6 @@ ${prompt}`
             model,
             temperature: 0.7,
             promptTruncation: "AUTO",
-            connectors: [{ id: "web-search" }],
             maxTokens: perCallMax,
           })
         })
@@ -226,7 +237,7 @@ ${prompt}`
 
 export async function generateChat(context: string, prompt: string, options?: { maxTotalTokens?: number }) {
   try {
-    return await processAIStream(context, prompt, "command-nightly", options)
+    return await processAIStream(context, prompt, "command-r-08-2024", options)
   } catch (error) {
     console.error("[generateChat] Error:", error)
     throw error
@@ -235,7 +246,7 @@ export async function generateChat(context: string, prompt: string, options?: { 
 
 export async function generatePortfolio(context: string, prompt: string, options?: { maxTotalTokens?: number }) {
   try {
-    return await processAIStream(context, prompt, "command-nightly", options)
+    return await processAIStream(context, prompt, "command-r-08-2024", options)
   } catch (error) {
     console.error("[generatePortfolio] Error:", error)
     throw error
