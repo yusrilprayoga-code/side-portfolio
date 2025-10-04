@@ -40,11 +40,11 @@ export const navlinks = [
     label: "Accomplishments",
     icon: IconStar,
   },
-  {
-    href: "/spotify",
-    label: "Spotify",
-    icon: IconBrandSpotify,
-  },
+  // {
+  //   href: "/spotify",
+  //   label: "Spotify",
+  //   icon: IconBrandSpotify,
+  // },
   {
     href: '/chatbot',
     label: 'Chatbot',
