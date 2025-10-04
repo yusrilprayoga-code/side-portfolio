@@ -193,17 +193,18 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
       console.log("[Chatbot] Starting AI generation...");
 
       const timeoutPromise = new Promise((_, reject) => {
-        // Timeout set to 55 seconds (slightly less than Vercel's 60s limit for Pro)
+        // Netlify Functions timeout: Free 10s, Pro 26s
+        // Setting to 25s for safety margin on Pro plan
         setTimeout(
-          () => reject(new Error("Request timeout after 55 seconds")),
-          55000
+          () => reject(new Error("Request timeout after 25 seconds")),
+          25000
         );
       });
 
-      // Reduced to 4096 tokens for faster response and to avoid Vercel timeout
-      // This is sufficient for portfolio questions while staying under 10s on Hobby plan
+      // Reduced to 3072 tokens for faster response on Netlify (10s free tier limit)
+      // This is sufficient for portfolio questions with quick response time
       const generatePromise = generatePortfolio(combinedPrompt, "", {
-        maxTotalTokens: 4096,
+        maxTotalTokens: 3072,
       });
 
       const result = (await Promise.race([

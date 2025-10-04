@@ -1,0 +1,48 @@
+# Netlify Configuration for Next.js with AI Chatbot
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Next.js Runtime for Netlify
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Serverless Functions Configuration
+[functions]
+  # Increase timeout for AI streaming (default is 10s on Free, 26s on Pro)
+  # Note: Free tier has 10s limit, similar to Vercel Hobby
+  node_bundler = "esbuild"
+  included_files = [".env"]
+
+# Redirects for API routes (Next.js App Router)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# Headers for CORS and streaming
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+
+# Environment Variables (set these in Netlify Dashboard)
+# Required:
+# - DEEPSEEK_API_KEY
+# - NEXT_EMAILJS_PUBLIC_KEY
+# - NEXT_EMAILJS_PRIVATE_KEY
+# - NEXT_EMAILJS_TEMPLATE_ID
+
+# Optional:
+# - DEEPSEEK_MAX_TOKENS=4096
+# - DEEPSEEK_TEMPERATURE=0.6
+# - NEXT_PUBLIC_SPOTIFY_CLIENT_ID
+# - SPOTIFY_CLIENT_SECRET

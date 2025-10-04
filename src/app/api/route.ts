@@ -63,8 +63,9 @@ const retry = async <T>(fn: () => Promise<T>, retries = 2, delay = 2000): Promis
 
 async function processAIStream(context: string, prompt: string, model: string, options?: { maxTotalTokens?: number }) {
   const stream = createStreamableValue("")
-  // Reduced max tokens for faster response and avoid Vercel timeout (10s hobby, 60s pro)
-  const maxTokens = options?.maxTotalTokens ?? Number(process.env.DEEPSEEK_MAX_TOKENS) ?? 4096
+  // Optimized for Netlify Functions timeout (10s Free, 26s Pro)
+  // Using 3072 tokens for faster response and reliability
+  const maxTokens = options?.maxTotalTokens ?? Number(process.env.DEEPSEEK_MAX_TOKENS) ?? 3072
   const temperature = Number(process.env.DEEPSEEK_TEMPERATURE) ?? 0.6
 
   try {
