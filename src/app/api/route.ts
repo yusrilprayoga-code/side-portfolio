@@ -174,9 +174,9 @@ Based on the context and your general knowledge, please answer the following use
   return { output: stream.value }
 }
 
-// Configure Vercel serverless function timeout
-export const maxDuration = 60; // seconds (requires Vercel Pro plan, Hobby is 10s max)
-export const dynamic = 'force-dynamic'; // Ensure this is always dynamic
+// Note: Vercel timeout is configured in vercel.json
+// Hobby Plan: 10s max, Pro Plan: 60s max
+// Current config is optimized for 10s limit with 4096 tokens
 
 export async function generateChat(context: string, prompt: string, options?: { maxTotalTokens?: number }) {
   try {
