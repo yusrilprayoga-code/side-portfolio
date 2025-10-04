@@ -24,6 +24,7 @@ const config: Config = {
       animation: {
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         scroll: {
@@ -31,6 +32,20 @@ const config: Config = {
             transform: "translate(calc(-50% - 0.5rem))",
           },
         },
+        pulse: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+      },
+      animationDelay: {
+        '75': '75ms',
+        '100': '100ms',
+        '150': '150ms',
+        '200': '200ms',
+        '300': '300ms',
+        '500': '500ms',
+        '700': '700ms',
+        '1000': '1000ms',
       },
     },
   },

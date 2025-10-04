@@ -262,28 +262,75 @@ function formatText(text: string): string {
       continue;
     }
 
-    // Lists
+    // Lists - Properly handle multi-line list items
     if (/^(\s*[*+-]|\s*\d+\.)\s+/.test(trimmedChunk)) {
         const lines = trimmedChunk.split('\n');
         const isOrdered = /^\s*\d+\./.test(lines[0]);
         const tag = isOrdered ? 'ol' : 'ul';
-        const listClass = isOrdered ? 'list-decimal' : 'list-disc';
+        const listClass = 'list-none';
 
-        let listHtml = `<${tag} class="my-3 ml-5 ${listClass} space-y-2">`;
-        for (const line of lines) {
-            let content = line.replace(/^(\s*[*+-]|\s*\d+\.)\s+/, '');
+        let listHtml = `<${tag} class="my-3 space-y-2.5 ${listClass}" style="padding-left: 0; margin-left: 0;">`;
+        let itemNumber = 1;
+        let currentItem = '';
+        let isFirstLineOfItem = true;
+        
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const isListMarker = /^(\s*[*+-]|\s*\d+\.)\s+/.test(line);
             
-            if (/^\[\s?\]/.test(content)) {
-                content = processInlines(content.replace(/^\[\s?\]\s*/, ''));
-                listHtml += `<li class="flex items-center gap-3"><input type="checkbox" disabled class="form-checkbox h-4 w-4 rounded bg-neutral-200 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-600 cursor-default"><span>${content}</span></li>`;
-            } else if (/^\[x\]/i.test(content)) {
-                content = processInlines(content.replace(/^\[x\]\s*/i, ''));
-                listHtml += `<li class="flex items-center gap-3 text-neutral-500 dark:text-neutral-400 line-through"><input type="checkbox" disabled checked class="form-checkbox h-4 w-4 rounded text-blue-500 bg-neutral-200 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-600 cursor-default"><span>${content}</span></li>`;
-            } else {
-                content = processInlines(content);
-                listHtml += `<li>${content}</li>`;
+            if (isListMarker) {
+                // Process previous item if exists
+                if (currentItem) {
+                    let content = processInlines(currentItem.trim());
+                    
+                    if (/^\[\s?\]/.test(currentItem)) {
+                        content = processInlines(currentItem.replace(/^\[\s?\]\s*/, '').trim());
+                        listHtml += `<li class="flex items-start gap-3 pl-0"><input type="checkbox" disabled class="form-checkbox h-4 w-4 rounded bg-neutral-200 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-600 cursor-default mt-0.5 flex-shrink-0"><span class="flex-1">${content}</span></li>`;
+                    } else if (/^\[x\]/i.test(currentItem)) {
+                        content = processInlines(currentItem.replace(/^\[x\]\s*/i, '').trim());
+                        listHtml += `<li class="flex items-start gap-3 pl-0 text-neutral-500 dark:text-neutral-400 line-through"><input type="checkbox" disabled checked class="form-checkbox h-4 w-4 rounded text-blue-500 bg-neutral-200 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-600 cursor-default mt-0.5 flex-shrink-0"><span class="flex-1">${content}</span></li>`;
+                    } else {
+                        if (isOrdered) {
+                            listHtml += `<li class="flex items-start gap-3 pl-0"><span class="text-neutral-600 dark:text-neutral-400 font-medium min-w-[24px] flex-shrink-0">${itemNumber}.</span><span class="flex-1">${content}</span></li>`;
+                            itemNumber++;
+                        } else {
+                            listHtml += `<li class="flex items-start gap-3 pl-0"><span class="text-neutral-600 dark:text-neutral-400 min-w-[24px] flex-shrink-0">•</span><span class="flex-1">${content}</span></li>`;
+                        }
+                    }
+                }
+                
+                // Start new item
+                currentItem = line.replace(/^(\s*[*+-]|\s*\d+\.)\s+/, '');
+                isFirstLineOfItem = true;
+            } else if (line.trim()) {
+                // Continuation of previous item (indented or just next line)
+                if (!isFirstLineOfItem) {
+                    currentItem += ' ';
+                }
+                currentItem += line.trim();
+                isFirstLineOfItem = false;
             }
         }
+        
+        // Process the last item
+        if (currentItem) {
+            let content = processInlines(currentItem.trim());
+            
+            if (/^\[\s?\]/.test(currentItem)) {
+                content = processInlines(currentItem.replace(/^\[\s?\]\s*/, '').trim());
+                listHtml += `<li class="flex items-start gap-3 pl-0"><input type="checkbox" disabled class="form-checkbox h-4 w-4 rounded bg-neutral-200 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-600 cursor-default mt-0.5 flex-shrink-0"><span class="flex-1">${content}</span></li>`;
+            } else if (/^\[x\]/i.test(currentItem)) {
+                content = processInlines(currentItem.replace(/^\[x\]\s*/i, '').trim());
+                listHtml += `<li class="flex items-start gap-3 pl-0 text-neutral-500 dark:text-neutral-400 line-through"><input type="checkbox" disabled checked class="form-checkbox h-4 w-4 rounded text-blue-500 bg-neutral-200 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-600 cursor-default mt-0.5 flex-shrink-0"><span class="flex-1">${content}</span></li>`;
+            } else {
+                if (isOrdered) {
+                    listHtml += `<li class="flex items-start gap-3 pl-0"><span class="text-neutral-600 dark:text-neutral-400 font-medium min-w-[24px] flex-shrink-0">${itemNumber}.</span><span class="flex-1">${content}</span></li>`;
+                } else {
+                    listHtml += `<li class="flex items-start gap-3 pl-0"><span class="text-neutral-600 dark:text-neutral-400 min-w-[24px] flex-shrink-0">•</span><span class="flex-1">${content}</span></li>`;
+                }
+            }
+        }
+        
         listHtml += `</${tag}>`;
         html += listHtml;
         continue;
@@ -374,7 +421,19 @@ export default function FormattedMessage({ content, role }: FormattedMessageProp
           </pre>
         ) : (
           <div
-            className="prose prose-sm dark:prose-invert max-w-none text-neutral-800 dark:text-neutral-200 leading-relaxed prose-p:mb-2 prose-headings:my-3 prose-blockquote:my-2 prose-ul:my-2 prose-ol:my-2"
+            className="prose prose-sm dark:prose-invert max-w-none text-neutral-800 dark:text-neutral-200 leading-relaxed 
+            prose-p:my-2 prose-p:leading-7 
+            prose-headings:mt-6 prose-headings:mb-3 prose-headings:font-semibold 
+            prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg 
+            prose-ul:my-3 prose-ul:space-y-2 
+            prose-ol:my-3 prose-ol:space-y-2 
+            prose-li:my-1.5 prose-li:leading-7
+            prose-blockquote:my-4 prose-blockquote:py-2
+            prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
+            prose-pre:my-4 prose-pre:p-0
+            prose-strong:font-semibold prose-strong:text-neutral-900 dark:prose-strong:text-neutral-100
+            prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+            prose-img:rounded-lg prose-img:shadow-md"
             dangerouslySetInnerHTML={{ __html: formattedContent }}
           />
         )}

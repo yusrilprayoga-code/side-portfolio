@@ -1,56 +1,65 @@
 "use server"
 
 import { createStreamableValue } from "ai/rsc"
-import { CohereClient } from "cohere-ai"
-import type { StreamedChatResponse } from "cohere-ai/api"
-import type { Stream } from "cohere-ai/core"
+import OpenAI from "openai"
 
-const cohere = new CohereClient({
-  token: process.env.COHERE_API_KEY,
+const openai = new OpenAI({
+  baseURL: "https://openrouter.ai/api/v1",
+  apiKey: process.env.DEEPSEEK_API_KEY,
+  defaultHeaders: {
+    "HTTP-Referer": "https://side-portfolio.vercel.app", // Your site URL
+    "X-Title": "Yusril Prayoga Portfolio", // Your site title
+  },
 })
 
-const retry = async (fn: () => Promise<Stream<StreamedChatResponse>>, retries = 3, delay = 1000) => {
+const retry = async <T>(fn: () => Promise<T>, retries = 2, delay = 2000): Promise<T> => {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       return await fn()
     } catch (error: any) {
+      const isRateLimit = error?.status === 429 || error?.statusCode === 429 || error?.message?.includes('429')
+      
       console.error(`Attempt ${attempt} failed:`, {
         message: error?.message,
         status: error?.status,
         statusCode: error?.statusCode,
         code: error?.code,
-        body: error?.body,
-        name: error?.name,
-        fullError: JSON.stringify(error, null, 2),
+        isRateLimit,
         attempt,
         retries,
       })
 
-      if (attempt >= retries) {
-        throw error // throw the original error instead of wrapping it
+      // If rate limit and not last attempt, wait longer
+      if (isRateLimit && attempt < retries) {
+        const waitTime = delay * Math.pow(2, attempt) // Longer exponential backoff for rate limits
+        console.log(`[Retry] Rate limit detected. Waiting ${waitTime}ms before retry ${attempt + 1}`)
+        await new Promise((resolve) => setTimeout(resolve, waitTime))
+      } else if (attempt >= retries) {
+        throw error
+      } else {
+        // Normal exponential backoff with jitter for other errors
+        const jitter = Math.random() * 1000
+        await new Promise((resolve) => setTimeout(resolve, delay * Math.pow(2, attempt - 1) + jitter))
       }
-
-      // Exponential backoff with jitter
-      const jitter = Math.random() * 1000
-      await new Promise((resolve) => setTimeout(resolve, delay * Math.pow(2, attempt - 1) + jitter))
     }
   }
+  throw new Error("Retry failed") // This should never be reached
 }
 
 async function processAIStream(context: string, prompt: string, model: string, options?: { maxTotalTokens?: number }) {
   const stream = createStreamableValue("")
-  const maxTotalTokens = options?.maxTotalTokens ?? Number(process.env.COHERE_DEFAULT_MAX_TOKENS) ?? 4096
-  // command-r-plus supports up to 128k tokens, but we use 4096 as default safe limit
-  const modelMaxTokens = Number(process.env.COHERE_MODEL_MAX_TOKENS) || 128000
+  // Use environment variable or passed option, default to 20000 tokens
+  const maxTokens = options?.maxTotalTokens ?? Number(process.env.DEEPSEEK_MAX_TOKENS) ?? 8096
+  const temperature = Number(process.env.DEEPSEEK_TEMPERATURE) ?? 0.6
 
   try {
-    if (!process.env.COHERE_API_KEY) {
-      throw new Error("COHERE_API_KEY environment variable is not set")
+    if (!process.env.DEEPSEEK_API_KEY) {
+      throw new Error("DEEPSEEK_API_KEY environment variable is not set")
     }
 
-     const systemPrompt = `You are a helpful and versatile AI assistant for Yusril Prayoga.
+    const systemPrompt = `You are a helpful and versatile AI assistant for Yusril Prayoga.
 Your primary role is to answer questions about his portfolio, skills, and experience based on the provided context.
-If the user's question is NOT related to the portfolio context, you should act as a general AI assistant and answer their query using your knowledge and web search capabilities.
+If the user's question is NOT related to the portfolio context, you should act as a general AI assistant and answer their query using your knowledge.
 Always be friendly, conversational, and helpful.
 
 THE TIME NOW IS ${new Date().toLocaleString()}
@@ -59,148 +68,58 @@ THE TIME NOW IS ${new Date().toLocaleString()}
 ${context}
 --- END OF CONTEXT ---
 
-Based on the context and your general knowledge, please answer the following user prompt.
+Based on the context and your general knowledge, please answer the following user prompt.`
 
-USER PROMPT:
-${prompt}`
+    // Always use paid version (remove :free suffix if present)
+    const modelUsed = model.replace(':free', '')
+    
+    console.log("[AI Stream] Starting request with model:", modelUsed, "maxTokens:", maxTokens)
+    console.log("[AI Stream] API Key present:", !!process.env.DEEPSEEK_API_KEY)
 
-  console.log("[AI Stream] Starting request with model:", model, "targetTokens:", maxTotalTokens)
-  console.log("[AI Stream] Model max tokens:", modelMaxTokens)
-  console.log("[AI Stream] API Key present:", !!process.env.COHERE_API_KEY)
+    let fullResponse = ""
 
-  let fullResponse = ""
-
-    // Helper: parse numbered outline to array of section texts
-    function parseOutlineToSections(text: string): string[] {
-      const lines = text.split(/\r?\n/)
-      const sections: string[] = []
-      for (const line of lines) {
-        const m = line.match(/^\s*\d+\.\s+(.*)$/)
-        if (m) sections.push(m[1].trim())
-      }
-      return sections
-    }
-
-    function fallbackSplit(text: string, maxChars = 1500): string[] {
-      const parts: string[] = []
-      let cursor = 0
-      while (cursor < text.length) {
-        parts.push(text.slice(cursor, cursor + maxChars))
-        cursor += maxChars
-      }
-      return parts
-    }
-
-    // If requested total is within single-call model limit, stream normally
-    if (maxTotalTokens <= modelMaxTokens) {
-      console.log("[AI Stream] Making single API call with params:", {
-        model,
-        maxTokens: maxTotalTokens,
-        temperature: 0.7,
-        messageLength: systemPrompt.length
+    // Make the streaming API call with retry logic
+    const completion = await retry(async () => {
+      return await openai.chat.completions.create({
+        model: modelUsed,
+        messages: [
+          {
+            role: "system",
+            content: systemPrompt,
+          },
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+        max_tokens: maxTokens,
+        temperature: temperature,
+        stream: true,
+        top_p: 0.9,
+        frequency_penalty: 0.1,
+        presence_penalty: 0.1,
       })
-      
-      const chatStream = await retry(async () => {
-        return await cohere.chatStream({
-          message: systemPrompt,
-          model,
-          temperature: 0.7,
-          promptTruncation: "AUTO",
-          maxTokens: maxTotalTokens,
-        })
-      })
+    })
 
-  let chunkCount = 0
+    console.log("[AI Stream] Stream started successfully")
+    let chunkCount = 0
 
-      if (chatStream) {
-        console.log("[AI Stream] Stream started successfully (single-call)")
+    // Process the stream
+    for await (const chunk of completion) {
+      chunkCount++
+      const content = chunk.choices[0]?.delta?.content
 
-        for await (const chunk of chatStream) {
-          chunkCount++
+      if (content) {
+        fullResponse += content
+        stream.update(fullResponse)
 
-          if (chunk.eventType === "text-generation") {
-            fullResponse += chunk.text
-            // stream.update expects a string
-            stream.update(fullResponse)
-
-            if (chunkCount % 10 === 0) {
-              console.log(`[AI Stream] Processed ${chunkCount} chunks, response length: ${fullResponse.length}`)
-            }
-          }
-        }
-
-        console.log(
-          `[AI Stream] Completed successfully. Total chunks: ${chunkCount}, Final length: ${fullResponse.length}`,
-        )
-      } else {
-        throw new Error("Failed to create chat stream")
-      }
-    } else {
-      // Multi-call chunking strategy: create an outline, split into sections, expand each section
-      console.log("[AI Stream] Using multi-call chunking strategy")
-
-      // 1) Generate outline
-      const outlinePrompt = systemPrompt + `\n\nPlease produce a concise numbered outline (1..N) dividing the answer into sections. Keep each outline item short (one line).`
-
-      const outlineStream = await retry(async () => {
-        return await cohere.chatStream({
-          message: outlinePrompt,
-          model,
-          temperature: 0.6,
-          promptTruncation: "AUTO",
-          maxTokens: 800,
-        })
-      })
-
-      let outlineText = ""
-      if (!outlineStream) throw new Error("Failed to create outline stream")
-      for await (const chunk of outlineStream) {
-        if (chunk.eventType === "text-generation") {
-          outlineText += chunk.text
+        if (chunkCount % 10 === 0) {
+          console.log(`[AI Stream] Processed ${chunkCount} chunks, response length: ${fullResponse.length}`)
         }
       }
-
-      // Parse outline into sections
-      const sections = parseOutlineToSections(outlineText)
-      if (sections.length === 0) {
-        // fallback: split by paragraphs
-        sections.push(...fallbackSplit(prompt))
-      }
-
-      // 2) Expand each section sequentially and stream updates
-      let totalTokensSoFar = 0
-      const perCallMax = modelMaxTokens
-
-      for (let i = 0; i < sections.length; i++) {
-        const section = sections[i]
-        const expandPrompt = systemPrompt + `\n\nExpand the following outline item in detail:\n${section}`
-
-        const sectionStream = await retry(async () => {
-          return await cohere.chatStream({
-            message: expandPrompt,
-            model,
-            temperature: 0.7,
-            promptTruncation: "AUTO",
-            maxTokens: perCallMax,
-          })
-        })
-
-        if (!sectionStream) continue
-
-        for await (const chunk of sectionStream) {
-          if (chunk.eventType === "text-generation") {
-            // append to the aggregate response and stream
-            fullResponse += chunk.text
-            stream.update(fullResponse)
-            totalTokensSoFar += 0 // best-effort: token accounting unavailable here
-          }
-        }
-
-        console.log(`[AI Stream] Completed section ${i + 1}/${sections.length}`)
-      }
-
-      console.log(`[AI Stream] Multi-call expansion completed. Sections: ${sections.length}`)
     }
+
+    console.log(`[AI Stream] Completed successfully. Total chunks: ${chunkCount}, Final length: ${fullResponse.length}`)
 
     if (!fullResponse.trim()) {
       throw new Error("Empty response received from AI service")
@@ -217,14 +136,16 @@ ${prompt}`
 
     let errorMessage = "⚠️ Error generating response."
 
-    if (error?.message?.includes("COHERE_API_KEY")) {
+    if (error?.message?.includes("DEEPSEEK_API_KEY")) {
       errorMessage = "⚠️ API configuration error. Please check environment variables."
-    } else if (error?.status === 429) {
+    } else if (error?.status === 429 || error?.statusCode === 429) {
       errorMessage = "⚠️ Rate limit exceeded. Please try again in a moment."
-    } else if (error?.status >= 500) {
+    } else if (error?.status >= 500 || error?.statusCode >= 500) {
       errorMessage = "⚠️ Service temporarily unavailable. Please try again."
     } else if (error?.message?.includes("timeout")) {
       errorMessage = "⚠️ Request timed out. Please try again."
+    } else if (error?.message?.includes("API key")) {
+      errorMessage = "⚠️ Invalid API key. Please check your configuration."
     }
 
     stream.update(errorMessage)
@@ -237,7 +158,8 @@ ${prompt}`
 
 export async function generateChat(context: string, prompt: string, options?: { maxTotalTokens?: number }) {
   try {
-    return await processAIStream(context, prompt, "command-r-08-2024", options)
+    // Testing specific DeepSeek Chat version (v3-0324) with free tier
+    return await processAIStream(context, prompt, "openai/gpt-oss-20b:free", options)
   } catch (error) {
     console.error("[generateChat] Error:", error)
     throw error
@@ -246,7 +168,8 @@ export async function generateChat(context: string, prompt: string, options?: { 
 
 export async function generatePortfolio(context: string, prompt: string, options?: { maxTotalTokens?: number }) {
   try {
-    return await processAIStream(context, prompt, "command-r-08-2024", options)
+    // Testing specific DeepSeek Chat version (v3-0324) with free tier
+    return await processAIStream(context, prompt, "openai/gpt-oss-20b:free", options)
   } catch (error) {
     console.error("[generatePortfolio] Error:", error)
     throw error

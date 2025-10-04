@@ -12,9 +12,15 @@ import {
   User,
 } from "lucide-react";
 import { readStreamableValue } from "ai/rsc";
-import type { Message } from "@/types/message";
 import FormattedMessage from "@/components/formatted-message";
 import { generatePortfolio } from "@/app/api/route";
+
+// Extended Message type with thinking process support
+type Message = {
+  role: "user" | "bot";
+  content: string;
+  thinking?: string; // DeepSeek-style thinking process
+};
 
 type ChatSession = {
   id: string;
@@ -121,21 +127,82 @@ export default function AIChatbotWithSidebar() {
     setError(null);
 
     try {
-      const combinedPrompt = `${portfolioInfo}\n\nUser query: ${currentInput}\n\nInstructions:\n- If the user's question is about the portfolio, answer using only the portfolio information above.\n- If the user's question is outside the portfolio, answer directly and helpfully based on the question.\n- If the user's query asks for programming help or includes code, detect the programming language and explain step-by-step how to solve the problem. Provide a clear, runnable code example inside a fenced code block with the appropriate language tag (for example \`\`\`js).\n- When providing code examples, keep them concise and runnable, and include any commands required to run them.\n- Prefer short, actionable guidance and state any assumptions you make.\n`;
+      const combinedPrompt = `You are an intelligent AI assistant specialized in answering questions about Yusril Prayoga's portfolio and providing general assistance.
+
+# PORTFOLIO CONTEXT
+${portfolioInfo}
+
+# YOUR TASK
+Analyze and respond to the following user query: "${currentInput}"
+
+# CRITICAL INSTRUCTION - MANDATORY THINKING PROCESS
+⚠️ IMPORTANT: You MUST ALWAYS start your response with thinking tags. This is ABSOLUTELY REQUIRED.
+
+Your response MUST follow this EXACT format (copy this structure):
+
+<think>
+Step 1 - Query Analysis:
+[Analyze what the user is asking]
+
+Step 2 - Information Gathering:
+[What information do I have?]
+
+Step 3 - Key Points:
+[Main points to cover]
+
+Step 4 - Answer Structure:
+[How to organize the response]
+
+Step 5 - Verification:
+[Check if logic is sound]
+</think>
+
+[Now write your final answer here]
+
+⚠️ VALIDATION: Your response MUST start with exactly "<think>" and include "</think>" before the final answer.
+Without thinking tags, the response will be marked as invalid.
+
+# RESPONSE GUIDELINES
+- **Portfolio Questions**: Use ONLY the provided portfolio context. Be specific and detailed.
+- **General Questions**: Use your knowledge base to provide helpful, accurate answers.
+- **Programming Help**: 
+  * Detect the programming language
+  * Explain step-by-step with clear reasoning
+  * Provide runnable code examples in proper code blocks (e.g., \`\`\`javascript)
+  * Include setup/run commands if needed
+- **Code Quality**: Make code concise, well-commented, and follow best practices
+- **Tone**: Be friendly, professional, and conversational
+- **Format**: Use proper markdown for readability (headings, lists, code blocks, etc.)
+
+# EXAMPLE RESPONSE (FOLLOW THIS FORMAT):
+<think>
+1. Query Analysis: The user is asking about Yusril's experience with NextJS - this is a portfolio-related question
+2. Information Gathering: From the context, I can see NextJS is listed under Technologies and several projects mention web development
+3. Key Points: His technical skills, relevant projects, and experience timeline
+4. Structure: I'll organize by overview, then projects, then technical depth
+5. Verification: The information is accurate and comes directly from the portfolio context
+</think>
+
+# Yusril's NextJS Experience
+
+Yusril Prayoga has extensive experience with NextJS as a Full Stack Developer...
+[rest of answer]
+
+REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT optional.`;
 
       console.log("[Chatbot] Starting AI generation...");
 
       const timeoutPromise = new Promise((_, reject) => {
-        // increase client-side timeout to 2 minutes to allow long streaming generations
+        // Reduced timeout to 60 seconds for faster response
         setTimeout(
-          () => reject(new Error("Request timeout after 120 seconds")),
-          120000
+          () => reject(new Error("Request timeout after 60 seconds")),
+          60000
         );
       });
 
-      // Request a moderately long total generation (target ~5000 tokens) to reduce provider timeouts
+      // Increased to 20000 tokens for very comprehensive responses with thinking process
       const generatePromise = generatePortfolio(combinedPrompt, "", {
-        maxTotalTokens: 2000,
+        maxTotalTokens: 8096,
       });
 
       const result = (await Promise.race([
@@ -149,6 +216,15 @@ export default function AIChatbotWithSidebar() {
 
       console.log("[Chatbot] Reading stream...");
 
+      let thinkingContent = "";
+      let finalContent = "";
+      let hasClosedThinkTag = false;
+      let isProcessingThinking = false;
+      
+      // Throttle UI updates to reduce re-renders
+      let lastUpdateTime = Date.now();
+      const UPDATE_INTERVAL = 100; // Update UI every 100ms (smoother but not too frequent)
+
       for await (const chunk of readStreamableValue(output)) {
         if (shouldStop) {
           console.log("[Chatbot] Generation stopped by user");
@@ -158,35 +234,149 @@ export default function AIChatbotWithSidebar() {
         chunkCount++;
         botResponse += chunk || "";
 
-        if (chunkCount % 3 === 0) {
+        // DeepSeek R1 uses <think> tags - check for multiple formats
+        // Format 1: <think>...</think>
+        // Format 2: <｜thinking｜>...</｜end_thinking｜> (some models use this)
+        // Format 3: First paragraph might be thinking if model uses natural language
+        
+        const thinkCloseMatch = botResponse.match(/<think>([\s\S]*?)<\/think>/);
+        const altThinkMatch = botResponse.match(/<｜thinking｜>([\s\S]*?)<｜end_thinking｜>/);
+        
+        if (thinkCloseMatch) {
+          // Complete thinking block found (standard format)
+          hasClosedThinkTag = true;
+          isProcessingThinking = false;
+          thinkingContent = thinkCloseMatch[1].trim();
+          
+          // Extract final content after </think>
+          const afterThink = botResponse.split("</think>")[1];
+          if (afterThink) {
+            finalContent = afterThink.trim();
+          }
+        } else if (altThinkMatch) {
+          // Alternative thinking format
+          hasClosedThinkTag = true;
+          isProcessingThinking = false;
+          thinkingContent = altThinkMatch[1].trim();
+          
+          const afterThink = botResponse.split("<｜end_thinking｜>")[1];
+          if (afterThink) {
+            finalContent = afterThink.trim();
+          }
+        } else if (botResponse.includes("<think>") && !botResponse.includes("</think>")) {
+          // Still collecting thinking content
+          isProcessingThinking = true;
+          const thinkOpenMatch = botResponse.match(/<think>([\s\S]*)$/);
+          if (thinkOpenMatch) {
+            thinkingContent = thinkOpenMatch[1].trim();
+          }
+          finalContent = ""; // Don't show content yet
+        } else if (botResponse.includes("<｜thinking｜>") && !botResponse.includes("<｜end_thinking｜>")) {
+          // Alternative format - still collecting
+          isProcessingThinking = true;
+          const altOpenMatch = botResponse.match(/<｜thinking｜>([\s\S]*)$/);
+          if (altOpenMatch) {
+            thinkingContent = altOpenMatch[1].trim();
+          }
+          finalContent = "";
+        } else if (!isProcessingThinking && !hasClosedThinkTag) {
+          // No thinking tags detected yet - show response directly
+          // Only show warning after response is complete and still no thinking
+          finalContent = botResponse;
+          // Don't set warning immediately, wait until end
+        }
+
+        // Throttled UI update - only update every 100ms or on important events
+        const now = Date.now();
+        const shouldUpdate = (now - lastUpdateTime >= UPDATE_INTERVAL) || 
+                            hasClosedThinkTag || 
+                            chunkCount % 50 === 0; // Also update every 50 chunks as backup
+
+        if (shouldUpdate) {
+          lastUpdateTime = now;
+          
           updateCurrentSession((prev) => {
             const newMessages = [...prev.messages];
             const lastMessage = newMessages[newMessages.length - 1];
+            
+            // Real-time display logic:
+            // - While thinking (before </think>): Show only thinking content, NO final answer
+            // - After thinking closed: Show final answer progressively
+            const contentToShow = hasClosedThinkTag ? finalContent : ""; // Only show content after thinking done
+            const thinkToShow = thinkingContent;
+            
             if (lastMessage && lastMessage.role === "bot") {
-              lastMessage.content = botResponse;
+              lastMessage.content = contentToShow;
+              lastMessage.thinking = thinkToShow;
             } else {
-              newMessages.push({ role: "bot", content: botResponse });
+              newMessages.push({ 
+                role: "bot", 
+                content: contentToShow,
+                thinking: thinkToShow
+              });
             }
             return { ...prev, messages: newMessages };
           });
         }
       }
-
+      
+      // After streaming completes, finalize the message with proper parsing
       console.log(
         `[Chatbot] Generation completed. Chunks: ${chunkCount}, Length: ${botResponse.length}`
       );
+      console.log("[Chatbot] Has closed think tag:", hasClosedThinkTag);
+      console.log("[Chatbot] Thinking content length:", thinkingContent.length);
+      console.log("[Chatbot] Final content length:", finalContent.length);
+      console.log("[Chatbot] Full response preview:", botResponse.substring(0, 300));
 
       if (!botResponse.trim()) {
         throw new Error("Empty response received from AI service");
       }
 
+      // Final parsing to ensure we capture everything correctly
+      let finalThinking = thinkingContent;
+      let finalAnswer = finalContent;
+
+      // Re-parse one more time to be sure
+      const finalThinkMatch = botResponse.match(/<think>([\s\S]*?)<\/think>/);
+      const finalAltThinkMatch = botResponse.match(/<｜thinking｜>([\s\S]*?)<｜end_thinking｜>/);
+      
+      if (finalThinkMatch) {
+        finalThinking = finalThinkMatch[1].trim();
+        const afterThinkTag = botResponse.split("</think>")[1];
+        if (afterThinkTag) {
+          finalAnswer = afterThinkTag.trim();
+        }
+      } else if (finalAltThinkMatch) {
+        finalThinking = finalAltThinkMatch[1].trim();
+        const afterThinkTag = botResponse.split("<｜end_thinking｜>")[1];
+        if (afterThinkTag) {
+          finalAnswer = afterThinkTag.trim();
+        }
+      } else if (!finalThinking) {
+        // No thinking tags found - use full response as answer
+        console.warn("[Chatbot] No thinking tags detected in final response");
+        finalAnswer = botResponse;
+        finalThinking = "";
+      }
+
+      console.log("[Chatbot] FINAL - Thinking:", finalThinking.substring(0, 100));
+      console.log("[Chatbot] FINAL - Answer:", finalAnswer.substring(0, 100));
+
+      // Update with final parsed content
       updateCurrentSession((prev) => {
         const newMessages = [...prev.messages];
         const lastMessage = newMessages[newMessages.length - 1];
+        
         if (lastMessage && lastMessage.role === "bot") {
-          lastMessage.content = botResponse;
+          lastMessage.content = finalAnswer;
+          lastMessage.thinking = finalThinking;
         } else {
-          newMessages.push({ role: "bot", content: botResponse });
+          newMessages.push({ 
+            role: "bot", 
+            content: finalAnswer,
+            thinking: finalThinking
+          });
         }
         return { ...prev, messages: newMessages };
       });
@@ -344,52 +534,129 @@ export default function AIChatbotWithSidebar() {
 
                 {/* Message Content */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                       {message.role === "user" ? "You" : "Assistant"}
                     </span>
+                    {/* Copy Button - Always Visible */}
+                    <button
+                      onClick={() => copyToClipboard(message.content)}
+                      className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-100 rounded transition-colors"
+                      title="Copy message"
+                    >
+                      <Copy className="h-4 w-4" />
+                    </button>
                   </div>
-                  <div className="prose prose-gray dark:prose-invert max-w-none">
+
+                  {/* Thinking Process - DeepSeek Style */}
+                  {message.thinking && message.thinking.length > 0 && (
+                    <details className="mb-4 group" open>
+                      <summary className="cursor-pointer select-none flex items-center gap-2 px-4 py-3 bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-950/50 transition-colors">
+                        <Sparkles className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                        <span className="text-sm font-medium text-purple-900 dark:text-purple-300">
+                          Thinking Process
+                        </span>
+                        <span className="ml-auto text-xs text-purple-600 dark:text-purple-400 group-open:rotate-180 transition-transform">
+                          ▼
+                        </span>
+                      </summary>
+                      <div className="mt-2 px-4 py-3 bg-purple-50/50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800 rounded-lg">
+                        <div className="prose prose-sm dark:prose-invert max-w-none text-purple-900 dark:text-purple-200 prose-p:my-2">
+                          <FormattedMessage
+                            content={message.thinking}
+                            role="bot"
+                          />
+                        </div>
+                      </div>
+                    </details>
+                  )}
+
+                  {/* Final Answer */}
+                  <div className="prose prose-sm dark:prose-invert max-w-none prose-p:my-2 prose-headings:mt-4 prose-headings:mb-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-1">
                     <FormattedMessage
                       content={message.content}
                       role={message.role}
                     />
-                  </div>
-
-                  {/* Copy Button */}
-                  <div className="flex items-center justify-end mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      onClick={() => copyToClipboard(message.content)}
-                      className="p-1.5 text-gray-400 hover:text-gray-600 rounded dark:text-gray-300 dark:hover:text-gray-100"
-                    >
-                      <Copy className="h-4 w-4" />
-                    </button>
                   </div>
                 </div>
               </div>
             </div>
           ))}
 
-          {/* Typing Indicator */}
+          {/* Live Thinking Process Display - Shows during generation */}
           {isGenerating && (
             <div className="mb-8">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0 mt-1">
                   <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                    <Bot className="h-4 w-4 text-white" />
+                    <Bot className="h-4 w-4 text-white animate-pulse" />
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center space-x-2 mb-2">
+                  <div className="flex items-center space-x-2 mb-3">
                     <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       Assistant
                     </span>
                   </div>
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse dark:bg-gray-500"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse delay-75 dark:bg-gray-500"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse delay-150 dark:bg-gray-500"></div>
-                  </div>
+                  
+                  {/* Real-time Thinking Content */}
+                  {(() => {
+                    const lastMessage = currentSession.messages[currentSession.messages.length - 1];
+                    const hasThinkingContent = lastMessage?.role === "bot" && lastMessage?.thinking;
+                    const hasFinalContent = lastMessage?.role === "bot" && lastMessage?.content;
+                    
+                    return (
+                      <>
+                        {/* Phase 1: Show thinking process while streaming (before final answer) */}
+                        {hasThinkingContent && (
+                          <div className="bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg p-4 mb-4">
+                            <div className="flex items-center gap-3 mb-3">
+                              <Sparkles className="h-5 w-5 text-purple-600 dark:text-purple-400 animate-pulse" />
+                              <span className="text-sm font-medium text-purple-900 dark:text-purple-300">
+                                💭 Thinking Process (Live)
+                              </span>
+                            </div>
+                            <div className="prose prose-sm dark:prose-invert max-w-none text-purple-900 dark:text-purple-200 prose-p:my-1 prose-p:text-sm">
+                              <FormattedMessage
+                                content={lastMessage.thinking || ""}
+                                role="bot"
+                              />
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Phase 2: Show final answer as it streams (after thinking complete) */}
+                        {hasFinalContent && lastMessage.content.length > 0 && (
+                          <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                            <div className="flex items-center gap-3 mb-3">
+                              <Bot className="h-5 w-5 text-green-600 dark:text-green-400 animate-pulse" />
+                              <span className="text-sm font-medium text-green-900 dark:text-green-300">
+                                ✨ Generating Answer...
+                              </span>
+                            </div>
+                            <div className="prose prose-sm dark:prose-invert max-w-none prose-p:my-2">
+                              <FormattedMessage
+                                content={lastMessage.content}
+                                role="bot"
+                              />
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Fallback: Initial loading state */}
+                        {!hasThinkingContent && !hasFinalContent && (
+                          <div className="bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
+                            <div className="flex items-center gap-3">
+                              <Sparkles className="h-5 w-5 text-purple-600 dark:text-purple-400 animate-pulse" />
+                              <span className="text-sm font-medium text-purple-900 dark:text-purple-300">
+                                Initializing AI thinking process...
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
             </div>
