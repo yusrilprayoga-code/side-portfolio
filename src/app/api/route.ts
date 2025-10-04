@@ -3,14 +3,29 @@
 import { createStreamableValue } from "ai/rsc"
 import OpenAI from "openai"
 
-const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.DEEPSEEK_API_KEY,
-  defaultHeaders: {
-    "HTTP-Referer": "https://side-portfolio.vercel.app", // Your site URL
-    "X-Title": "Yusril Prayoga Portfolio", // Your site title
-  },
-})
+// Lazy initialization to avoid build-time errors when env vars are missing
+let openaiInstance: OpenAI | null = null
+
+function getOpenAIClient(): OpenAI {
+  if (!openaiInstance) {
+    const apiKey = process.env.DEEPSEEK_API_KEY || process.env.OPENAI_API_KEY
+    
+    if (!apiKey) {
+      throw new Error("DEEPSEEK_API_KEY or OPENAI_API_KEY environment variable is required")
+    }
+    
+    openaiInstance = new OpenAI({
+      baseURL: "https://openrouter.ai/api/v1",
+      apiKey: apiKey,
+      defaultHeaders: {
+        "HTTP-Referer": "https://side-portfolio.vercel.app", // Your site URL
+        "X-Title": "Yusril Prayoga Portfolio", // Your site title
+      },
+    })
+  }
+  
+  return openaiInstance
+}
 
 const retry = async <T>(fn: () => Promise<T>, retries = 2, delay = 2000): Promise<T> => {
   for (let attempt = 1; attempt <= retries; attempt++) {
@@ -77,6 +92,9 @@ Based on the context and your general knowledge, please answer the following use
     console.log("[AI Stream] API Key present:", !!process.env.DEEPSEEK_API_KEY)
 
     let fullResponse = ""
+    
+    // Get OpenAI client instance (lazy initialization)
+    const openai = getOpenAIClient()
 
     // Make the streaming API call with retry logic
     const completion = await retry(async () => {
