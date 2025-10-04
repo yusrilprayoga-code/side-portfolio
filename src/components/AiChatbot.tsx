@@ -193,16 +193,17 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
       console.log("[Chatbot] Starting AI generation...");
 
       const timeoutPromise = new Promise((_, reject) => {
-        // Reduced timeout to 60 seconds for faster response
+        // Timeout set to 55 seconds (slightly less than Vercel's 60s limit for Pro)
         setTimeout(
-          () => reject(new Error("Request timeout after 60 seconds")),
-          60000
+          () => reject(new Error("Request timeout after 55 seconds")),
+          55000
         );
       });
 
-      // Increased to 20000 tokens for very comprehensive responses with thinking process
+      // Reduced to 4096 tokens for faster response and to avoid Vercel timeout
+      // This is sufficient for portfolio questions while staying under 10s on Hobby plan
       const generatePromise = generatePortfolio(combinedPrompt, "", {
-        maxTotalTokens: 8096,
+        maxTotalTokens: 4096,
       });
 
       const result = (await Promise.race([

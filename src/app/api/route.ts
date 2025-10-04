@@ -63,8 +63,8 @@ const retry = async <T>(fn: () => Promise<T>, retries = 2, delay = 2000): Promis
 
 async function processAIStream(context: string, prompt: string, model: string, options?: { maxTotalTokens?: number }) {
   const stream = createStreamableValue("")
-  // Use environment variable or passed option, default to 20000 tokens
-  const maxTokens = options?.maxTotalTokens ?? Number(process.env.DEEPSEEK_MAX_TOKENS) ?? 8096
+  // Reduced max tokens for faster response and avoid Vercel timeout (10s hobby, 60s pro)
+  const maxTokens = options?.maxTotalTokens ?? Number(process.env.DEEPSEEK_MAX_TOKENS) ?? 4096
   const temperature = Number(process.env.DEEPSEEK_TEMPERATURE) ?? 0.6
 
   try {
@@ -174,10 +174,14 @@ Based on the context and your general knowledge, please answer the following use
   return { output: stream.value }
 }
 
+// Configure Vercel serverless function timeout
+export const maxDuration = 60; // seconds (requires Vercel Pro plan, Hobby is 10s max)
+export const dynamic = 'force-dynamic'; // Ensure this is always dynamic
+
 export async function generateChat(context: string, prompt: string, options?: { maxTotalTokens?: number }) {
   try {
-    // Testing specific DeepSeek Chat version (v3-0324) with free tier
-    return await processAIStream(context, prompt, "openai/gpt-oss-20b:free", options)
+    // Use DeepSeek Chat paid version for reliability and speed
+    return await processAIStream(context, prompt, "deepseek/deepseek-chat", options)
   } catch (error) {
     console.error("[generateChat] Error:", error)
     throw error
@@ -186,8 +190,8 @@ export async function generateChat(context: string, prompt: string, options?: { 
 
 export async function generatePortfolio(context: string, prompt: string, options?: { maxTotalTokens?: number }) {
   try {
-    // Testing specific DeepSeek Chat version (v3-0324) with free tier
-    return await processAIStream(context, prompt, "openai/gpt-oss-20b:free", options)
+    // Use DeepSeek Chat paid version for reliability and speed
+    return await processAIStream(context, prompt, "deepseek/deepseek-chat", options)
   } catch (error) {
     console.error("[generatePortfolio] Error:", error)
     throw error
