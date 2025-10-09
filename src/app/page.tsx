@@ -4,7 +4,7 @@ import { Highlight } from "@/components/Highlight";
 import { Paragraph } from "@/components/Paragraph";
 import { Products } from "@/components/Products";
 import { TechStack } from "@/components/TechStack";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import CircularText from "@/blocks/TextAnimations/CircularText/CircularText";
 
 export default function Home() {
@@ -12,12 +12,14 @@ export default function Home() {
     <Container>
       <div className="flex flex-col items-center text-center">
         <div className="relative w-[250px] mb-14">
-          {/* Profile Image */}
-          <Image
+          {/* Profile Image - Optimized for 3G networks */}
+          <OptimizedImage
             src="/images/profil.JPG"
             width={250}
             height={300}
             alt="Yusril Prayoga"
+            priority={true}
+            quality={80}
             className="rounded-3xl mt-4 object-cover shadow-md 
             hover:shadow-xl hover:scale-105 transition duration-300 ease-in-out"
           />

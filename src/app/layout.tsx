@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { Footer } from "@/components/Footer";
+import { CookieConsent } from "@/components/CookieConsent";
 
 
 const inter = Inter({
@@ -61,6 +62,10 @@ export default function RootLayout({
             <Footer />
           </div>
         </div>
+        <CookieConsent 
+          companyName="Yusril Prayoga Portfolio"
+          privacyPolicyUrl="/privacy-policy"
+        />
       </body>
     </html>
   );

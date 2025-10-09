@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "optimize:images": "powershell -ExecutionPolicy Bypass -File ./scripts/optimize-images.ps1",
+    "analyze": "cross-env ANALYZE=true next build",
+    "lighthouse": "lighthouse http://localhost:3000 --view"
   },
   "dependencies": {
     "@ai-sdk/cohere": "^1.1.0",
