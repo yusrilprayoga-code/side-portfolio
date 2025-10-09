@@ -101,7 +101,7 @@ export default function AIChatbotWithSidebar() {
     - Design: Figma, Adobe XD
 
     Work Experience:
-    - Dataiku Development at Pertamina Hulu Indonesia Aug 25 - Present
+    - Dataiku Development at Pertamina Hulu Rokan Aug 25 - Present
     - Full Stack Developer at B-Otomotif 2018 - Present
     - Full Stack Developer at Cleanique Academy (PT. Indotech Berkah Abadi) Internship Sep 24 - Jan 25
     - Bangkit Academy 2024 By Google, GoTo, Traveloka - Cloud Computing Learning Path Feb 2024 - June 2024
