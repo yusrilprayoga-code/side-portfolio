@@ -1,0 +1,59 @@
+{
+  "name": "Side Portfolio - Yusril Prayoga",
+  "short_name": "Portfolio",
+  "description": "Personal portfolio website showcasing projects, skills, and experience",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/profil.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/profil.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "personal", "developer"],
+  "shortcuts": [
+    {
+      "name": "View Projects",
+      "short_name": "Projects",
+      "description": "Browse all projects",
+      "url": "/#projects",
+      "icons": [
+        {
+          "src": "/images/profil.jpg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "About Me",
+      "short_name": "About",
+      "description": "Learn more about me",
+      "url": "/#about",
+      "icons": [
+        {
+          "src": "/images/profil.jpg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/about.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide"
+    }
+  ]
+}
