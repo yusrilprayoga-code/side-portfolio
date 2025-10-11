@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
 import OnlineStatusIndicator from "@/components/OnlineStatusIndicator";
+import LiveVisitorCounterWithAPI from "@/components/LiveVisitorCounterWithAPI";
 import Script from "next/script";
 
 
@@ -108,6 +109,9 @@ export default function RootLayout({
         
         {/* Online/Offline Indicator */}
         <OnlineStatusIndicator />
+        
+        {/* Live Visitor Counter with Real Tracking */}
+        <LiveVisitorCounterWithAPI />
         
         {/* Cookie Consent */}
         <CookieConsent 
