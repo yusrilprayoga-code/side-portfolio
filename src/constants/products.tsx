@@ -1,5 +1,44 @@
 export const products = [
   {
+    href: "https://github.com/yusrilprayoga-code/orchidbrand-e-commerce.git",
+    title: "Orchid Brand E-Commerce",
+    description:
+      "A design and development studio that focuses on building quality apps.",
+    thumbnail: "/images/sidefolio-e-commerce.png",
+    images: [
+      "/images/sidefolio-e-commerce.png",
+      "/images/sidefolio-e-commerce2.png",
+    ],
+    stack: ["Laravel", "Tailwindcss", "Mysql"],
+    slug: "orchidbrand-e-commerce",
+    content: (
+      <div>
+        <p>
+          Orchid Brand E-Commerce is a modern and innovative online shopping
+          platform that offers a wide range of products and services to
+          customers. The website is designed to provide a seamless and
+          convenient shopping experience, allowing users to browse through
+          different categories, view product details, and make purchases with
+          ease. With a focus on quality, affordability, and customer
+          satisfaction, Orchid Brand E-Commerce offers a diverse selection of
+          products, including clothing, accessories, electronics, and home
+          goods, catering to a wide range of tastes and preferences.{" "}
+        </p>
+        <p>
+          The website features a user-friendly interface that allows customers
+          to easily navigate through different sections, search for specific
+          products, and access customer reviews and ratings. With secure payment
+          options, fast shipping, and excellent customer service, Orchid Brand
+          E-Commerce is dedicated to providing a positive and enjoyable online
+          shopping experience for all users. Whether you are looking for the
+          latest fashion trends, cutting-edge gadgets, or unique home decor,
+          Orchid Brand E-Commerce is your go-to destination for quality products
+          and exceptional service.
+        </p>{" "}
+      </div>
+    ),
+  },
+  {
     href: "https://cleaniqueacademy.com/",
     title: "Cleanique Academy",
     description:
@@ -15,14 +54,14 @@ export const products = [
       <div>
         <p>
           Cleanique Academy is a modern and innovative online learning platform
-          that offers a wide range of courses and training programs for
-          cleaning professionals. The platform is designed to provide
-          high-quality education and practical skills training to individuals
-          seeking to enhance their knowledge and expertise in the cleaning
-          industry. With a focus on professional development and career
-          advancement, Cleanique Academy offers a comprehensive curriculum,
-          interactive learning materials, and expert instruction to help
-          students succeed in their chosen field.{" "}
+          that offers a wide range of courses and training programs for cleaning
+          professionals. The platform is designed to provide high-quality
+          education and practical skills training to individuals seeking to
+          enhance their knowledge and expertise in the cleaning industry. With a
+          focus on professional development and career advancement, Cleanique
+          Academy offers a comprehensive curriculum, interactive learning
+          materials, and expert instruction to help students succeed in their
+          chosen field.{" "}
         </p>
         <p>
           The website features a user-friendly interface that allows students to
@@ -31,8 +70,8 @@ export const products = [
           excellence and innovation, Cleanique Academy is dedicated to
           empowering cleaning professionals with the knowledge and skills they
           need to excel in their careers. Whether you are a seasoned cleaning
-          expert or a newcomer to the industry, Cleanique Academy is your
-          go-to destination for quality education and professional development.
+          expert or a newcomer to the industry, Cleanique Academy is your go-to
+          destination for quality education and professional development.
         </p>{" "}
       </div>
     ),
@@ -192,10 +231,7 @@ export const products = [
     description:
       "A design and development studio that focuses on building quality apps.",
     thumbnail: "/images/sidefolio-chatbot.png",
-    images: [
-      "/images/sidefolio-chatbot.png",
-      "/images/sidefolio-chatbot.png",
-    ],
+    images: ["/images/sidefolio-chatbot.png", "/images/sidefolio-chatbot.png"],
     stack: ["Nextjs", "Tailwindcss", "Axios"],
     slug: "chatbot-free",
     content: (
@@ -296,10 +332,7 @@ export const products = [
     description:
       "A design and development studio that focuses on building quality apps.",
     thumbnail: "/images/sidefolio-tsunami.png",
-    images: [
-      "/images/sidefolio-tsunami.png",
-      "/images/sidefolio-tsunami.png",
-    ],
+    images: ["/images/sidefolio-tsunami.png", "/images/sidefolio-tsunami.png"],
     stack: ["PHP Native", "MySql"],
     slug: "tsunami-warning-center-system",
     content: (
@@ -308,11 +341,11 @@ export const products = [
           Tsunami Warning Center System is a web application that provides
           real-time monitoring and alerting services for potential tsunami
           events. The system is designed to collect data from various sources,
-          analyze seismic activity, and issue warnings to coastal communities
-          in the event of a tsunami threat. By leveraging advanced algorithms
-          and predictive models, the system can accurately predict the
-          likelihood and severity of a tsunami, allowing authorities to take
-          timely and effective action to protect lives and property.{" "}
+          analyze seismic activity, and issue warnings to coastal communities in
+          the event of a tsunami threat. By leveraging advanced algorithms and
+          predictive models, the system can accurately predict the likelihood
+          and severity of a tsunami, allowing authorities to take timely and
+          effective action to protect lives and property.{" "}
         </p>
         <p>
           The web application features a user-friendly interface that displays
@@ -376,30 +409,29 @@ export const products = [
       "/images/sidefolio-picstash.png",
       "/images/sidefolio-picstash2.png",
     ],
-    stack: ["Nextjs", "Tailwindcss","Postgres","Prisma"],
+    stack: ["Nextjs", "Tailwindcss", "Postgres", "Prisma"],
     slug: "picstash",
     content: (
       <div>
         <p>
-          PicStash is a Web Application that provides users
-          to Share and Store their Photos. Same as Unsplash but with more
-          features. The app utilizes advanced algorithms to analyze user
-          data and generate tailored Photos, ensuring that users discover new
-          Photos that match their tastes and interests. With a
-          sleek and intuitive interface, PicStash offers a
-          seamless and engaging experience, allowing users to easily browse
-          through Photos, view detailed information, and save
+          PicStash is a Web Application that provides users to Share and Store
+          their Photos. Same as Unsplash but with more features. The app
+          utilizes advanced algorithms to analyze user data and generate
+          tailored Photos, ensuring that users discover new Photos that match
+          their tastes and interests. With a sleek and intuitive interface,
+          PicStash offers a seamless and engaging experience, allowing users to
+          easily browse through Photos, view detailed information, and save
           favorites for later viewing.{" "}
         </p>
         <p>
           The app is designed to enhance the Photo-sharing experience by
-          providing users with relevant and high-quality Photos that
-          align with their preferences. By leveraging cutting-edge machine
-          learning and data analysis techniques, PicStash offers
-          a curated selection of Photos that cater to a wide range of genres,
-          themes, and styles. Whether you are a casual Photo lover or a dedicated
-          Photo buff, PicStash is your go-to source for
-          discovering new and exciting Photos to enjoy
+          providing users with relevant and high-quality Photos that align with
+          their preferences. By leveraging cutting-edge machine learning and
+          data analysis techniques, PicStash offers a curated selection of
+          Photos that cater to a wide range of genres, themes, and styles.
+          Whether you are a casual Photo lover or a dedicated Photo buff,
+          PicStash is your go-to source for discovering new and exciting Photos
+          to enjoy
         </p>{" "}
       </div>
     ),
@@ -410,10 +442,7 @@ export const products = [
     description:
       "A design and development studio that focuses on building quality apps.",
     thumbnail: "/images/sidefolio-netflix.png",
-    images: [
-      "/images/sidefolio-netflix.png",
-      "/images/sidefolio-netflix.png",
-    ],
+    images: ["/images/sidefolio-netflix.png", "/images/sidefolio-netflix.png"],
     stack: ["Html", "Css"],
     slug: "netflix-redesign",
     content: (
@@ -447,10 +476,7 @@ export const products = [
     description:
       "A design and development studio that focuses on building quality apps.",
     thumbnail: "/images/sidefolio-nomads.jpeg",
-    images: [
-      "/images/sidefolio-nomads.jpeg",
-      "/images/sidefolio-nomads2.jpeg",
-    ],
+    images: ["/images/sidefolio-nomads.jpeg", "/images/sidefolio-nomads2.jpeg"],
     stack: ["PHP", "MySql"],
     slug: "pariwisata",
     content: (
@@ -485,10 +511,7 @@ export const products = [
     description:
       "A design and development studio that focuses on building quality apps.",
     thumbnail: "/images/sidefolio-movie.png",
-    images: [
-      "/images/sidefolio-movie-2.png",
-      "/images/sidefolio-movie-3.png",
-    ],
+    images: ["/images/sidefolio-movie-2.png", "/images/sidefolio-movie-3.png"],
     stack: ["Flutter", "Hive", "Lottie"],
     slug: "movie-recommendation-app",
     content: (
@@ -498,11 +521,11 @@ export const products = [
           with personalized movie recommendations based on their preferences and
           viewing history. The app utilizes advanced algorithms to analyze user
           data and generate tailored movie suggestions, ensuring that users
-          discover new films that match their tastes and interests. With a
-          sleek and intuitive interface, Movie Recommendation App offers a
-          seamless and engaging experience, allowing users to easily browse
-          through recommended movies, view detailed information, and save
-          favorites for later viewing.{" "}
+          discover new films that match their tastes and interests. With a sleek
+          and intuitive interface, Movie Recommendation App offers a seamless
+          and engaging experience, allowing users to easily browse through
+          recommended movies, view detailed information, and save favorites for
+          later viewing.{" "}
         </p>
         <p>
           The app is designed to enhance the movie-watching experience by
@@ -532,15 +555,15 @@ export const products = [
     content: (
       <div>
         <p>
-          Ecommerce App is a mobile application that provides users
-          with personalized movie recommendations based on their preferences and
+          Ecommerce App is a mobile application that provides users with
+          personalized movie recommendations based on their preferences and
           viewing history. The app utilizes advanced algorithms to analyze user
           data and generate tailored movie suggestions, ensuring that users
-          discover new films that match their tastes and interests. With a
-          sleek and intuitive interface, Movie Recommendation App offers a
-          seamless and engaging experience, allowing users to easily browse
-          through recommended movies, view detailed information, and save
-          favorites for later viewing.{" "}
+          discover new films that match their tastes and interests. With a sleek
+          and intuitive interface, Movie Recommendation App offers a seamless
+          and engaging experience, allowing users to easily browse through
+          recommended movies, view detailed information, and save favorites for
+          later viewing.{" "}
         </p>
         <p>
           The app is designed to enhance the movie-watching experience by
@@ -561,10 +584,7 @@ export const products = [
     description:
       "A design and development studio that focuses on building quality apps.",
     thumbnail: "/images/sidefolio-uiux.png",
-    images: [
-      "/images/sidefolio-uiux.png",
-      "/images/sidefolio-uiux.png",
-    ],
+    images: ["/images/sidefolio-uiux.png", "/images/sidefolio-uiux.png"],
     stack: ["Figma", "Adobe XD"],
     slug: "arcipe-ui-ux",
     content: (
@@ -610,25 +630,24 @@ export const products = [
       <div>
         <p>
           Tailwind Master Kit is a versatile and extensive library of Tailwind
-          CSS components designed to help developers build modern and
-          responsive websites and applications. With a wide range of
-          customizable elements, styles, and layouts, Tailwind Master Kit
-          provides a comprehensive toolkit for creating beautiful and
-          functional user interfaces. The library includes components for
-          navigation menus, hero sections, pricing tables, testimonials, and
-          more, making it easy to design and develop professional-looking
-          websites with minimal effort.{" "}
+          CSS components designed to help developers build modern and responsive
+          websites and applications. With a wide range of customizable elements,
+          styles, and layouts, Tailwind Master Kit provides a comprehensive
+          toolkit for creating beautiful and functional user interfaces. The
+          library includes components for navigation menus, hero sections,
+          pricing tables, testimonials, and more, making it easy to design and
+          develop professional-looking websites with minimal effort.{" "}
         </p>
         <p>
           The components in Tailwind Master Kit are built with accessibility,
           responsiveness, and usability in mind, ensuring that developers can
-          create inclusive and user-friendly interfaces. Each component is
-          fully customizable, allowing for easy integration into existing
-          projects and seamless adaptation to different design requirements.
-          Whether you are working on a personal portfolio, a corporate website,
-          or a web application, Tailwind Master Kit offers a wealth of
-          high-quality components to enhance your development workflow and
-          elevate your design capabilities.
+          create inclusive and user-friendly interfaces. Each component is fully
+          customizable, allowing for easy integration into existing projects and
+          seamless adaptation to different design requirements. Whether you are
+          working on a personal portfolio, a corporate website, or a web
+          application, Tailwind Master Kit offers a wealth of high-quality
+          components to enhance your development workflow and elevate your
+          design capabilities.
         </p>{" "}
       </div>
     ),
