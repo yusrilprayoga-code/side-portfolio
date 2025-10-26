@@ -1,7 +1,7 @@
 export const timeline = [
   {
     company: "PT. Pertamina Hulu Rokan",
-    title: "Dataiku Development",
+    title: "Software Developer (Project-Based)",
     date: "Aug 25 - Present",
     description: "Building a platform to help people manage their data",
     responsibilities: [
@@ -27,7 +27,8 @@ export const timeline = [
     company: "Junior Web Developer ",
     title: "Digital Talent Scholarship",
     date: "Aug 2024 - Aug 2024",
-    description: "Building a platform to help people find the best place to holiday",
+    description:
+      "Building a platform to help people find the best place to holiday",
     responsibilities: [
       "Developed a new feature that improves the user experience",
       "Implemented a recommendation algorithm to suggest the best place to holiday",
@@ -36,10 +37,12 @@ export const timeline = [
     ],
   },
   {
-    company: "Bangkit Academy 2024 By Google, GoTo, Traveloka - Cloud Computing Learning Path ",
+    company:
+      "Bangkit Academy 2024 By Google, GoTo, Traveloka - Cloud Computing Learning Path ",
     title: "Cloud Computing Learning Path",
     date: "Feb 2024 - June 2024",
-    description: "Building BatikLens - A platform to help people to find the best Batik",
+    description:
+      "Building BatikLens - A platform to help people to find the best Batik",
     responsibilities: [
       "Developed a new feature that improves the user experience",
       "Implemented a recommendation algorithm to suggest the best Batik",
