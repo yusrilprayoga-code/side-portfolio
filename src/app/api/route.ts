@@ -64,8 +64,8 @@ const retry = async <T>(fn: () => Promise<T>, retries = 2, delay = 2000): Promis
 async function processAIStream(context: string, prompt: string, model: string, options?: { maxTotalTokens?: number }) {
   const stream = createStreamableValue("")
   // Optimized for Netlify Functions timeout (10s Free, 26s Pro)
-  // Using 3072 tokens for faster response and reliability
-  const maxTokens = options?.maxTotalTokens ?? Number(process.env.DEEPSEEK_MAX_TOKENS) ?? 3072
+  // Using 4072 tokens for faster response and reliability
+  const maxTokens = options?.maxTotalTokens ?? Number(process.env.DEEPSEEK_MAX_TOKENS) ?? 4072
   const temperature = Number(process.env.DEEPSEEK_TEMPERATURE) ?? 0.6
 
   try {
@@ -182,17 +182,25 @@ Based on the context and your general knowledge, please answer the following use
 export async function generateChat(context: string, prompt: string, options?: { maxTotalTokens?: number }) {
   try {
     // Use DeepSeek Chat paid version for reliability and speed
-    return await processAIStream(context, prompt, "deepseek/deepseek-chat", options)
+    return await processAIStream(context, prompt, "x-ai/grok-code-fast-1", options)
   } catch (error) {
     console.error("[generateChat] Error:", error)
     throw error
   }
 }
 
-export async function generatePortfolio(context: string, prompt: string, options?: { maxTotalTokens?: number }) {
+export async function generatePortfolio(
+  context: string, 
+  prompt: string, 
+  options?: { 
+    maxTotalTokens?: number;
+    model?: string;
+  }
+) {
   try {
-    // Use DeepSeek Chat paid version for reliability and speed
-    return await processAIStream(context, prompt, "deepseek/deepseek-chat", options)
+    // Use custom model if provided, otherwise default to Grok
+    const modelToUse = options?.model || "x-ai/grok-code-fast-1";
+    return await processAIStream(context, prompt, modelToUse, options)
   } catch (error) {
     console.error("[generatePortfolio] Error:", error)
     throw error

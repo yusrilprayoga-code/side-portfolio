@@ -10,10 +10,18 @@ import {
   Sparkles,
   MessageCircle,
   User,
+  Plus,
+  Shuffle,
+  History,
+  ChevronDown,
+  ArrowUp,
+  Brain,
 } from "lucide-react";
 import { readStreamableValue } from "ai/rsc";
 import FormattedMessage from "@/components/formatted-message";
 import { generatePortfolio } from "@/app/api/route";
+import { useThinkingLimit } from "@/hooks/useThinkingLimit";
+import { AIModel, availableModels, defaultModel } from "@/types/ai-models";
 
 // Extended Message type with thinking process support
 type Message = {
@@ -40,6 +48,18 @@ export default function AIChatbotWithSidebar() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
+  // New features state
+  const [selectedModel, setSelectedModel] = useState<AIModel>(defaultModel);
+  const [showModelDropdown, setShowModelDropdown] = useState(false);
+  const [showHistorySidebar, setShowHistorySidebar] = useState(false);
+  const {
+    remainingThinking,
+    isThinkingEnabled,
+    setIsThinkingEnabled,
+    consumeThinking,
+    canUseThinking,
+  } = useThinkingLimit();
+
   const autoInput = " Hi, Can you tell me more about your portfolio?";
 
   React.useEffect(() => {
@@ -60,6 +80,22 @@ export default function AIChatbotWithSidebar() {
   const handleAutoSend = () => {
     setInput(autoInput);
     setTimeout(() => handleSend(), 100);
+  };
+
+  const handleNewChat = () => {
+    const newSession: ChatSession = {
+      id: Date.now().toString(),
+      name: "New Chat",
+      messages: [],
+    };
+    setChatSessions([...chatSessions, newSession]);
+    setCurrentSessionId(newSession.id);
+    setShowHistorySidebar(false); // Close history after creating new chat
+  };
+
+  const handleSelectSession = (sessionId: string) => {
+    setCurrentSessionId(sessionId);
+    setShowHistorySidebar(false); // Close history after selecting
   };
 
   const currentSession =
@@ -127,14 +163,14 @@ export default function AIChatbotWithSidebar() {
     setError(null);
 
     try {
-      const combinedPrompt = `You are an intelligent AI assistant specialized in answering questions about Yusril Prayoga's portfolio and providing general assistance.
-
-# PORTFOLIO CONTEXT
-${portfolioInfo}
-
-# YOUR TASK
-Analyze and respond to the following user query: "${currentInput}"
-
+      // Check if thinking is enabled and use quota
+      const willUseThinking = canUseThinking;
+      if (willUseThinking) {
+        consumeThinking(); // Decrement thinking counter
+      }
+      // Build thinking instruction based on toggle
+      const thinkingInstruction = willUseThinking
+        ? `
 # CRITICAL INSTRUCTION - MANDATORY THINKING PROCESS
 ⚠️ IMPORTANT: You MUST ALWAYS start your response with thinking tags. This is ABSOLUTELY REQUIRED.
 
@@ -188,23 +224,58 @@ Without thinking tags, the response will be marked as invalid.
 Yusril Prayoga has extensive experience with NextJS as a Full Stack Developer...
 [rest of answer]
 
-REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT optional.`;
+REMEMBER: ${
+            willUseThinking
+              ? "ALWAYS start with <think> tags before your final answer"
+              : "Provide direct answers without thinking process"
+          }. This is NOT optional.
+`
+        : `
+# INSTRUCTION
+Provide a direct, concise answer without showing your thinking process.
+Focus on clarity and brevity.
+`;
+
+      const combinedPrompt = `You are an intelligent AI assistant specialized in answering questions about Yusril Prayoga's portfolio and providing general assistance.
+
+# PORTFOLIO CONTEXT
+${portfolioInfo}
+
+# YOUR TASK
+Analyze and respond to the following user query: "${currentInput}"
+
+${thinkingInstruction}
+
+# RESPONSE GUIDELINES
+- **Portfolio Questions**: Use ONLY the provided portfolio context. Be specific and detailed.
+- **General Questions**: Use your knowledge base to provide helpful, accurate answers.
+- **Programming Help**: Detect language, explain step-by-step, provide runnable code examples
+- **Code Quality**: Make code concise, well-commented, and follow best practices
+- **Tone**: Be friendly, professional, and conversational
+- **Format**: Use proper markdown for readability (headings, lists, code blocks, etc.)
+
+${
+  willUseThinking
+    ? "REMEMBER: ALWAYS start with <think> tags before your final answer."
+    : ""
+}`;
 
       console.log("[Chatbot] Starting AI generation...");
+      console.log("[Chatbot] Model:", selectedModel.name);
+      console.log("[Chatbot] Thinking enabled:", willUseThinking);
+      console.log("[Chatbot] Remaining thinking:", remainingThinking);
 
       const timeoutPromise = new Promise((_, reject) => {
-        // Netlify Functions timeout: Free 10s, Pro 26s
-        // Setting to 25s for safety margin on Pro plan
         setTimeout(
           () => reject(new Error("Request timeout after 25 seconds")),
           25000
         );
       });
 
-      // Reduced to 3072 tokens for faster response on Netlify (10s free tier limit)
-      // This is sufficient for portfolio questions with quick response time
+      // Use selected model and its token limit
       const generatePromise = generatePortfolio(combinedPrompt, "", {
-        maxTotalTokens: 3072,
+        maxTotalTokens: selectedModel.maxTokens,
+        model: selectedModel.id,
       });
 
       const result = (await Promise.race([
@@ -222,7 +293,7 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
       let finalContent = "";
       let hasClosedThinkTag = false;
       let isProcessingThinking = false;
-      
+
       // Throttle UI updates to reduce re-renders
       let lastUpdateTime = Date.now();
       const UPDATE_INTERVAL = 100; // Update UI every 100ms (smoother but not too frequent)
@@ -240,16 +311,18 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
         // Format 1: <think>...</think>
         // Format 2: <｜thinking｜>...</｜end_thinking｜> (some models use this)
         // Format 3: First paragraph might be thinking if model uses natural language
-        
+
         const thinkCloseMatch = botResponse.match(/<think>([\s\S]*?)<\/think>/);
-        const altThinkMatch = botResponse.match(/<｜thinking｜>([\s\S]*?)<｜end_thinking｜>/);
-        
+        const altThinkMatch = botResponse.match(
+          /<｜thinking｜>([\s\S]*?)<｜end_thinking｜>/
+        );
+
         if (thinkCloseMatch) {
           // Complete thinking block found (standard format)
           hasClosedThinkTag = true;
           isProcessingThinking = false;
           thinkingContent = thinkCloseMatch[1].trim();
-          
+
           // Extract final content after </think>
           const afterThink = botResponse.split("</think>")[1];
           if (afterThink) {
@@ -260,12 +333,15 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
           hasClosedThinkTag = true;
           isProcessingThinking = false;
           thinkingContent = altThinkMatch[1].trim();
-          
+
           const afterThink = botResponse.split("<｜end_thinking｜>")[1];
           if (afterThink) {
             finalContent = afterThink.trim();
           }
-        } else if (botResponse.includes("<think>") && !botResponse.includes("</think>")) {
+        } else if (
+          botResponse.includes("<think>") &&
+          !botResponse.includes("</think>")
+        ) {
           // Still collecting thinking content
           isProcessingThinking = true;
           const thinkOpenMatch = botResponse.match(/<think>([\s\S]*)$/);
@@ -273,7 +349,10 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
             thinkingContent = thinkOpenMatch[1].trim();
           }
           finalContent = ""; // Don't show content yet
-        } else if (botResponse.includes("<｜thinking｜>") && !botResponse.includes("<｜end_thinking｜>")) {
+        } else if (
+          botResponse.includes("<｜thinking｜>") &&
+          !botResponse.includes("<｜end_thinking｜>")
+        ) {
           // Alternative format - still collecting
           isProcessingThinking = true;
           const altOpenMatch = botResponse.match(/<｜thinking｜>([\s\S]*)$/);
@@ -290,38 +369,39 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
 
         // Throttled UI update - only update every 100ms or on important events
         const now = Date.now();
-        const shouldUpdate = (now - lastUpdateTime >= UPDATE_INTERVAL) || 
-                            hasClosedThinkTag || 
-                            chunkCount % 50 === 0; // Also update every 50 chunks as backup
+        const shouldUpdate =
+          now - lastUpdateTime >= UPDATE_INTERVAL ||
+          hasClosedThinkTag ||
+          chunkCount % 50 === 0; // Also update every 50 chunks as backup
 
         if (shouldUpdate) {
           lastUpdateTime = now;
-          
+
           updateCurrentSession((prev) => {
             const newMessages = [...prev.messages];
             const lastMessage = newMessages[newMessages.length - 1];
-            
+
             // Real-time display logic:
             // - While thinking (before </think>): Show only thinking content, NO final answer
             // - After thinking closed: Show final answer progressively
             const contentToShow = hasClosedThinkTag ? finalContent : ""; // Only show content after thinking done
             const thinkToShow = thinkingContent;
-            
+
             if (lastMessage && lastMessage.role === "bot") {
               lastMessage.content = contentToShow;
               lastMessage.thinking = thinkToShow;
             } else {
-              newMessages.push({ 
-                role: "bot", 
+              newMessages.push({
+                role: "bot",
                 content: contentToShow,
-                thinking: thinkToShow
+                thinking: thinkToShow,
               });
             }
             return { ...prev, messages: newMessages };
           });
         }
       }
-      
+
       // After streaming completes, finalize the message with proper parsing
       console.log(
         `[Chatbot] Generation completed. Chunks: ${chunkCount}, Length: ${botResponse.length}`
@@ -329,7 +409,10 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
       console.log("[Chatbot] Has closed think tag:", hasClosedThinkTag);
       console.log("[Chatbot] Thinking content length:", thinkingContent.length);
       console.log("[Chatbot] Final content length:", finalContent.length);
-      console.log("[Chatbot] Full response preview:", botResponse.substring(0, 300));
+      console.log(
+        "[Chatbot] Full response preview:",
+        botResponse.substring(0, 300)
+      );
 
       if (!botResponse.trim()) {
         throw new Error("Empty response received from AI service");
@@ -341,8 +424,10 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
 
       // Re-parse one more time to be sure
       const finalThinkMatch = botResponse.match(/<think>([\s\S]*?)<\/think>/);
-      const finalAltThinkMatch = botResponse.match(/<｜thinking｜>([\s\S]*?)<｜end_thinking｜>/);
-      
+      const finalAltThinkMatch = botResponse.match(
+        /<｜thinking｜>([\s\S]*?)<｜end_thinking｜>/
+      );
+
       if (finalThinkMatch) {
         finalThinking = finalThinkMatch[1].trim();
         const afterThinkTag = botResponse.split("</think>")[1];
@@ -362,22 +447,25 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
         finalThinking = "";
       }
 
-      console.log("[Chatbot] FINAL - Thinking:", finalThinking.substring(0, 100));
+      console.log(
+        "[Chatbot] FINAL - Thinking:",
+        finalThinking.substring(0, 100)
+      );
       console.log("[Chatbot] FINAL - Answer:", finalAnswer.substring(0, 100));
 
       // Update with final parsed content
       updateCurrentSession((prev) => {
         const newMessages = [...prev.messages];
         const lastMessage = newMessages[newMessages.length - 1];
-        
+
         if (lastMessage && lastMessage.role === "bot") {
           lastMessage.content = finalAnswer;
           lastMessage.thinking = finalThinking;
         } else {
-          newMessages.push({ 
-            role: "bot", 
+          newMessages.push({
+            role: "bot",
             content: finalAnswer,
-            thinking: finalThinking
+            thinking: finalThinking,
           });
         }
         return { ...prev, messages: newMessages };
@@ -600,13 +688,18 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
                       Assistant
                     </span>
                   </div>
-                  
+
                   {/* Real-time Thinking Content */}
                   {(() => {
-                    const lastMessage = currentSession.messages[currentSession.messages.length - 1];
-                    const hasThinkingContent = lastMessage?.role === "bot" && lastMessage?.thinking;
-                    const hasFinalContent = lastMessage?.role === "bot" && lastMessage?.content;
-                    
+                    const lastMessage =
+                      currentSession.messages[
+                        currentSession.messages.length - 1
+                      ];
+                    const hasThinkingContent =
+                      lastMessage?.role === "bot" && lastMessage?.thinking;
+                    const hasFinalContent =
+                      lastMessage?.role === "bot" && lastMessage?.content;
+
                     return (
                       <>
                         {/* Phase 1: Show thinking process while streaming (before final answer) */}
@@ -626,7 +719,7 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
                             </div>
                           </div>
                         )}
-                        
+
                         {/* Phase 2: Show final answer as it streams (after thinking complete) */}
                         {hasFinalContent && lastMessage.content.length > 0 && (
                           <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg p-4">
@@ -644,7 +737,7 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
                             </div>
                           </div>
                         )}
-                        
+
                         {/* Fallback: Initial loading state */}
                         {!hasThinkingContent && !hasFinalContent && (
                           <div className="bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
@@ -666,41 +759,158 @@ REMEMBER: ALWAYS start with <think> tags before your final answer. This is NOT o
         </div>
       </div>
 
-      {/* Input Area */}
-      <div className="border-t border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-neutral-900">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center space-x-4">
-            <div className="flex-1 relative">
-              <textarea
-                ref={textareaRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Ask about projects, skills, or experience..."
-                className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:opacity-50 dark:bg-neutral-900 dark:border-gray-700 dark:text-gray-100 dark:placeholder:text-gray-400"
-                rows={1}
-                disabled={isGenerating}
-                style={{ minHeight: "48px", maxHeight: "120px" }}
-              />
+      {/* Input Area - Claude-style UI */}
+      <div className="border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
+        <div className="max-w-4xl mx-auto p-4">
+          {/* Top Row - Prompt Input */}
+          <div className="mb-3">
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="How can I help you today?"
+              className="w-full resize-none rounded-xl border-0 bg-gray-100 dark:bg-gray-800 px-4 py-3 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              rows={1}
+              disabled={isGenerating}
+              style={{ minHeight: "48px", maxHeight: "160px" }}
+            />
+          </div>
+
+          {/* Bottom Row - Controls (Icons, Model Selector, Send Button) */}
+          <div className="flex items-center justify-between gap-2">
+            {/* Left Icons */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleNewChat}
+                className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                title="New Chat"
+              >
+                <Plus className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              </button>
+
+              <button
+                onClick={() => setIsThinkingEnabled(!isThinkingEnabled)}
+                disabled={remainingThinking === 0}
+                className={`p-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                  isThinkingEnabled
+                    ? "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400"
+                    : "hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+                }`}
+                title={`Extended Thinking (${remainingThinking}/3 left today)`}
+              >
+                <Brain className="w-5 h-5" />
+              </button>
+
+              <button
+                onClick={() => setShowHistorySidebar(!showHistorySidebar)}
+                className={`p-2 rounded-lg transition-colors ${
+                  showHistorySidebar
+                    ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                    : "hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+                }`}
+                title="Chat History"
+              >
+                <History className="w-5 h-5" />
+              </button>
             </div>
 
+            {/* Center - Model Selector */}
+            <div className="relative flex-1 max-w-xs">
+              <button
+                onClick={() => setShowModelDropdown(!showModelDropdown)}
+                className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors w-full"
+              >
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {selectedModel.name}
+                </span>
+                <ChevronDown
+                  className={`w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform ${
+                    showModelDropdown ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Model Dropdown */}
+              {showModelDropdown && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setShowModelDropdown(false)}
+                  />
+                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden">
+                    {availableModels.map((model) => (
+                      <button
+                        key={model.id}
+                        onClick={() => {
+                          setSelectedModel(model);
+                          setShowModelDropdown(false);
+                        }}
+                        className={`w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-700 last:border-b-0 ${
+                          selectedModel.id === model.id
+                            ? "bg-blue-50 dark:bg-blue-900/20"
+                            : ""
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">{model.icon}</span>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                {model.name}
+                              </span>
+                              {model.supportsThinking && (
+                                <Brain className="w-3 h-3 text-purple-500" />
+                              )}
+                            </div>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              {model.description}
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Right - Send/Stop Button */}
             {isGenerating ? (
               <button
                 onClick={handleStopThinking}
-                className="flex-shrink-0 self-center w-12 h-12 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition-colors flex items-center justify-center dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
+                className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
+                title="Stop generating"
               >
-                <X className="h-5 w-5" />
+                <X className="w-5 h-5 text-gray-700 dark:text-gray-300" />
               </button>
             ) : (
               <button
                 onClick={handleSend}
-                disabled={isGenerating || input.trim() === ""}
-                className="flex-shrink-0 self-center w-12 h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                disabled={input.trim() === ""}
+                className="p-3 rounded-full bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                title="Send message"
               >
-                <Send className="h-5 w-5" />
+                <ArrowUp className="w-5 h-5 text-white" />
               </button>
             )}
           </div>
+
+          {/* Info Badge - Show when thinking is enabled */}
+          {isThinkingEnabled && remainingThinking > 0 && (
+            <div className="mt-2 flex items-center gap-2 text-xs text-purple-600 dark:text-purple-400">
+              <Brain className="w-3 h-3" />
+              <span>
+                Extended thinking enabled ({remainingThinking}/3 left today)
+              </span>
+            </div>
+          )}
+          {remainingThinking === 0 && isThinkingEnabled && (
+            <div className="mt-2 flex items-center gap-2 text-xs text-red-600 dark:text-red-400">
+              <AlertCircle className="w-3 h-3" />
+              <span>Thinking limit reached. Resets tomorrow.</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
