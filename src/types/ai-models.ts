@@ -57,4 +57,4 @@ export const availableModels: AIModel[] = [
   },
 ];
 
-export const defaultModel = availableModels[1]; // Default to Grok (current model)
+export const defaultModel = availableModels[4]; // Gemini 2.5 Flash

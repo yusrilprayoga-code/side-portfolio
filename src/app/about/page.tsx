@@ -9,6 +9,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import About from "@/components/About";
 import ScrollVelocity from "@/blocks/TextAnimations/ScrollVelocity/ScrollVelocity";
+import { TimelineDemo } from "@/components/TimelineAbout";
 
 export const metadata: Metadata = {
   title: "About | Yusril Prayoga",
@@ -65,13 +66,11 @@ export default function AboutPage() {
       <span className="text-4xl">💬</span>
       <Heading className="font-black dark:text-gray-300 mb-3">About Me</Heading>
       <ScrollVelocity
-        texts={[
-          "Developer",
-          "Content Creator",
-        ]}
+        texts={["Developer", "Content Creator"]}
         className="custom-scroll-text"
       />
       <About />
+      <TimelineDemo />
     </Container>
   );
 }
