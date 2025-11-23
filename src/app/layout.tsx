@@ -7,8 +7,8 @@ import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
 import OnlineStatusIndicator from "@/components/OnlineStatusIndicator";
 import LiveVisitorCounterWithAPI from "@/components/LiveVisitorCounterWithAPI";
+import SplashScreenWrapper from "@/components/SplashScreenWrapper";
 import Script from "next/script";
-
 
 const inter = Inter({
   subsets: ["latin"],
@@ -99,6 +99,11 @@ export default function RootLayout({
           `}
         </Script>
 
+        {/* Splash Screen - Independent layer */}
+        <SplashScreenWrapper>
+          <></>
+        </SplashScreenWrapper>
+
         <Sidebar />
         <div className="lg:pl-2 lg:pt-2 bg-gray-100 flex-1 overflow-y-auto">
           <div className="flex-1 bg-white min-h-screen lg:rounded-tl-xl border border-transparent lg:border-neutral-200 overflow-y-auto dark:bg-neutral-900">
@@ -106,15 +111,15 @@ export default function RootLayout({
             <Footer />
           </div>
         </div>
-        
+
         {/* Online/Offline Indicator */}
         <OnlineStatusIndicator />
-        
+
         {/* Live Visitor Counter with Real Tracking */}
         <LiveVisitorCounterWithAPI />
-        
+
         {/* Cookie Consent */}
-        <CookieConsent 
+        <CookieConsent
           companyName="Yusril Prayoga Portfolio"
           privacyPolicyUrl="/privacy-policy"
         />
