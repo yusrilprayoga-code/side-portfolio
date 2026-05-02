@@ -20,23 +20,25 @@ const getRotationTransition = (
   duration: number,
   from: number,
   loop: boolean = true
-) => ({
-  from: from,
-  to: from + 360,
-  ease: "linear",
-  duration: duration,
-  type: "tween",
-  repeat: loop ? Infinity : 0,
-});
+) =>
+  ({
+    from,
+    to: from + 360,
+    ease: "linear",
+    duration,
+    type: "tween",
+    repeat: loop ? Infinity : 0,
+  }) as const;
 
-const getTransition = (duration: number, from: number) => ({
-  rotate: getRotationTransition(duration, from),
-  scale: {
-    type: "spring",
-    damping: 20,
-    stiffness: 300,
-  },
-});
+const getTransition = (duration: number, from: number) =>
+  ({
+    rotate: getRotationTransition(duration, from),
+    scale: {
+      type: "spring",
+      damping: 20,
+      stiffness: 300,
+    },
+  }) as const;
 
 const CircularText: React.FC<CircularTextProps> = ({
   text,
@@ -78,8 +80,8 @@ const CircularText: React.FC<CircularTextProps> = ({
           rotate: currentRotation,
           scale: 1,
           transition: {
-            rotate: { type: "spring", damping: 20, stiffness: 300 },
-            scale: { type: "spring", damping: 20, stiffness: 300 },
+            rotate: { type: "spring" as const, damping: 20, stiffness: 300 },
+            scale: { type: "spring" as const, damping: 20, stiffness: 300 },
           },
         });
         break;

@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { readStreamableValue } from "ai/rsc";
 import FormattedMessage from "@/components/formatted-message";
-import { generatePortfolio } from "@/app/api/route";
+import { generatePortfolio } from "@/lib/ai-actions";
 import { useThinkingLimit } from "@/hooks/useThinkingLimit";
 import { AIModel, availableModels, defaultModel } from "@/types/ai-models";
 
