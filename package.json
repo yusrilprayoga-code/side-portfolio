@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test": "jest --passWithNoTests",
     "optimize:images": "powershell -ExecutionPolicy Bypass -File ./scripts/optimize-images.ps1",
     "analyze": "cross-env ANALYZE=true next build",

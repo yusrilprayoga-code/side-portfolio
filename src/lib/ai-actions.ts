@@ -63,16 +63,10 @@ const retry = async <T>(fn: () => Promise<T>, retries = 2, delay = 2000): Promis
 
 async function processAIStream(context: string, prompt: string, model: string, options?: { maxTotalTokens?: number }) {
   const stream = createStreamableValue("")
-  // Optimized for Netlify Functions timeout (10s Free, 26s Pro)
-  // Using 4072 tokens for faster response and reliability
   const maxTokens = options?.maxTotalTokens ?? Number(process.env.DEEPSEEK_MAX_TOKENS) ?? 4072
   const temperature = Number(process.env.DEEPSEEK_TEMPERATURE) ?? 0.6
 
   try {
-    if (!process.env.DEEPSEEK_API_KEY) {
-      throw new Error("DEEPSEEK_API_KEY environment variable is not set")
-    }
-
     const systemPrompt = `You are a helpful and versatile AI assistant for Yusril Prayoga.
 Your primary role is to answer questions about his portfolio, skills, and experience based on the provided context.
 If the user's question is NOT related to the portfolio context, you should act as a general AI assistant and answer their query using your knowledge.
@@ -90,7 +84,7 @@ Based on the context and your general knowledge, please answer the following use
     const modelUsed = model.replace(':free', '')
     
     console.log("[AI Stream] Starting request with model:", modelUsed, "maxTokens:", maxTokens)
-    console.log("[AI Stream] API Key present:", !!process.env.DEEPSEEK_API_KEY)
+    console.log("[AI Stream] API Key present:", !!(process.env.DEEPSEEK_API_KEY || process.env.OPENAI_API_KEY))
 
     let fullResponse = ""
     
@@ -155,8 +149,8 @@ Based on the context and your general knowledge, please answer the following use
 
     let errorMessage = "⚠️ Error generating response."
 
-    if (error?.message?.includes("DEEPSEEK_API_KEY")) {
-      errorMessage = "⚠️ API configuration error. Please check environment variables."
+    if (error?.message?.includes("API_KEY") || error?.message?.includes("api key")) {
+      errorMessage = "⚠️ API configuration error. Please check environment variables (DEEPSEEK_API_KEY or OPENAI_API_KEY)."
     } else if (error?.status === 429 || error?.statusCode === 429) {
       errorMessage = "⚠️ Rate limit exceeded. Please try again in a moment."
     } else if (error?.status >= 500 || error?.statusCode >= 500) {
