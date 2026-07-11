@@ -1,101 +1,76 @@
-# Yusril Prayoga - Portfolio Website
+# gemini-flow-project
 
-## Description
-Welcome to the repository of my personal portfolio website. This site showcases my skills, projects, and professional journey as a developer. Built with modern web technologies, it offers a sleek, responsive design that highlights my work and expertise.
+AI-powered project using Gemini-Flow
 
-Visit the live site: [https://yusrilprayoga.vercel.app/](https://yusrilprayoga.vercel.app/)
-visit the cloud run: [https://portfolio-koinkmz7dq-as.a.run.app](https://portfolio-koinkmz7dq-as.a.run.app/)
+## Getting Started
 
-## Features
-- 🎨 Modern and responsive design
-- 🚀 Fast performance with Next.js
-- 💼 Showcase of projects and skills
-- 📱 Mobile-friendly layout
-- 🌓 Dark mode support
-- 🔧 Easy to update and maintain
+This project is powered by Gemini-Flow, an AI orchestration platform with intelligent agent swarms.
 
-## Technologies Used
-- [Next.js](https://nextjs.org/) - React framework for production
-- [Aceternity UI](https://ui.aceternity.com/) - Modern UI components for Next.js
-- [React](https://reactjs.org/) - JavaScript library for building user interfaces
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [TypeScript](https://www.typescriptlang.org/) - Typed superset of JavaScript
-- [Vercel](https://vercel.com/) - Platform for deploying and hosting
+### Prerequisites
 
-## Prerequisites
-- Node.js (v14 or later)
+- Node.js 18+ 
 - npm or yarn
+- Google Cloud Project (for AI features)
 
-## Installation
+### Installation
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yusrilprayoga-code/portfolio-website.git
-   cd portfolio-website
-   ```
+```bash
+npm install
+```
 
-2. Install dependencies:
-   ```
-   npm install
-   ```
-   or
-   ```
-   yarn install
-   ```
+### Configuration
 
-3. Run the development server:
-   ```
-   npm run dev
-   ```
-   or
-   ```
-   yarn dev
-   ```
+1. Set up Google Cloud credentials:
+```bash
+export GOOGLE_CLOUD_PROJECT_ID="your-project-id"
+export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account.json"
+```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+2. Initialize swarm:
+```bash
+npm run swarm:init
+```
 
-## Usage
+3. Spawn agents:
+```bash
+npm run agents:spawn
+```
 
-### Customizing Content
-1. Navigate to the `data` directory.
-2. Edit the JSON files to update your personal information, projects, and skills.
+### Usage
 
-### Adding New Projects
-1. Go to `data/projects.js`.
-2. Add a new project object with details like title, description, image, and links.
+#### Development Mode
+```bash
+npm run dev
+```
 
-### Modifying Styles
-1. Tailwind classes can be modified directly in the component files.
-2. For custom styles, edit the `styles/globals.css` file.
+#### Build Project
+```bash
+npm run build
+```
 
-### Deploying
-This project is set up for easy deployment on Vercel:
-1. Push your changes to your GitHub repository.
-2. Connect your repository to Vercel.
-3. Vercel will automatically deploy your site on every push to the main branch.
+#### Run Tests
+```bash
+npm run test
+```
+
+## Gemini-Flow Commands
+
+- `gemini-flow swarm init` - Initialize agent swarm
+- `gemini-flow agent spawn` - Spawn AI agents
+- `gemini-flow sparc run <mode>` - Run SPARC methodology
+- `gemini-flow hive-mind sync` - Sync collective intelligence
 
 ## Project Structure
-```
-├── components/     # React components
-├── pages/          # Next.js pages
-├── public/         # Static assets
-├── styles/         # CSS styles
-├── data/           # Content data
-├── lib/            # Utility functions
-└── README.md       # This file
-```
 
-## Contributing
-This is a personal portfolio website, so I'm not actively seeking contributions. However, if you have suggestions or find bugs, feel free to open an issue.
+```
+gemini-flow-project/
+├── .gemini-flow/          # Gemini-Flow configuration
+├── src/                   # Source code
+├── tests/                 # Test files
+├── docs/                  # Documentation
+└── scripts/               # Build scripts
+```
 
 ## License
-This project is open source and available under the [MIT License](LICENSE).
 
-## Acknowledgements
-- [Aceternity UI](https://ui.aceternity.com/) for the beautiful UI components
-- [Next.js Documentation](https://nextjs.org/docs) for the excellent guides
-- [Vercel Platform](https://vercel.com/) for hosting and continuous deployment
-
----
-
-Created by Yusril Prayoga. Connect with me on [LinkedIn](https://www.linkedin.com/in/yusrilprayoga/) or [Twitter](https://twitter.com/yourusername).
+MIT

@@ -9,13 +9,21 @@ export function TimelineDemo() {
       content: (
         <div>
           <p className="mb-4 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">
-            <strong>Dataiku Development at Pertamina Hulu Rokan</strong>
+            <strong>
+              System Designer & Full-Stack Developer at Pertamina Hulu Rokan
+            </strong>
+          </p>
+          <p className="mb-4 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">
+            Building <strong>AURORA</strong>, an enterprise SSPE monitoring and
+            governance platform for Pertamina Regional 1 — consolidating
+            drilling, workover, production, and FID governance data into one
+            dashboard (Next.js 16, React 19, TypeScript, PostgreSQL, Prisma 7).
           </p>
           <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">
-            Currently working on data analytics and machine learning projects
-            using Dataiku platform, helping optimize operations and
-            decision-making processes at one of Indonesia&apos;s largest oil and
-            gas companies.
+            Also working on data analytics and machine learning projects using
+            the Dataiku platform, helping optimize operations and
+            decision-making at one of Indonesia&apos;s largest oil and gas
+            companies.
           </p>
           <div className="grid grid-cols-2 gap-4">
             <Image

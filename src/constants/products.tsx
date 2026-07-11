@@ -1,9 +1,47 @@
 export const products = [
   {
+    href: "https://www.linkedin.com/in/yusrilprayoga/",
+    title: "AURORA — SSPE Monitoring & Governance Platform",
+    description:
+      "Enterprise monitoring, analytics, and FID governance platform built end-to-end for Pertamina Regional 1's Subsurface Performance & Engineering team.",
+    thumbnail: "/images/aurora-cover.svg",
+    images: ["/images/aurora-cover.svg"],
+    stack: ["Nextjs", "TypeScript", "PostgreSQL", "Prisma"],
+    slug: "aurora",
+    content: (
+      <div>
+        <p>
+          AURORA (Advanced Upstream Repository Orchestration &amp; Reliable
+          Analytics) is an enterprise web platform I designed and built
+          end-to-end for Pertamina Regional 1&apos;s SSPE team. It consolidates
+          drilling, workover, well intervention, production reconciliation, and
+          FID governance data — previously scattered across many Excel files —
+          into a single, searchable dashboard used for day-to-day monitoring
+          and management decision-making.
+        </p>
+        <p>
+          As System Designer &amp; Full-Stack Developer I was responsible for
+          the application architecture, PostgreSQL schema and Prisma data
+          layer, authentication and access control, KPI dashboards with
+          drill-downs and chart visualizations, tiered FID approval workflows
+          with audit trails, and a phased Excel ETL pipeline (upload, preview,
+          commit, recompute) with enterprise-grade validation. The stack:
+          Next.js 16, React 19, TypeScript, Tailwind CSS 4, TanStack Query,
+          Zod, and Docker for deployment.
+        </p>
+        <p>
+          The project is private and proprietary, so source code, real
+          screenshots, and operational data cannot be shared. The full
+          sanitized case study is available on request.
+        </p>
+      </div>
+    ),
+  },
+  {
     href: "https://github.com/yusrilprayoga-code/orchidbrand-e-commerce.git",
     title: "Orchid Brand E-Commerce",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Full-featured online store built with Laravel and MySQL — product catalog, cart, checkout, and admin management.",
     thumbnail: "/images/sidefolio-e-commerce.png",
     images: [
       "/images/sidefolio-e-commerce.png",
@@ -42,7 +80,7 @@ export const products = [
     href: "https://cleaniqueacademy.com/",
     title: "Cleanique Academy",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Online learning platform for professional cleaning courses — built during my internship at PT. Indotech Berkah Abadi.",
     thumbnail: "/images/sidefolio-cleanique-academy.png",
     images: [
       "/images/sidefolio-cleanique-academy.png",
@@ -80,7 +118,7 @@ export const products = [
     href: "https://maduretno.vercel.app/",
     title: "Website Profile Desa Maduretno",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Village profile website showcasing Maduretno's history, culture, tourism spots, and community events.",
     thumbnail: "/images/sidefolio-maduretno.png",
     images: [
       "/images/sidefolio-maduretno.png",
@@ -118,7 +156,7 @@ export const products = [
     href: "https://mailverra.vercel.app/",
     title: "Mailverra Powered by OpenAI",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "AI-powered email client that drafts smart replies, suggestions, and summaries using OpenAI.",
     thumbnail: "/images/sidefolio-ai-gmail.png",
     images: [
       "/images/sidefolio-ai-gmail.png",
@@ -154,7 +192,7 @@ export const products = [
     href: "https://b-otomotif.vercel.app/",
     title: "B-Otomotif",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Automotive news and review site that complements the B-Otomotif YouTube channel — new models, reviews, and deep dives.",
     thumbnail: "/images/sidefolio-b-otomotif.png",
     images: [
       "/images/sidefolio-b-otomotif.png",
@@ -192,7 +230,7 @@ export const products = [
     href: "https://car-showroom-coral.vercel.app/",
     title: "CarShowroom",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Car rental information site with fleet listings, pricing comparisons, and rental locations.",
     thumbnail: "/images/sidefolio-carshowroom.png",
     images: [
       "/images/sidefolio-carshowroom.png",
@@ -229,7 +267,7 @@ export const products = [
     href: "https://chatbot-free.netlify.app",
     title: "Chatbot-Free",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Lightweight AI chatbot for websites that answers questions and gives recommendations with natural conversations.",
     thumbnail: "/images/sidefolio-chatbot.png",
     images: ["/images/sidefolio-chatbot.png", "/images/sidefolio-chatbot.png"],
     stack: ["Nextjs", "Tailwindcss", "Axios"],
@@ -263,7 +301,7 @@ export const products = [
     href: "https://nike-landing-page-chi.vercel.app/",
     title: "Nike",
     description:
-      "Nike is a design and development studio that focuses on building quality apps.",
+      "Sleek landing page showcasing Nike footwear with product highlights, imagery, and customer reviews.",
     thumbnail: "/images/sidefolio-nike.png",
     images: ["/images/sidefolio-nike.png", "/images/sidefolio-nike-2.png"],
     stack: ["Reactjs", "Tailwindcss"],
@@ -297,7 +335,7 @@ export const products = [
     href: "https://arcipe.netlify.app/",
     title: "ArCipe",
     description:
-      "ArCipe is a design and development studio that focuses on building quality apps.",
+      "Recipe-sharing site with detailed instructions, ingredient lists, and cooking tips across many cuisines.",
     thumbnail: "/images/sidefolio-arcipe.png",
     images: ["/images/sidefolio-arcipe.png", "/images/sidefolio-arcipe-2.png"],
     stack: ["Reactjs", "Tailwindcss"],
@@ -330,7 +368,7 @@ export const products = [
     href: "https://github.com/yusrilprayoga-code/sistem-tsunami-warning-center.git",
     title: "Tsunami Warning Center System",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Early-warning dashboard for monitoring seismic data and broadcasting tsunami alerts.",
     thumbnail: "/images/sidefolio-tsunami.png",
     images: ["/images/sidefolio-tsunami.png", "/images/sidefolio-tsunami.png"],
     stack: ["PHP Native", "MySql"],
@@ -365,7 +403,7 @@ export const products = [
     href: "https://github.com/yusrilprayoga-code/bakatyec.git",
     title: "YEC Bakat",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Talent platform where young creatives build profiles, upload portfolios, and join competitions.",
     thumbnail: "/images/sidefolio-yecbakat.png",
     images: [
       "/images/sidefolio-yecbakat.png",
@@ -403,7 +441,7 @@ export const products = [
     href: "https://picstashdrive.vercel.app/",
     title: "PicStash",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Photo sharing and storage web app — browse, upload, and save favorites, Unsplash-style.",
     thumbnail: "/images/sidefolio-picstash.png",
     images: [
       "/images/sidefolio-picstash.png",
@@ -440,7 +478,7 @@ export const products = [
     href: "https://github.com/yusrilprayoga-code/Redesign-UI-Netflix.git",
     title: "Netflix Redesign",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Redesign concept of the Netflix interface with a cleaner, more modern browsing experience.",
     thumbnail: "/images/sidefolio-netflix.png",
     images: ["/images/sidefolio-netflix.png", "/images/sidefolio-netflix.png"],
     stack: ["Html", "Css"],
@@ -474,7 +512,7 @@ export const products = [
     href: "https://github.com/yusrilprayoga-code/wisata-web.git",
     title: "Pariwisata",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Tourism guide site for discovering Indonesian destinations and planning holidays.",
     thumbnail: "/images/sidefolio-nomads.jpeg",
     images: ["/images/sidefolio-nomads.jpeg", "/images/sidefolio-nomads2.jpeg"],
     stack: ["PHP", "MySql"],
@@ -509,7 +547,7 @@ export const products = [
     href: "https://github.com/yusrilprayoga-code/Movie-Tmdb-App.git",
     title: "Movie Recommendation App",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Mobile app that serves personalized movie recommendations based on preferences and viewing history.",
     thumbnail: "/images/sidefolio-movie.png",
     images: ["/images/sidefolio-movie-2.png", "/images/sidefolio-movie-3.png"],
     stack: ["Flutter", "Hive", "Lottie"],
@@ -544,7 +582,7 @@ export const products = [
     href: "https://github.com/yusrilprayoga-code/ecommerce-app.git",
     title: "Ecommerce App",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "Mobile shopping app with product browsing, cart, checkout, and personalized suggestions.",
     thumbnail: "/images/sidefolio-ecommerce.png",
     images: [
       "/images/sidefolio-ecommerce.png",
@@ -582,7 +620,7 @@ export const products = [
     href: "https://www.linkedin.com/posts/dheaintanc_arcipe-app-ugcPost-7161342836234215425-HyJz?utm_source=share&utm_medium=member_desktop",
     title: "ArCipe UI/UX",
     description:
-      "A design and development studio that focuses on building quality apps.",
+      "UI/UX design case study for the ArCipe recipe platform, crafted in Figma with a full design system.",
     thumbnail: "/images/sidefolio-uiux.png",
     images: ["/images/sidefolio-uiux.png", "/images/sidefolio-uiux.png"],
     stack: ["Figma", "Adobe XD"],

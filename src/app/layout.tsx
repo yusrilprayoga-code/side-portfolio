@@ -10,12 +10,17 @@ import LiveVisitorCounterWithAPI from "@/components/LiveVisitorCounterWithAPI";
 import SplashScreenWrapper from "@/components/SplashScreenWrapper";
 import Script from "next/script";
 
+// Inter is a variable font — omitting `weight` loads a single file covering
+// all weights instead of nine separate ones.
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://side-portfolio.vercel.app"
+  ),
   title: "Yusril Prayoga - Developer",
   description:
     "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",

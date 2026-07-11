@@ -11,7 +11,6 @@ import {
   MessageCircle,
   User,
   Plus,
-  Shuffle,
   History,
   ChevronDown,
   ArrowUp,
@@ -61,6 +60,38 @@ export default function AIChatbotWithSidebar() {
   } = useThinkingLimit();
 
   const autoInput = " Hi, Can you tell me more about your portfolio?";
+
+  // Persist chat history across page reloads
+  const STORAGE_KEY = "portfolio-chat-sessions-v1";
+  const hasLoadedHistory = useRef(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed?.sessions) && parsed.sessions.length > 0) {
+          setChatSessions(parsed.sessions);
+          setCurrentSessionId(parsed.currentId ?? parsed.sessions[0].id);
+        }
+      }
+    } catch {
+      // Corrupt storage — start fresh
+    }
+    hasLoadedHistory.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!hasLoadedHistory.current) return;
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ sessions: chatSessions, currentId: currentSessionId })
+      );
+    } catch {
+      // Storage full/unavailable — history just won't persist
+    }
+  }, [chatSessions, currentSessionId]);
 
   React.useEffect(() => {
     if (textareaRef.current) {
@@ -115,6 +146,7 @@ export default function AIChatbotWithSidebar() {
   const portfolioInfo = `
     Yusril Prayoga is a Full Stack Developer with experience in web development you can find in this github https://github.com/yusrilprayoga-code.
     Projects in the portfolio include:
+    0. AURORA (Advanced Upstream Repository Orchestration & Reliable Analytics) is an enterprise SSPE (Subsurface Performance & Engineering) monitoring and governance platform built for Pertamina Regional 1. Yusril was the System Designer & Full-Stack Developer end-to-end: architecture, database design (PostgreSQL + Prisma 7), APIs, authentication and access control, responsive data-intensive dashboards (KPI cards, drill-down, interactive tables, chart visualizations with ECharts/Recharts/D3), FID governance workflows (submission, tiered review, approval, audit trail), phased Excel ETL (upload, preview, commit, recompute), and Docker deployment. Stack: Next.js 16, React 19, TypeScript, Tailwind CSS 4, shadcn/ui, TanStack Query, React Hook Form, Zod, Better Auth. The project is private/proprietary, so source code and internal data cannot be shared.
     1. Cleanique Academy is a modern and innovative online learning platform that offers a wide range of courses and training programs for cleaning professionals. The platform is designed to provide high-quality education and practical skills training to individuals seeking to enhance their knowledge and expertise in the cleaning industry. With a focus on professional development and career advancement, Cleanique Academy offers a comprehensive curriculum, interactive learning materials, and expert instruction to help students succeed in their chosen field.
     2. Mailverra (powered by OpenAI) AI Email is a cutting-edge email client that leverages artificial intelligence to enhance productivity and efficiency. The platform is designed to help users manage their email communications more effectively by providing smart features, automated responses, and intelligent suggestions. By integrating advanced AI algorithms and natural language processing capabilities, AI Email offers a seamless and intuitive experience that streamlines the email workflow and improves overall communication.
     3. B-Otomotif is a cutting-edge website that complements its popular YouTube channel, focusing on the latest developments in the automotive world. The site is dedicated to car enthusiasts, offering comprehensive and in-depth content about new car models, detailed reviews, and insightful discussions. Visitors can explore a variety of articles, videos, and features that provide a closer look at the newest vehicles on the market, making B-Otomotif a go-to resource for anyone passionate about cars.
@@ -137,7 +169,7 @@ export default function AIChatbotWithSidebar() {
     - Design: Figma, Adobe XD
 
     Work Experience:
-    - Dataiku Development at Pertamina Hulu Rokan Aug 25 - Present
+    - System Designer & Full-Stack Developer (AURORA SSPE Platform) and Dataiku Development at Pertamina Hulu Rokan Aug 25 - Present
     - Full Stack Developer at B-Otomotif 2018 - Present
     - Full Stack Developer at Cleanique Academy (PT. Indotech Berkah Abadi) Internship Sep 24 - Jan 25
     - Bangkit Academy 2024 By Google, GoTo, Traveloka - Cloud Computing Learning Path Feb 2024 - June 2024
@@ -153,6 +185,11 @@ export default function AIChatbotWithSidebar() {
     const userMessage: Message = { role: "user", content: input };
     updateCurrentSession((prev) => ({
       ...prev,
+      // Name the session after its first message so history is scannable
+      name:
+        prev.messages.length === 0
+          ? input.trim().slice(0, 40) || prev.name
+          : prev.name,
       messages: [...prev.messages, userMessage],
     }));
 
@@ -168,124 +205,40 @@ export default function AIChatbotWithSidebar() {
       if (willUseThinking) {
         consumeThinking(); // Decrement thinking counter
       }
-      // Build thinking instruction based on toggle
-      const thinkingInstruction = willUseThinking
-        ? `
-# CRITICAL INSTRUCTION - MANDATORY THINKING PROCESS
-⚠️ IMPORTANT: You MUST ALWAYS start your response with thinking tags. This is ABSOLUTELY REQUIRED.
 
-Your response MUST follow this EXACT format (copy this structure):
-
-<think>
-Step 1 - Query Analysis:
-[Analyze what the user is asking]
-
-Step 2 - Information Gathering:
-[What information do I have?]
-
-Step 3 - Key Points:
-[Main points to cover]
-
-Step 4 - Answer Structure:
-[How to organize the response]
-
-Step 5 - Verification:
-[Check if logic is sound]
-</think>
-
-[Now write your final answer here]
-
-⚠️ VALIDATION: Your response MUST start with exactly "<think>" and include "</think>" before the final answer.
-Without thinking tags, the response will be marked as invalid.
-
-# RESPONSE GUIDELINES
-- **Portfolio Questions**: Use ONLY the provided portfolio context. Be specific and detailed.
-- **General Questions**: Use your knowledge base to provide helpful, accurate answers.
-- **Programming Help**: 
-  * Detect the programming language
-  * Explain step-by-step with clear reasoning
-  * Provide runnable code examples in proper code blocks (e.g., \`\`\`javascript)
-  * Include setup/run commands if needed
-- **Code Quality**: Make code concise, well-commented, and follow best practices
-- **Tone**: Be friendly, professional, and conversational
-- **Format**: Use proper markdown for readability (headings, lists, code blocks, etc.)
-
-# EXAMPLE RESPONSE (FOLLOW THIS FORMAT):
-<think>
-1. Query Analysis: The user is asking about Yusril's experience with NextJS - this is a portfolio-related question
-2. Information Gathering: From the context, I can see NextJS is listed under Technologies and several projects mention web development
-3. Key Points: His technical skills, relevant projects, and experience timeline
-4. Structure: I'll organize by overview, then projects, then technical depth
-5. Verification: The information is accurate and comes directly from the portfolio context
-</think>
-
-# Yusril's NextJS Experience
-
-Yusril Prayoga has extensive experience with NextJS as a Full Stack Developer...
-[rest of answer]
-
-REMEMBER: ${
-            willUseThinking
-              ? "ALWAYS start with <think> tags before your final answer"
-              : "Provide direct answers without thinking process"
-          }. This is NOT optional.
-`
-        : `
-# INSTRUCTION
-Provide a direct, concise answer without showing your thinking process.
-Focus on clarity and brevity.
-`;
-
-      const combinedPrompt = `You are an intelligent AI assistant specialized in answering questions about Yusril Prayoga's portfolio and providing general assistance.
-
-# PORTFOLIO CONTEXT
-${portfolioInfo}
-
-# YOUR TASK
-Analyze and respond to the following user query: "${currentInput}"
-
-${thinkingInstruction}
-
-# RESPONSE GUIDELINES
-- **Portfolio Questions**: Use ONLY the provided portfolio context. Be specific and detailed.
-- **General Questions**: Use your knowledge base to provide helpful, accurate answers.
-- **Programming Help**: Detect language, explain step-by-step, provide runnable code examples
-- **Code Quality**: Make code concise, well-commented, and follow best practices
-- **Tone**: Be friendly, professional, and conversational
-- **Format**: Use proper markdown for readability (headings, lists, code blocks, etc.)
-
-${
-  willUseThinking
-    ? "REMEMBER: ALWAYS start with <think> tags before your final answer."
-    : ""
-}`;
+      // Reasoning models (Nemotron, GLM) stream their thinking natively via
+      // reasoning_content, so they need no prompting. For other models, one
+      // short instruction is enough — the old multi-page "MANDATORY THINKING"
+      // prompt kept getting echoed back into the answers.
+      const needsPromptedThinking =
+        willUseThinking && !selectedModel.supportsThinking;
+      const promptToSend = needsPromptedThinking
+        ? `${currentInput}\n\n(First reason step-by-step inside <think></think> tags, then write the final answer in clean markdown after the closing tag.)`
+        : currentInput;
 
       console.log("[Chatbot] Starting AI generation...");
       console.log("[Chatbot] Model:", selectedModel.name);
       console.log("[Chatbot] Thinking enabled:", willUseThinking);
       console.log("[Chatbot] Remaining thinking:", remainingThinking);
 
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(
-          () => reject(new Error("Request timeout after 25 seconds")),
-          25000
-        );
-      });
+      // NVIDIA NIM models can sit in a queue before responding, so give
+      // NVIDIA NIM models can queue; give them a longer window than OpenRouter.
+      // Two limits: how long to wait for the FIRST token, and an overall cap.
+      const isNvidia = selectedModel.gateway === "nvidia";
+      const firstTokenTimeoutMs = isNvidia ? 60000 : 25000;
+      const overallTimeoutMs = isNvidia ? 150000 : 60000;
 
-      // Use selected model and its token limit
-      const generatePromise = generatePortfolio(combinedPrompt, "", {
+      // Portfolio info goes in as context; the user's message is the prompt
+      const { output } = await generatePortfolio(portfolioInfo, promptToSend, {
         maxTotalTokens: selectedModel.maxTokens,
         model: selectedModel.id,
       });
 
-      const result = (await Promise.race([
-        generatePromise,
-        timeoutPromise,
-      ])) as any;
-      const { output } = result;
-
       let botResponse = "";
       let chunkCount = 0;
+      const startTime = Date.now();
+      let firstChunkAt = 0;
+      let timedOut = false;
 
       console.log("[Chatbot] Reading stream...");
 
@@ -304,8 +257,24 @@ ${
           break;
         }
 
+        const now = Date.now();
+        // Watchdog: bail out if the model is stuck queuing or running too long
+        if (!firstChunkAt && chunk) firstChunkAt = now;
+        if (!firstChunkAt && now - startTime > firstTokenTimeoutMs) {
+          timedOut = true;
+          break;
+        }
+        if (now - startTime > overallTimeoutMs) {
+          timedOut = true;
+          break;
+        }
+
         chunkCount++;
-        botResponse += chunk || "";
+        // readStreamableValue yields the FULL accumulated string each time
+        // (the SDK sends append-patches and the reader applies them), so we
+        // REPLACE here. Using += would concatenate cumulative snapshots and
+        // duplicate the whole answer many times over.
+        if (chunk != null) botResponse = chunk;
 
         // DeepSeek R1 uses <think> tags - check for multiple formats
         // Format 1: <think>...</think>
@@ -368,7 +337,6 @@ ${
         }
 
         // Throttled UI update - only update every 100ms or on important events
-        const now = Date.now();
         const shouldUpdate =
           now - lastUpdateTime >= UPDATE_INTERVAL ||
           hasClosedThinkTag ||
@@ -381,10 +349,10 @@ ${
             const newMessages = [...prev.messages];
             const lastMessage = newMessages[newMessages.length - 1];
 
-            // Real-time display logic:
-            // - While thinking (before </think>): Show only thinking content, NO final answer
-            // - After thinking closed: Show final answer progressively
-            const contentToShow = hasClosedThinkTag ? finalContent : ""; // Only show content after thinking done
+            // Real-time display logic: stream whatever we have. While the
+            // model is still inside <think>, finalContent stays empty so only
+            // the thinking panel grows; afterwards the answer streams in live.
+            const contentToShow = finalContent;
             const thinkToShow = thinkingContent;
 
             if (lastMessage && lastMessage.role === "bot") {
@@ -414,8 +382,25 @@ ${
         botResponse.substring(0, 300)
       );
 
+      // Watchdog fired with nothing usable — surface a clear timeout error
+      if (timedOut && !botResponse.trim()) {
+        throw new Error(
+          `Request timeout after ${Math.round(
+            (Date.now() - startTime) / 1000
+          )} seconds. ${
+            isNvidia
+              ? "The NVIDIA model is busy — try again or switch to a faster model."
+              : "Please try again."
+          }`
+        );
+      }
+
       if (!botResponse.trim()) {
         throw new Error("Empty response received from AI service");
+      }
+
+      if (timedOut) {
+        console.warn("[Chatbot] Stopped early by watchdog; showing partial response");
       }
 
       // Final parsing to ensure we capture everything correctly
@@ -552,6 +537,55 @@ ${
         </div>
       </div>
 
+      {/* Chat History Slide-over */}
+      {showHistorySidebar && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-black/30"
+            onClick={() => setShowHistorySidebar(false)}
+          />
+          <div className="fixed left-0 top-0 bottom-0 z-50 w-72 bg-white dark:bg-neutral-900 border-r border-gray-200 dark:border-gray-800 shadow-xl flex flex-col">
+            <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800">
+              <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                Chat History
+              </span>
+              <button
+                onClick={() => setShowHistorySidebar(false)}
+                className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400"
+                title="Close history"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-2 space-y-1">
+              {chatSessions.map((session) => (
+                <button
+                  key={session.id}
+                  onClick={() => handleSelectSession(session.id)}
+                  className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-left transition-colors ${
+                    session.id === currentSessionId
+                      ? "bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                  }`}
+                >
+                  <MessageCircle className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-sm truncate">{session.name}</span>
+                </button>
+              ))}
+            </div>
+            <div className="p-2 border-t border-gray-200 dark:border-gray-800">
+              <button
+                onClick={handleNewChat}
+                className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium transition-colors"
+              >
+                <Plus className="w-4 h-4" />
+                New Chat
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
       {/* Error Message */}
       {error && (
         <div className="mx-6 mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center justify-between">
@@ -607,7 +641,7 @@ ${
       <div className="flex-1 overflow-auto" ref={scrollAreaRef}>
         <div className="max-w-4xl mx-auto px-6 py-4">
           {currentSession.messages.map((message, idx) => (
-            <div key={idx} className="mb-8">
+            <div key={idx} className="mb-8 chat-fade-in">
               <div className="flex items-start space-x-4">
                 {/* Avatar */}
                 <div className="flex-shrink-0 mt-1">
@@ -668,99 +702,55 @@ ${
                       role={message.role}
                     />
                   </div>
+                  {/* Blinking cursor while this message is still streaming */}
+                  {isGenerating &&
+                    idx === currentSession.messages.length - 1 &&
+                    message.role === "bot" && (
+                      <span className="chat-cursor" aria-hidden="true" />
+                    )}
                 </div>
               </div>
             </div>
           ))}
 
-          {/* Live Thinking Process Display - Shows during generation */}
-          {isGenerating && (
-            <div className="mb-8">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 mt-1">
-                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                    <Bot className="h-4 w-4 text-white animate-pulse" />
+          {/* Typing indicator — only before the first chunk arrives; after
+              that the message itself streams live in the list above */}
+          {isGenerating &&
+            currentSession.messages[currentSession.messages.length - 1]
+              ?.role !== "bot" && (
+              <div className="mb-8 chat-fade-in">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                      <Bot className="h-4 w-4 text-white animate-pulse" />
+                    </div>
                   </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center space-x-2 mb-3">
-                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                      Assistant
-                    </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center space-x-2 mb-3">
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        Assistant
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5 px-4 py-3 bg-gray-50 dark:bg-neutral-800 border border-gray-200 dark:border-gray-700 rounded-lg w-fit">
+                      <span className="chat-typing-dot" />
+                      <span
+                        className="chat-typing-dot"
+                        style={{ animationDelay: "0.15s" }}
+                      />
+                      <span
+                        className="chat-typing-dot"
+                        style={{ animationDelay: "0.3s" }}
+                      />
+                    </div>
                   </div>
-
-                  {/* Real-time Thinking Content */}
-                  {(() => {
-                    const lastMessage =
-                      currentSession.messages[
-                        currentSession.messages.length - 1
-                      ];
-                    const hasThinkingContent =
-                      lastMessage?.role === "bot" && lastMessage?.thinking;
-                    const hasFinalContent =
-                      lastMessage?.role === "bot" && lastMessage?.content;
-
-                    return (
-                      <>
-                        {/* Phase 1: Show thinking process while streaming (before final answer) */}
-                        {hasThinkingContent && (
-                          <div className="bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg p-4 mb-4">
-                            <div className="flex items-center gap-3 mb-3">
-                              <Sparkles className="h-5 w-5 text-purple-600 dark:text-purple-400 animate-pulse" />
-                              <span className="text-sm font-medium text-purple-900 dark:text-purple-300">
-                                💭 Thinking Process (Live)
-                              </span>
-                            </div>
-                            <div className="prose prose-sm dark:prose-invert max-w-none text-purple-900 dark:text-purple-200 prose-p:my-1 prose-p:text-sm">
-                              <FormattedMessage
-                                content={lastMessage.thinking || ""}
-                                role="bot"
-                              />
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Phase 2: Show final answer as it streams (after thinking complete) */}
-                        {hasFinalContent && lastMessage.content.length > 0 && (
-                          <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg p-4">
-                            <div className="flex items-center gap-3 mb-3">
-                              <Bot className="h-5 w-5 text-green-600 dark:text-green-400 animate-pulse" />
-                              <span className="text-sm font-medium text-green-900 dark:text-green-300">
-                                ✨ Generating Answer...
-                              </span>
-                            </div>
-                            <div className="prose prose-sm dark:prose-invert max-w-none prose-p:my-2">
-                              <FormattedMessage
-                                content={lastMessage.content}
-                                role="bot"
-                              />
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Fallback: Initial loading state */}
-                        {!hasThinkingContent && !hasFinalContent && (
-                          <div className="bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
-                            <div className="flex items-center gap-3">
-                              <Sparkles className="h-5 w-5 text-purple-600 dark:text-purple-400 animate-pulse" />
-                              <span className="text-sm font-medium text-purple-900 dark:text-purple-300">
-                                Initializing AI thinking process...
-                              </span>
-                            </div>
-                          </div>
-                        )}
-                      </>
-                    );
-                  })()}
                 </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </div>
 
       {/* Input Area - Claude-style UI */}
-      <div className="border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
+      <div className="border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-neutral-900">
         <div className="max-w-4xl mx-auto p-4">
           {/* Top Row - Prompt Input */}
           <div className="mb-3">

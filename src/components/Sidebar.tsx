@@ -57,10 +57,17 @@ export const Sidebar = () => {
         )}
       </AnimatePresence>
       <button
-        className="fixed lg:hidden bottom-4 right-4 h-8 w-8 border border-neutral-200 dark:border-neutral-700 rounded-full backdrop-blur-sm flex items-center justify-center z-10"
+        className="fixed bottom-4 right-4 h-9 w-9 border border-neutral-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 rounded-full backdrop-blur-sm flex items-center justify-center z-[110] shadow-md hover:scale-110 transition-transform"
         onClick={() => setOpen(!open)}
+        title={open ? "Hide sidebar" : "Show sidebar"}
+        aria-label={open ? "Hide sidebar" : "Show sidebar"}
       >
-        <IconLayoutSidebarRightCollapse className="h-4 w-4 text-secondary dark:text-neutral-400" />
+        <IconLayoutSidebarRightCollapse
+          className={twMerge(
+            "h-4 w-4 text-secondary dark:text-neutral-400 transition-transform duration-300",
+            !open && "rotate-180"
+          )}
+        />
       </button>
     </>
   );

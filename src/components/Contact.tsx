@@ -1,11 +1,10 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import toast, { Toaster } from "react-hot-toast";
-import { useTheme } from "next-themes";
+import { z } from "zod";
 import { generateChat } from "@/lib/ai-actions";
 import { readStreamableValue } from "ai/rsc";
-import { Message } from "@/types/message";
 
 type FormField = {
   value: string;
@@ -18,11 +17,14 @@ type FormData = {
   message: FormField;
 };
 
-type ChatSession = {
-  id: string;
-  name: string;
-  messages: Message[];
-};
+const contactSchema = z.object({
+  name: z.string().trim().min(2, "Name must be at least 2 characters."),
+  email: z.string().trim().email("Email is invalid."),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Message must be at least 10 characters."),
+});
 
 const defaultFormState: FormData = {
   name: { value: "", error: "" },
@@ -35,36 +37,29 @@ export const Contact: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [aiGenerating, setAiGenerating] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const [currentSession, setCurrentSession] = useState<ChatSession>({
-    id: "1",
-    name: "New Chat",
-    messages: [],
-  });
-  const { theme } = useTheme();
 
   const validateForm = (): boolean => {
-    const newFormData = { ...formData };
-    let isValid = true;
+    const result = contactSchema.safeParse({
+      name: formData.name.value,
+      email: formData.email.value,
+      message: formData.message.value,
+    });
 
-    if (!formData.name.value.trim()) {
-      newFormData.name.error = "Name is required.";
-      isValid = false;
+    if (result.success) return true;
+
+    const newFormData: FormData = {
+      name: { ...formData.name, error: "" },
+      email: { ...formData.email, error: "" },
+      message: { ...formData.message, error: "" },
+    };
+    for (const issue of result.error.issues) {
+      const field = issue.path[0] as keyof FormData;
+      if (field in newFormData && !newFormData[field].error) {
+        newFormData[field].error = issue.message;
+      }
     }
-
-    if (!formData.email.value.trim()) {
-      newFormData.email.error = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email.value)) {
-      newFormData.email.error = "Email is invalid.";
-      isValid = false;
-    }
-
-    if (!formData.message.value.trim()) {
-      newFormData.message.error = "Message is required.";
-      isValid = false;
-    }
-
     setFormData(newFormData);
-    return isValid;
+    return false;
   };
 
   const handleChange = (
@@ -122,8 +117,10 @@ export const Contact: React.FC = () => {
       const { output } = await generateChat("", prompt);
       let generatedMessage = "";
 
+      // readStreamableValue yields the full accumulated string each time —
+      // replace, don't append (appending duplicates the whole message).
       for await (const chunk of readStreamableValue(output)) {
-        generatedMessage += chunk;
+        if (chunk != null) generatedMessage = chunk;
       }
 
       setFormData((prev) => ({

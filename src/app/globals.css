@@ -163,3 +163,51 @@ body.dark {
   border: none;
   display: block;
 }
+
+/* Chatbot streaming animations */
+.chat-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.chat-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background-color: #f97316; /* orange-500, matches the bot avatar */
+  border-radius: 1px;
+  animation: chatBlink 1s steps(2, start) infinite;
+}
+
+@keyframes chatBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.chat-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: #9ca3af; /* gray-400 */
+  animation: chatTypingBounce 1s ease-in-out infinite;
+}
+
+@keyframes chatTypingBounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}

@@ -30,7 +30,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
           alt="thumbnail"
           height="1000"
           width="1000"
-          className="rounded-md object-contain"
+          className="rounded-md object-contain w-full h-auto"
         />
         <div className="absolute bottom-0 bg-white h-40 w-full [mask-image:linear-gradient(to_bottom,transparent,white)]" />
       </motion.div>
@@ -83,9 +83,9 @@ export const SingleProduct = ({ product }: { product: Product }) => {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
         >
           <path d="M5 12l14 0"></path>

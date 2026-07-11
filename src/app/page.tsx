@@ -38,7 +38,7 @@ export default function Home() {
           Hello there! I&apos;m Yusril Prayoga
         </Heading>
         <Paragraph className="max-w-xl mt-4 dark:text-gray-300">
-          I&apos;m a Front End developer that loves{" "}
+          I&apos;m a Full Stack developer that loves{" "}
           <Highlight className="dark:text-gray-800">
             building products
           </Highlight>{" "}
