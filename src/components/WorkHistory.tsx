@@ -1,52 +1,42 @@
-"use client";
 import { timeline } from "@/constants/timeline";
 import React from "react";
-import { Paragraph } from "./Paragraph";
-import { Heading } from "./Heading";
-import {
-  IconCircleCheckFilled,
-} from "@tabler/icons-react";
 
 export const WorkHistory = () => {
   return (
-    <div>
+    <div className="mt-10 border-b-2 border-line">
       {timeline.map((item, index) => (
-        <div
-          className="flex md:flex-row flex-col space-y-10 md:space-y-0 space-x-10 my-20 relative"
+        <article
+          className="grid gap-3 border-t-2 border-line py-8 md:grid-cols-[180px_1fr] md:gap-8 md:py-10"
           key={`timeline-${index}`}
         >
-          <Paragraph className="w-40">{item.date}</Paragraph>
+          <p className="label-mono md:pt-1.5">{item.date}</p>
           <div>
-            <Heading
-              as="h5"
-              className="text-lg md:text-lg lg:text-lg text-emerald-500 dark:text-emerald-400"
-            >
-              {item.company}
-            </Heading>
-            <Paragraph className="text-base md:text-base lg:text-base font-semibold">
+            <h3 className="font-display text-xl font-bold uppercase leading-tight tracking-tight md:text-2xl">
               {item.title}
-            </Paragraph>
-            <Paragraph className="text-sm md:text-sm lg:text-sm mb-4">
+            </h3>
+            <p className="mt-1 text-sm text-muted md:text-base">
+              {item.company}
+            </p>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed">
               {item.description}
-            </Paragraph>
-
-            {item.responsibilities.map((responsibility, index) => (
-              <Step key={responsibility}>{responsibility}</Step>
-            ))}
+            </p>
+            <ul className="mt-4 max-w-2xl space-y-2">
+              {item.responsibilities.map((responsibility) => (
+                <li
+                  key={responsibility}
+                  className="flex items-start gap-3 text-sm leading-relaxed text-muted"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-2 h-1 w-1 flex-none bg-accent"
+                  />
+                  {responsibility}
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        </article>
       ))}
-    </div>
-  );
-};
-
-const Step = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="flex space-x-1 items-start my-2">
-      <IconCircleCheckFilled className="h-3 w-4 mt-1 text-neutral-300" />
-      <Paragraph className="text-sm md:text-sm lg:text-sm">
-        {children}
-      </Paragraph>
     </div>
   );
 };

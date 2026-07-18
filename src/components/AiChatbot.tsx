@@ -522,15 +522,15 @@ export default function AIChatbotWithSidebar() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-white dark:bg-neutral-900">
+    <div className="flex h-[calc(100svh-4rem)] flex-col bg-bg">
       {/* Header - Simple and Clean */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-neutral-900">
+      <div className="flex items-center justify-between border-b-2 border-line bg-bg px-6 py-4">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-            <Sparkles className="h-5 w-5 text-white" />
+          <div className="flex h-8 w-8 items-center justify-center bg-accent">
+            <Sparkles className="h-5 w-5 text-accent-ink" />
           </div>
           <div>
-            <h1 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+            <h1 className="font-display text-lg font-bold uppercase tracking-tight">
               Portfolio Assistant
             </h1>
           </div>
@@ -544,28 +544,28 @@ export default function AIChatbotWithSidebar() {
             className="fixed inset-0 z-40 bg-black/30"
             onClick={() => setShowHistorySidebar(false)}
           />
-          <div className="fixed left-0 top-0 bottom-0 z-50 w-72 bg-white dark:bg-neutral-900 border-r border-gray-200 dark:border-gray-800 shadow-xl flex flex-col">
-            <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800">
-              <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+          <div className="fixed bottom-0 left-0 top-0 z-50 flex w-72 flex-col border-r-2 border-line bg-bg">
+            <div className="flex items-center justify-between border-b-2 border-line px-4 py-4">
+              <span className="label-mono text-fg">
                 Chat History
               </span>
               <button
                 onClick={() => setShowHistorySidebar(false)}
-                className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400"
+                className="p-1.5 text-muted transition-colors hover:bg-soft hover:text-fg"
                 title="Close history"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto p-2 space-y-1">
+            <div className="flex-1 overflow-y-auto p-2 space-y-1" data-lenis-prevent>
               {chatSessions.map((session) => (
                 <button
                   key={session.id}
                   onClick={() => handleSelectSession(session.id)}
-                  className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-left transition-colors ${
+                  className={`flex w-full items-center gap-2 px-3 py-2.5 text-left transition-colors ${
                     session.id === currentSessionId
-                      ? "bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                      ? "border-l-2 border-accent bg-soft text-fg"
+                      : "text-muted hover:bg-soft hover:text-fg"
                   }`}
                 >
                   <MessageCircle className="w-4 h-4 flex-shrink-0" />
@@ -573,10 +573,10 @@ export default function AIChatbotWithSidebar() {
                 </button>
               ))}
             </div>
-            <div className="p-2 border-t border-gray-200 dark:border-gray-800">
+            <div className="border-t-2 border-line p-2">
               <button
                 onClick={handleNewChat}
-                className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium transition-colors"
+                className="flex w-full items-center justify-center gap-2 bg-accent px-3 py-2.5 font-display text-sm font-bold uppercase tracking-wider text-accent-ink transition-colors hover:bg-fg hover:text-bg"
               >
                 <Plus className="w-4 h-4" />
                 New Chat
@@ -588,14 +588,14 @@ export default function AIChatbotWithSidebar() {
 
       {/* Error Message */}
       {error && (
-        <div className="mx-6 mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center justify-between">
+        <div className="mx-6 mt-4 flex items-center justify-between border-2 border-accent bg-soft p-4">
           <div className="flex items-center space-x-2">
-            <AlertCircle className="h-4 w-4 text-red-500" />
-            <span className="text-sm text-red-700">{error}</span>
+            <AlertCircle className="h-4 w-4 text-accent" />
+            <span className="text-sm text-fg">{error}</span>
           </div>
           <button
             onClick={() => setError(null)}
-            className="text-red-500 hover:text-red-700"
+            className="text-accent transition-colors hover:text-fg"
           >
             <X className="h-4 w-4" />
           </button>
@@ -606,31 +606,31 @@ export default function AIChatbotWithSidebar() {
       {currentSession.messages.length === 0 && (
         <div className="flex-1 flex items-center justify-center p-8">
           <div className="text-center max-w-md">
-            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 dark:bg-orange-900">
-              <MessageCircle className="h-8 w-8 text-orange-600 dark:text-orange-200" />
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center border-2 border-line">
+              <MessageCircle className="h-8 w-8 text-accent" />
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 dark:text-gray-100">
+            <h2 className="headline mb-4 text-2xl md:text-3xl">
               Portfolio Assistant
             </h2>
-            <p className="text-gray-600 mb-8 leading-relaxed dark:text-gray-300">
+            <p className="mb-8 leading-relaxed text-muted">
               Ask me anything about Yusril Prayoga&apos;s projects, skills, and
               experience as a Full Stack Developer.
             </p>
             <button
               onClick={handleAutoSend}
               disabled={isGenerating}
-              className="w-full p-4 text-left bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors disabled:opacity-50 dark:bg-neutral-900 dark:hover:bg-neutral-900 dark:border-gray-700"
+              className="w-full border-2 border-line p-4 text-left transition-colors hover:bg-soft disabled:opacity-50"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-medium text-gray-900 mb-1 dark:text-gray-100">
+                  <div className="mb-1 font-display font-bold uppercase tracking-wide">
                     Get started
                   </div>
-                  <div className="text-sm text-gray-500 dark:text-gray-300">
+                  <div className="font-mono text-xs uppercase tracking-wider text-muted">
                     Ask about the portfolio
                   </div>
                 </div>
-                <Send className="h-5 w-5 text-gray-400" />
+                <Send className="h-5 w-5 text-accent" />
               </div>
             </button>
           </div>
@@ -638,7 +638,7 @@ export default function AIChatbotWithSidebar() {
       )}
 
       {/* Messages */}
-      <div className="flex-1 overflow-auto" ref={scrollAreaRef}>
+      <div className="flex-1 overflow-auto" ref={scrollAreaRef} data-lenis-prevent>
         <div className="max-w-4xl mx-auto px-6 py-4">
           {currentSession.messages.map((message, idx) => (
             <div key={idx} className="mb-8 chat-fade-in">
@@ -646,12 +646,12 @@ export default function AIChatbotWithSidebar() {
                 {/* Avatar */}
                 <div className="flex-shrink-0 mt-1">
                   {message.role === "user" ? (
-                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                      <User className="h-4 w-4 text-white" />
+                    <div className="flex h-8 w-8 items-center justify-center border-2 border-line bg-fg">
+                      <User className="h-4 w-4 text-bg" />
                     </div>
                   ) : (
-                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                      <Bot className="h-4 w-4 text-white" />
+                    <div className="flex h-8 w-8 items-center justify-center bg-accent">
+                      <Bot className="h-4 w-4 text-accent-ink" />
                     </div>
                   )}
                 </div>
@@ -659,13 +659,13 @@ export default function AIChatbotWithSidebar() {
                 {/* Message Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                    <span className="label-mono text-fg">
                       {message.role === "user" ? "You" : "Assistant"}
                     </span>
                     {/* Copy Button - Always Visible */}
                     <button
                       onClick={() => copyToClipboard(message.content)}
-                      className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-100 rounded transition-colors"
+                      className="p-1.5 text-muted transition-colors hover:text-accent"
                       title="Copy message"
                     >
                       <Copy className="h-4 w-4" />
@@ -675,17 +675,17 @@ export default function AIChatbotWithSidebar() {
                   {/* Thinking Process - DeepSeek Style */}
                   {message.thinking && message.thinking.length > 0 && (
                     <details className="mb-4 group" open>
-                      <summary className="cursor-pointer select-none flex items-center gap-2 px-4 py-3 bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-950/50 transition-colors">
-                        <Sparkles className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-                        <span className="text-sm font-medium text-purple-900 dark:text-purple-300">
+                      <summary className="flex cursor-pointer select-none items-center gap-2 border-2 border-line bg-soft px-4 py-3 transition-colors hover:bg-bg">
+                        <Sparkles className="h-4 w-4 text-accent" />
+                        <span className="label-mono text-fg">
                           Thinking Process
                         </span>
-                        <span className="ml-auto text-xs text-purple-600 dark:text-purple-400 group-open:rotate-180 transition-transform">
+                        <span className="ml-auto text-xs text-accent transition-transform group-open:rotate-180">
                           ▼
                         </span>
                       </summary>
-                      <div className="mt-2 px-4 py-3 bg-purple-50/50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800 rounded-lg">
-                        <div className="prose prose-sm dark:prose-invert max-w-none text-purple-900 dark:text-purple-200 prose-p:my-2">
+                      <div className="border-2 border-t-0 border-line px-4 py-3">
+                        <div className="prose prose-sm max-w-none text-muted dark:prose-invert prose-p:my-2">
                           <FormattedMessage
                             content={message.thinking}
                             role="bot"
@@ -721,17 +721,17 @@ export default function AIChatbotWithSidebar() {
               <div className="mb-8 chat-fade-in">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 mt-1">
-                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                      <Bot className="h-4 w-4 text-white animate-pulse" />
+                    <div className="flex h-8 w-8 items-center justify-center bg-accent">
+                      <Bot className="h-4 w-4 animate-pulse text-accent-ink" />
                     </div>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center space-x-2 mb-3">
-                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                      <span className="label-mono text-fg">
                         Assistant
                       </span>
                     </div>
-                    <div className="flex items-center gap-1.5 px-4 py-3 bg-gray-50 dark:bg-neutral-800 border border-gray-200 dark:border-gray-700 rounded-lg w-fit">
+                    <div className="flex w-fit items-center gap-1.5 border-2 border-line bg-soft px-4 py-3">
                       <span className="chat-typing-dot" />
                       <span
                         className="chat-typing-dot"
@@ -750,7 +750,7 @@ export default function AIChatbotWithSidebar() {
       </div>
 
       {/* Input Area - Claude-style UI */}
-      <div className="border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-neutral-900">
+      <div className="border-t-2 border-line bg-bg">
         <div className="max-w-4xl mx-auto p-4">
           {/* Top Row - Prompt Input */}
           <div className="mb-3">
@@ -760,7 +760,7 @@ export default function AIChatbotWithSidebar() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="How can I help you today?"
-              className="w-full resize-none rounded-xl border-0 bg-gray-100 dark:bg-gray-800 px-4 py-3 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full resize-none border-2 border-line bg-bg px-4 py-3 text-fg placeholder:text-muted focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               rows={1}
               disabled={isGenerating}
               style={{ minHeight: "48px", maxHeight: "160px" }}
@@ -773,19 +773,19 @@ export default function AIChatbotWithSidebar() {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleNewChat}
-                className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="p-2 transition-colors hover:bg-soft"
                 title="New Chat"
               >
-                <Plus className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                <Plus className="h-5 w-5 text-muted" />
               </button>
 
               <button
                 onClick={() => setIsThinkingEnabled(!isThinkingEnabled)}
                 disabled={remainingThinking === 0}
-                className={`p-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                className={`p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
                   isThinkingEnabled
-                    ? "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400"
-                    : "hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+                    ? "bg-soft text-accent"
+                    : "text-muted hover:bg-soft"
                 }`}
                 title={`Extended Thinking (${remainingThinking}/3 left today)`}
               >
@@ -794,10 +794,10 @@ export default function AIChatbotWithSidebar() {
 
               <button
                 onClick={() => setShowHistorySidebar(!showHistorySidebar)}
-                className={`p-2 rounded-lg transition-colors ${
+                className={`p-2 transition-colors ${
                   showHistorySidebar
-                    ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-                    : "hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+                    ? "bg-soft text-accent"
+                    : "text-muted hover:bg-soft"
                 }`}
                 title="Chat History"
               >
@@ -809,13 +809,13 @@ export default function AIChatbotWithSidebar() {
             <div className="relative flex-1 max-w-xs">
               <button
                 onClick={() => setShowModelDropdown(!showModelDropdown)}
-                className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors w-full"
+                className="flex w-full items-center justify-center gap-2 border-2 border-line bg-bg px-4 py-2 transition-colors hover:bg-soft"
               >
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <span className="font-mono text-xs uppercase tracking-wider text-fg">
                   {selectedModel.name}
                 </span>
                 <ChevronDown
-                  className={`w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform ${
+                  className={`h-4 w-4 text-muted transition-transform ${
                     showModelDropdown ? "rotate-180" : ""
                   }`}
                 />
@@ -828,7 +828,7 @@ export default function AIChatbotWithSidebar() {
                     className="fixed inset-0 z-40"
                     onClick={() => setShowModelDropdown(false)}
                   />
-                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden">
+                  <div className="absolute bottom-full left-0 right-0 z-50 mb-2 overflow-hidden border-2 border-line bg-bg shadow-brutal">
                     {availableModels.map((model) => (
                       <button
                         key={model.id}
@@ -836,24 +836,22 @@ export default function AIChatbotWithSidebar() {
                           setSelectedModel(model);
                           setShowModelDropdown(false);
                         }}
-                        className={`w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-700 last:border-b-0 ${
-                          selectedModel.id === model.id
-                            ? "bg-blue-50 dark:bg-blue-900/20"
-                            : ""
+                        className={`w-full border-b border-line px-4 py-3 text-left transition-colors last:border-b-0 hover:bg-soft ${
+                          selectedModel.id === model.id ? "bg-soft" : ""
                         }`}
                       >
                         <div className="flex items-center gap-3">
                           <span className="text-2xl">{model.icon}</span>
                           <div className="flex-1">
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                              <span className="text-sm font-semibold text-fg">
                                 {model.name}
                               </span>
                               {model.supportsThinking && (
-                                <Brain className="w-3 h-3 text-purple-500" />
+                                <Brain className="h-3 w-3 text-accent" />
                               )}
                             </div>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                            <p className="text-xs text-muted">
                               {model.description}
                             </p>
                           </div>
@@ -869,26 +867,26 @@ export default function AIChatbotWithSidebar() {
             {isGenerating ? (
               <button
                 onClick={handleStopThinking}
-                className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
+                className="border-2 border-line p-3 transition-colors hover:bg-soft"
                 title="Stop generating"
               >
-                <X className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                <X className="h-5 w-5 text-fg" />
               </button>
             ) : (
               <button
                 onClick={handleSend}
                 disabled={input.trim() === ""}
-                className="p-3 rounded-full bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="bg-accent p-3 transition-colors hover:bg-fg disabled:cursor-not-allowed disabled:opacity-50 group/send"
                 title="Send message"
               >
-                <ArrowUp className="w-5 h-5 text-white" />
+                <ArrowUp className="h-5 w-5 text-accent-ink group-hover/send:text-bg" />
               </button>
             )}
           </div>
 
           {/* Info Badge - Show when thinking is enabled */}
           {isThinkingEnabled && remainingThinking > 0 && (
-            <div className="mt-2 flex items-center gap-2 text-xs text-purple-600 dark:text-purple-400">
+            <div className="mt-2 flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-accent">
               <Brain className="w-3 h-3" />
               <span>
                 Extended thinking enabled ({remainingThinking}/3 left today)
@@ -896,7 +894,7 @@ export default function AIChatbotWithSidebar() {
             </div>
           )}
           {remainingThinking === 0 && isThinkingEnabled && (
-            <div className="mt-2 flex items-center gap-2 text-xs text-red-600 dark:text-red-400">
+            <div className="mt-2 flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-accent">
               <AlertCircle className="w-3 h-3" />
               <span>Thinking limit reached. Resets tomorrow.</span>
             </div>

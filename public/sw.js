@@ -1,13 +1,13 @@
 // Service Worker for offline support
-const CACHE_NAME = "portfolio-v1";
-const OFFLINE_URL = "/_offline";
+const CACHE_NAME = "portfolio-v2";
+const OFFLINE_URL = "/offline";
 
 // Assets to cache immediately
 const PRECACHE_ASSETS = [
   "/",
   OFFLINE_URL,
   "/manifest.json",
-  "/images/profil.jpg",
+  "/images/profil.JPG",
   "/images/about.webp",
 ];
 

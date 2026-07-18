@@ -12,19 +12,51 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
-        primary: "var(--neutral-700)",
-        secondary: "var(--neutral-500)",
+        // Semantic tokens — flip automatically in .dark via CSS variables.
+        bg: "var(--c-bg)",
+        fg: "var(--c-fg)",
+        muted: "var(--c-muted)",
+        line: "var(--c-line)",
+        soft: "var(--c-soft)",
+        accent: {
+          DEFAULT: "var(--c-accent)",
+          ink: "var(--c-accent-ink)",
+        },
+        // Legacy aliases used by not-yet-migrated components.
+        primary: "var(--c-fg)",
+        secondary: "var(--c-muted)",
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        editorial: [
+          "var(--font-editorial)",
+          "Didot",
+          "Bodoni MT",
+          "serif",
+        ],
+        display: [
+          "var(--font-display)",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
+        mono: [
+          "var(--font-mono)",
+          "ui-monospace",
+          "SFMono-Regular",
+          "monospace",
+        ],
+      },
+      boxShadow: {
+        // Hard offset "shadow" — a brutalist border, not a blur.
+        brutal: "4px 4px 0 0 var(--c-line)",
+        "brutal-lg": "8px 8px 0 0 var(--c-line)",
+        "brutal-accent": "4px 4px 0 0 var(--c-accent)",
       },
       animation: {
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
-        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         scroll: {
@@ -32,28 +64,10 @@ const config: Config = {
             transform: "translate(calc(-50% - 0.5rem))",
           },
         },
-        pulse: {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.5" },
-        },
-      },
-      animationDelay: {
-        '75': '75ms',
-        '100': '100ms',
-        '150': '150ms',
-        '200': '200ms',
-        '300': '300ms',
-        '500': '500ms',
-        '700': '700ms',
-        '1000': '1000ms',
       },
     },
   },
-  plugins: 
-  [
-    require("@tailwindcss/typography"), 
-    addVariablesForColors
-  ],
+  plugins: [require("@tailwindcss/typography"), addVariablesForColors],
   darkMode: "class",
 } satisfies Config;
 

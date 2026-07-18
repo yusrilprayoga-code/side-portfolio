@@ -41,31 +41,26 @@ export default function OnlineStatusIndicator() {
 
   return (
     <div
-      className={`fixed top-4 right-4 z-[10000] transition-all duration-300 ${
+      role="status"
+      className={`fixed right-4 top-20 z-[10000] transition-all duration-300 ${
         showNotification ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
       }`}
     >
-      <div
-        className={`flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg backdrop-blur-sm border ${
-          isOnline
-            ? 'bg-green-500/90 border-green-400 text-white'
-            : 'bg-red-500/90 border-red-400 text-white'
-        }`}
-      >
+      <div className="flex items-center gap-3 border-2 border-line bg-bg px-4 py-3 shadow-brutal">
         {isOnline ? (
           <>
-            <Wifi className="w-5 h-5" />
+            <Wifi className="h-5 w-5 text-fg" aria-hidden="true" />
             <div>
-              <p className="font-medium text-sm">Back Online</p>
-              <p className="text-xs opacity-90">Connection restored</p>
+              <p className="font-display text-sm font-bold uppercase tracking-wider">Back online</p>
+              <p className="font-mono text-xs text-muted">Connection restored</p>
             </div>
           </>
         ) : (
           <>
-            <WifiOff className="w-5 h-5" />
+            <WifiOff className="h-5 w-5 text-accent" aria-hidden="true" />
             <div>
-              <p className="font-medium text-sm">You&apos;re Offline</p>
-              <p className="text-xs opacity-90">Check your connection</p>
+              <p className="font-display text-sm font-bold uppercase tracking-wider text-accent">You&apos;re offline</p>
+              <p className="font-mono text-xs text-muted">Check your connection</p>
             </div>
           </>
         )}

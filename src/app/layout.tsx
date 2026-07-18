@@ -1,68 +1,80 @@
-import { Sidebar } from "@/components/Sidebar";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import {
+  Bodoni_Moda,
+  Inter,
+  Space_Grotesk,
+  JetBrains_Mono,
+} from "next/font/google";
 import { twMerge } from "tailwind-merge";
-import { Footer } from "@/components/Footer";
+import Script from "next/script";
+import { Providers } from "./providers";
+import { Navbar } from "@/components/site/Navbar";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { CookieConsent } from "@/components/CookieConsent";
 import OnlineStatusIndicator from "@/components/OnlineStatusIndicator";
-import LiveVisitorCounterWithAPI from "@/components/LiveVisitorCounterWithAPI";
-import SplashScreenWrapper from "@/components/SplashScreenWrapper";
-import Script from "next/script";
 
-// Inter is a variable font — omitting `weight` loads a single file covering
-// all weights instead of nine separate ones.
+// All three are variable fonts — one file each covers every weight.
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-sans",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-display",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+});
+
+const bodoniModa = Bodoni_Moda({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-editorial",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://side-portfolio.vercel.app"
   ),
-  title: "Yusril Prayoga - Developer",
+  title: "Yusril Prayoga — Software Engineer",
   description:
-    "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
+    "Full-stack software engineer building data-heavy products end-to-end — Next.js, TypeScript, PostgreSQL, and cloud. Based in Yogyakarta, Indonesia.",
   keywords: [
-    "developer",
-    "writer",
-    "speaker",
-    "digital",
-    "remote work",
-    "yusrilprayoga",
-    "yusrilprayoga-code",
+    "software engineer",
+    "full stack developer",
     "portfolio",
     "yusril prayoga",
-    "yusrilprayoga code",
-    "yusrilprayoga portfolio",
-    "yusril prayoga portfolio",
-    "yusrilprayoga-code portfolio",
-    "yusrilprayoga-code portfolio",
-    "yusrilprayoga code portfolio",
-    "yusril prayoga tech",
-    "yusrilprayoga tech",
-    "yusrilprayoga-code tech",
-    "yusrilprayoga code tech",
-    "yusrilprayoga tech portfolio",
-    "yusrilprayoga-code tech portfolio",
-    "yusrilprayoga-code tech portfolio",
+    "yusrilprayoga",
+    "yusrilprayoga-code",
+    "next.js developer",
+    "typescript developer",
+    "indonesia",
   ],
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Yusril Portfolio",
+    title: "Yusril Prayoga",
   },
-  applicationName: "Yusril Portfolio",
+  applicationName: "Yusril Prayoga Portfolio",
   formatDetection: {
     telephone: false,
   },
 };
 
-// Viewport configuration (Next.js 15+)
 export const viewport: Viewport = {
-  themeColor: "#3b82f6",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { color: "#ffffff" },
+  ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -74,16 +86,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#3b82f6" />
-        <link rel="apple-touch-icon" href="/images/profil.jpg" />
+        <link rel="apple-touch-icon" href="/images/profil.JPG" />
       </head>
       <body
         className={twMerge(
-          inter.className,
-          "flex antialiased h-screen overflow-hidden bg-gray-100"
+          inter.variable,
+          spaceGrotesk.variable,
+          jetbrainsMono.variable,
+          bodoniModa.variable,
+          "font-sans antialiased bg-bg text-fg"
         )}
       >
         {/* Service Worker Registration */}
@@ -93,41 +106,31 @@ export default function RootLayout({
               window.addEventListener('load', () => {
                 navigator.serviceWorker
                   .register('/sw.js')
-                  .then((registration) => {
-                    console.log('Service Worker registered:', registration);
-                  })
-                  .catch((error) => {
-                    console.log('Service Worker registration failed:', error);
-                  });
+                  .catch(() => {});
               });
             }
           `}
         </Script>
 
-        {/* Splash Screen - Independent layer */}
-        <SplashScreenWrapper>
-          <></>
-        </SplashScreenWrapper>
-
-        <Sidebar />
-        <div className="lg:pl-2 lg:pt-2 bg-gray-100 flex-1 overflow-y-auto">
-          <div className="flex-1 bg-white min-h-screen lg:rounded-tl-xl border border-transparent lg:border-neutral-200 overflow-y-auto dark:bg-neutral-900">
+        <Providers>
+          <SmoothScroll />
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border-2 focus:border-line focus:bg-bg focus:px-4 focus:py-2 focus:font-mono focus:text-sm"
+          >
+            Skip to content
+          </a>
+          <Navbar />
+          <main id="main" className="pt-16">
             {children}
-            <Footer />
-          </div>
-        </div>
-
-        {/* Online/Offline Indicator */}
-        <OnlineStatusIndicator />
-
-        {/* Live Visitor Counter with Real Tracking */}
-        <LiveVisitorCounterWithAPI />
-
-        {/* Cookie Consent */}
-        <CookieConsent
-          companyName="Yusril Prayoga Portfolio"
-          privacyPolicyUrl="/privacy-policy"
-        />
+          </main>
+          <SiteFooter />
+          <OnlineStatusIndicator />
+          <CookieConsent
+            companyName="Yusril Prayoga Portfolio"
+            privacyPolicyUrl="/privacy-policy"
+          />
+        </Providers>
       </body>
     </html>
   );

@@ -1,69 +1,64 @@
-"use client";
-import Head from "next/head";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { formatDate } from "../../lib/formatDate";
 import { Prose } from "@/components/Prose";
-import { Container } from "./Container";
-import { Heading } from "./Heading";
-import Link from "next/link";
-import { Paragraph } from "./Paragraph";
-
-function ArrowLeftIcon(props: any) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M7.25 11.25 3.75 8m0 0 3.5-3.25M3.75 8h8.5"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export function BlogLayout({
   children,
   meta,
-  isRssFeed = false,
-  previousPathname,
-}: any) {
-  let router = useRouter();
-
+}: {
+  children: React.ReactNode;
+  meta: {
+    title: string;
+    date: string;
+    description?: string;
+    image: string;
+    tags?: string[];
+  };
+}) {
   return (
-    <Container>
+    <div className="mx-auto w-full max-w-3xl px-5 py-16 md:px-8 md:py-24">
       <article>
-        <header className="flex flex-col dark:text-gray-300">
+        <header>
           <Link
-            type="button"
             href="/blog"
-            aria-label="Go back to articles"
-            className="group mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 transition  "
+            className="label-mono inline-flex items-center gap-2 transition-colors duration-150 hover:text-accent"
           >
-            <ArrowLeftIcon className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 d" />
+            <span aria-hidden="true">←</span> All articles
           </Link>
 
-          <Heading className=" py-4 dark:text-gray-300">{meta.title}</Heading>
-          <time
-            dateTime={meta.date}
-            className="flex items-center text-base text-zinc-400 "
-          >
-            <Paragraph className=" text-zinc-700 dark:text-gray-300">
+          <h1 className="headline mt-8 text-3xl md:text-5xl">{meta.title}</h1>
+
+          <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 border-y-2 border-line py-3">
+            <time dateTime={meta.date} className="label-mono">
               {formatDate(meta.date)}
-            </Paragraph>
-          </time>
-          <div className="w-full mt-4 aspect-w-16 aspect-h-10 bg-gray-100 rounded-lg overflow-hidden xl:aspect-w-16 xl:aspect-h-10 relative">
+            </time>
+            {meta.tags?.length ? (
+              <ul className="flex flex-wrap gap-2">
+                {meta.tags.map((tag) => (
+                  <li
+                    key={tag}
+                    className="border border-line px-2 py-0.5 font-mono text-[11px] uppercase tracking-wider text-muted"
+                  >
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+
+          <div className="mt-8 border-2 border-line">
             <Image
               src={meta.image}
-              alt="thumbnail"
-              height="800"
-              width="800"
-              className={`object-cover object-left-top w-full max-h-96`}
+              alt={`${meta.title} — cover image`}
+              height={800}
+              width={1200}
+              className="max-h-96 w-full object-cover object-left-top"
             />
           </div>
         </header>
-        <Prose className="mt-8">{children}</Prose>
+        <Prose className="mt-10">{children}</Prose>
       </article>
-    </Container>
+    </div>
   );
 }

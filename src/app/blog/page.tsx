@@ -1,17 +1,11 @@
-import { Container } from "@/components/Container";
-import { Heading } from "@/components/Heading";
-import { Highlight } from "@/components/Highlight";
-import { Paragraph } from "@/components/Paragraph";
-import { Products } from "@/components/Products";
 import { getAllBlogs } from "../../../lib/getAllBlogs";
 import { Blogs } from "@/components/Blogs";
 import { Metadata } from "next";
-import { CarouselArticlesPage } from "@/components/CarouselArticlesPage";
 
 export const metadata: Metadata = {
-  title: "Blogs | Yusril Prayoga",
+  title: "Blog — Yusril Prayoga",
   description:
-    "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
+    "Notes on web development, clean code, and the tools I use — written while building real products.",
 };
 
 export default async function Blog() {
@@ -19,16 +13,18 @@ export default async function Blog() {
   const data = blogs.map(({ component, ...meta }) => meta);
 
   return (
-    <Container>
-      <span className="text-4xl">📝</span>
-      <Heading className="font-black pb-4 dark:text-gray-300">I write about technology</Heading>
-      <Paragraph className="pb-10 dark:text-gray-300">
-        Ever since <Highlight className="dark:text-gray-800">
-          I got my first computer
-        </Highlight>, I&apos;ve been
-        fascinated by technology.
-      </Paragraph>
+    <div className="container-x py-16 md:py-24">
+      <header className="mb-12 md:mb-16">
+        <p className="label-mono">Journal — {data.length} articles</p>
+        <h1 className="headline mt-4 text-5xl md:text-7xl">
+          Writing<span className="text-accent">.</span>
+        </h1>
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+          Notes on web development, clean code, and the tools I use — written
+          while building real products.
+        </p>
+      </header>
       <Blogs blogs={data} />
-    </Container>
+    </div>
   );
 }

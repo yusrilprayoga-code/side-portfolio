@@ -1,60 +1,48 @@
 "use client";
 import { useState } from "react";
-import { Container } from "@/components/Container";
-import { Heading } from "@/components/Heading";
-import { Highlight } from "@/components/Highlight";
-import { Paragraph } from "@/components/Paragraph";
 import { WorkHistory } from "@/components/WorkHistory";
-import { IconDownload, IconEye, IconEyeOff } from "@tabler/icons-react";
+import { Button } from "@/components/site/Button";
+import { site } from "@/constants/site";
 
-export default function Home() {
+export default function ResumePage() {
   const [showPreview, setShowPreview] = useState(false);
 
-  const handleResumeDownload = () => {
-    window.open("/mycv.pdf", "_blank");
-  };
-
-  const handleLivePreview = () => {
-    setShowPreview(!showPreview);
-  };
-
   return (
-    <Container>
-      <span className="text-4xl">💼</span>
-      <Heading className="font-black dark:text-gray-300">Work History</Heading>
-      <Paragraph className="max-w-xl mt-4">
-        I&apos;m a Full Stack developer that loves{" "}
-        <Highlight className="dark:bg-gray-800">building products</Highlight>{" "}
-        and web apps that can impact millions of lives
-      </Paragraph>
-      <div className="flex gap-2">
-        <button
-          onClick={handleResumeDownload}
-          className="flex items-center mt-4 bg-neutral-100 dark:bg-gray-800 dark:text-white px-4 py-2 rounded-md font-bold text-neutral-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+    <div className="container-x py-16 md:py-24">
+      <header className="mb-10 md:mb-12">
+        <p className="label-mono">Resume</p>
+        <h1 className="headline mt-4 text-5xl md:text-7xl">
+          Work history<span className="text-accent">.</span>
+        </h1>
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+          The full record — every role, program, and responsibility. Also
+          available as a PDF.
+        </p>
+      </header>
+
+      <div className="flex flex-wrap gap-3">
+        <Button href={site.resumeUrl} external>
+          Download PDF <span aria-hidden="true">↓</span>
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => setShowPreview((v) => !v)}
         >
-          <IconDownload size={20} />
-          <span className="ml-2">Download Resume</span>
-        </button>
-        <button
-          onClick={handleLivePreview}
-          className="flex items-center mt-4 bg-neutral-100 dark:bg-gray-800 dark:text-white px-4 py-2 rounded-md font-bold text-neutral-500 hover:bg-gray-100 dark:hover:bg-gray-700"
-        >
-          {showPreview ? <IconEye size={20} /> : <IconEyeOff size={20} />}
-          <span className="ml-2">
-            {showPreview ? "Hide Preview" : "Live Preview"}
-          </span>
-        </button>
+          {showPreview ? "Hide preview" : "Preview PDF"}
+        </Button>
       </div>
+
       {showPreview && (
-        <div className="mt-4">
+        <div className="mt-6 border-2 border-line">
           <iframe
-            src="/mycv.pdf"
-            className="w-full h-96 border border-neutral-200 dark:border-gray-600"
-            title="Resume Preview"
-          ></iframe>
+            src={site.resumeUrl}
+            className="h-[32rem] w-full"
+            title="Resume preview"
+          />
         </div>
       )}
+
       <WorkHistory />
-    </Container>
+    </div>
   );
 }

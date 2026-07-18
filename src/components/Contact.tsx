@@ -137,15 +137,21 @@ export const Contact: React.FC = () => {
     }
   };
 
+  const inputBase =
+    "w-full border-2 border-line bg-bg px-4 py-3 text-sm text-fg placeholder:text-muted focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+
   return (
-    <form className="form" onSubmit={handleSubmit} ref={formRef}>
-      <div className="flex flex-col md:flex-row justify-between gap-5">
+    <form onSubmit={handleSubmit} ref={formRef} noValidate>
+      <div className="flex flex-col justify-between gap-5 md:flex-row">
         <div className="w-full">
+          <label htmlFor="name" className="label-mono mb-2 block">
+            Name
+          </label>
           <input
             type="text"
-            placeholder="Your Name"
-            className={`bg-neutral-100 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-gray-600 px-2 py-2 rounded-md text-sm text-neutral-700 w-full ${
-              formData.name.error ? "ring-2 ring-red-500" : ""
+            placeholder="Your name"
+            className={`${inputBase} ${
+              formData.name.error ? "border-accent" : ""
             }`}
             value={formData.name.value}
             name="name"
@@ -154,15 +160,20 @@ export const Contact: React.FC = () => {
             onChange={handleChange}
           />
           {formData.name.error && (
-            <p className="text-red-500 text-xs mt-1">{formData.name.error}</p>
+            <p className="mt-1 font-mono text-xs text-accent">
+              {formData.name.error}
+            </p>
           )}
         </div>
         <div className="w-full">
+          <label htmlFor="email" className="label-mono mb-2 block">
+            Email
+          </label>
           <input
             type="email"
-            placeholder="Your email address"
-            className={`bg-neutral-100 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-gray-600 px-2 py-2 rounded-md text-sm text-neutral-700 w-full ${
-              formData.email.error ? "ring-2 ring-red-500" : ""
+            placeholder="you@example.com"
+            className={`${inputBase} ${
+              formData.email.error ? "border-accent" : ""
             }`}
             value={formData.email.value}
             name="email"
@@ -171,16 +182,21 @@ export const Contact: React.FC = () => {
             onChange={handleChange}
           />
           {formData.email.error && (
-            <p className="text-red-500 text-xs mt-1">{formData.email.error}</p>
+            <p className="mt-1 font-mono text-xs text-accent">
+              {formData.email.error}
+            </p>
           )}
         </div>
       </div>
-      <div>
+      <div className="mt-5">
+        <label htmlFor="message" className="label-mono mb-2 block">
+          Message
+        </label>
         <textarea
-          placeholder="Your Message"
+          placeholder="What are we building?"
           rows={10}
-          className={`bg-neutral-100 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-gray-600 px-2 mt-4 py-2 rounded-md text-sm text-neutral-700 w-full ${
-            formData.message.error ? "ring-2 ring-red-500" : ""
+          className={`${inputBase} ${
+            formData.message.error ? "border-accent" : ""
           }`}
           value={formData.message.value}
           name="message"
@@ -189,26 +205,26 @@ export const Contact: React.FC = () => {
           onChange={handleChange}
         />
         {formData.message.error && (
-          <p className="text-red-500 text-xs mt-1">{formData.message.error}</p>
+          <p className="mt-1 font-mono text-xs text-accent">
+            {formData.message.error}
+          </p>
         )}
       </div>
-      <div className="flex justify-center items-center gap-2">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         <button
-          className="w-full px-2 py-2 mt-4 bg-neutral-100 dark:bg-gray-800 dark:text-white rounded-md font-bold text-neutral-500
-       focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-gray-600 hover:bg-neutral-200 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out
-        "
+          className="inline-flex w-full items-center justify-center gap-2 border-2 border-line bg-fg px-6 py-3 font-display text-sm font-bold uppercase tracking-wider text-bg transition-colors duration-150 hover:bg-accent hover:text-accent-ink hover:border-accent disabled:cursor-not-allowed disabled:opacity-50"
           type="submit"
           disabled={loading}
         >
-          {loading ? "Sending..." : "Send Message"}
+          {loading ? "Sending..." : "Send message"}
         </button>
         <button
           type="button"
           onClick={handleGenerateAIMessage}
           disabled={aiGenerating}
-          className="w-full px-2 py-2 mt-4 bg-neutral-100 dark:bg-gray-800 dark:text-white rounded-md font-bold text-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-gray-600 hover:bg-neutral-200 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out"
+          className="inline-flex w-full items-center justify-center gap-2 border-2 border-line bg-transparent px-6 py-3 font-display text-sm font-bold uppercase tracking-wider text-fg transition-colors duration-150 hover:bg-fg hover:text-bg disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {aiGenerating ? "Generating..." : "Write With AI"}
+          {aiGenerating ? "Generating..." : "Write with AI"}
         </button>
       </div>
       <Toaster
@@ -218,8 +234,10 @@ export const Contact: React.FC = () => {
         toastOptions={{
           duration: 4000,
           style: {
-            background: "#333",
-            color: "#fff",
+            background: "#0a0a0a",
+            color: "#f5f5f5",
+            border: "2px solid #f5f5f5",
+            borderRadius: "0",
           },
         }}
       />

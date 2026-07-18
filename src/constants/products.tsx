@@ -593,26 +593,20 @@ export const products = [
     content: (
       <div>
         <p>
-          Ecommerce App is a mobile application that provides users with
-          personalized movie recommendations based on their preferences and
-          viewing history. The app utilizes advanced algorithms to analyze user
-          data and generate tailored movie suggestions, ensuring that users
-          discover new films that match their tastes and interests. With a sleek
-          and intuitive interface, Movie Recommendation App offers a seamless
-          and engaging experience, allowing users to easily browse through
-          recommended movies, view detailed information, and save favorites for
-          later viewing.{" "}
+          Ecommerce App is a mobile shopping application built with Flutter. It
+          lets users browse a product catalog, view detailed product pages,
+          manage a shopping cart, and complete a checkout flow with a clean,
+          responsive interface. Local state and offline persistence are handled
+          with Hive, and Lottie powers lightweight micro-animations throughout
+          the experience.
         </p>
         <p>
-          The app is designed to enhance the movie-watching experience by
-          providing users with relevant and high-quality recommendations that
-          align with their preferences. By leveraging cutting-edge machine
-          learning and data analysis techniques, Movie Recommendation App offers
-          a curated selection of movies that cater to a wide range of genres,
-          themes, and styles. Whether you are a casual moviegoer or a dedicated
-          film buff, Movie Recommendation App is your go-to source for
-          discovering new and exciting films to enjoy.
-        </p>{" "}
+          The app focuses on a smooth and predictable shopping experience:
+          fast list rendering, clear product information, and a checkout that
+          keeps the number of steps to a minimum. It was also an exercise in
+          structuring a Flutter codebase for maintainability — separating UI,
+          state, and data layers so features can grow without rewrites.
+        </p>
       </div>
     ),
   },
@@ -648,44 +642,6 @@ export const products = [
           the world of digital design. Whether you are a fellow designer,
           potential client, or simply an admirer of creative work, ArCipe offers
           a glimpse into the talent and vision of Yusril Prayoga.
-        </p>{" "}
-      </div>
-    ),
-  },
-  {
-    href: "https://tailwindmasterkit.com",
-    title: "Tailwind Master Kit",
-    description:
-      "A beautiful and comprehensive Tailwind CSS components library for building modern websites and applications.",
-    thumbnail: "/images/sidefolio-tailwindmasterkit.png",
-    images: [
-      "/images/sidefolio-tailwindmasterkit.png",
-      "/images/sidefolio-tailwindmasterkit-2.png",
-    ],
-    stack: ["Nextjs", "Tailwindcss"],
-    slug: "tailwindmasterkit",
-    content: (
-      <div>
-        <p>
-          Tailwind Master Kit is a versatile and extensive library of Tailwind
-          CSS components designed to help developers build modern and responsive
-          websites and applications. With a wide range of customizable elements,
-          styles, and layouts, Tailwind Master Kit provides a comprehensive
-          toolkit for creating beautiful and functional user interfaces. The
-          library includes components for navigation menus, hero sections,
-          pricing tables, testimonials, and more, making it easy to design and
-          develop professional-looking websites with minimal effort.{" "}
-        </p>
-        <p>
-          The components in Tailwind Master Kit are built with accessibility,
-          responsiveness, and usability in mind, ensuring that developers can
-          create inclusive and user-friendly interfaces. Each component is fully
-          customizable, allowing for easy integration into existing projects and
-          seamless adaptation to different design requirements. Whether you are
-          working on a personal portfolio, a corporate website, or a web
-          application, Tailwind Master Kit offers a wealth of high-quality
-          components to enhance your development workflow and elevate your
-          design capabilities.
         </p>{" "}
       </div>
     ),

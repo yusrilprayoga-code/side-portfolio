@@ -1,68 +1,29 @@
-import RotatingText from "@/blocks/TextAnimations/RotatingText/RotatingText";
-import { Container } from "@/components/Container";
-import { FlipWordsDemo } from "@/components/FlipWordsLayout";
-import { Heading } from "@/components/Heading";
 import { Products } from "@/components/Products";
+import { products } from "@/constants/products";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects | Yusril Prayoga",
+  title: "Projects — Yusril Prayoga",
   description:
-    "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
-  keywords: [
-    "developer",
-    "writer",
-    "speaker",
-    "digital",
-    "remote work",
-    "yusrilprayoga",
-    "yusrilprayoga-code",
-    "portfolio",
-    "yusril prayoga",
-    "yusrilprayoga code",
-    "yusrilprayoga portfolio",
-    "yusril prayoga portfolio",
-    "yusrilprayoga-code portfolio",
-    "yusrilprayoga-code portfolio",
-    "yusrilprayoga code portfolio",
-    "yusril prayoga tech",
-    "yusrilprayoga tech",
-    "yusrilprayoga-code tech",
-    "yusrilprayoga code tech",
-    "yusrilprayoga tech portfolio",
-    "yusrilprayoga-code tech portfolio",
-    "yusrilprayoga-code tech portfolio",
-  ],
+    "All shipped projects by Yusril Prayoga — enterprise data platforms, AI products, and full-stack builds with Next.js, Laravel, and more.",
 };
 
 export default function Projects() {
   return (
-    <Container>
-      <span className="text-4xl">⚡</span>
-      <Heading className="font-black mb-10 dark:text-gray-300">
-        {" "}
-        What I&apos;ve been working on
-      </Heading>
-      <FlipWordsDemo />
-      {/* <RotatingText
-        texts={[
-          "React",
-          "Next.js",
-          "TailwindCSS",
-          "Framer Motion",
-          "TypeScript",
-          ]}
-        mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
-        staggerFrom={"last"}
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "-120%" }}
-        staggerDuration={0.025}
-        splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-        transition={{ type: "spring", damping: 30, stiffness: 400 }}
-        rotationInterval={2000}
-      /> */}
+    <div className="container-x py-16 md:py-24">
+      <header className="mb-12 md:mb-16">
+        <p className="label-mono">
+          Archive — {products.length} projects
+        </p>
+        <h1 className="headline mt-4 text-5xl md:text-7xl">
+          All projects<span className="text-accent">.</span>
+        </h1>
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+          From enterprise data platforms to weekend experiments — everything
+          I&apos;ve shipped, in one index. Newest first.
+        </p>
+      </header>
       <Products />
-    </Container>
+    </div>
   );
 }

@@ -99,26 +99,26 @@ export function CookieConsent({
   return (
     <>
       {/* Cookie Banner - Higher z-index to appear above sidebar */}
-      <div className="fixed bottom-0 left-0 right-0 z-[9999] p-4 md:p-6 bg-white dark:bg-gray-900 border-t-2 border-orange-500 shadow-2xl animate-slide-up">
+      <div className="fixed bottom-0 left-0 right-0 z-[9999] border-t-2 border-line bg-bg p-4 animate-slide-up md:p-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-start gap-4">
             {/* Icon */}
             <div className="flex-shrink-0 mt-1">
-              <Cookie className="w-8 h-8 text-orange-500" />
+              <Cookie className="h-8 w-8 text-accent" />
             </div>
 
             {/* Content */}
             <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                🍪 We Value Your Privacy
+              <h3 className="mb-2 font-display text-lg font-bold uppercase tracking-tight">
+                We value your privacy
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+              <p className="mb-4 max-w-3xl text-sm leading-relaxed text-muted">
                 We use cookies to enhance your browsing experience, analyze site
                 traffic, and personalize content. By clicking &ldquo;Accept All&rdquo;, you
                 consent to our use of cookies.{" "}
                 <a
                   href={privacyPolicyUrl}
-                  className="text-orange-500 hover:text-orange-600 underline"
+                  className="text-fg underline decoration-2 underline-offset-4 hover:decoration-accent"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -130,19 +130,19 @@ export function CookieConsent({
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={acceptAll}
-                  className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
+                  className="border-2 border-line bg-fg px-6 py-2 font-display text-sm font-bold uppercase tracking-wider text-bg transition-colors hover:border-accent hover:bg-accent hover:text-accent-ink"
                 >
                   Accept All
                 </button>
                 <button
                   onClick={acceptNecessary}
-                  className="px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 rounded-lg font-medium transition-colors"
+                  className="border-2 border-line px-6 py-2 font-display text-sm font-bold uppercase tracking-wider text-fg transition-colors hover:bg-fg hover:text-bg"
                 >
                   Necessary Only
                 </button>
                 <button
                   onClick={() => setShowSettings(true)}
-                  className="px-6 py-2 border-2 border-gray-300 dark:border-gray-600 hover:border-orange-500 dark:hover:border-orange-500 text-gray-900 dark:text-gray-100 rounded-lg font-medium transition-colors flex items-center gap-2"
+                  className="flex items-center gap-2 border-2 border-line px-6 py-2 font-display text-sm font-bold uppercase tracking-wider text-fg transition-colors hover:border-accent hover:text-accent"
                 >
                   <Settings className="w-4 h-4" />
                   Customize
@@ -153,7 +153,7 @@ export function CookieConsent({
             {/* Close Button */}
             <button
               onClick={acceptNecessary}
-              className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+              className="flex-shrink-0 p-2 text-muted transition-colors hover:text-fg"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -164,20 +164,21 @@ export function CookieConsent({
 
       {/* Cookie Settings Modal - Even higher z-index */}
       {showSettings && (
-        <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-fg/60 p-4 animate-fade-in">
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto border-2 border-line bg-bg shadow-brutal-lg"
+            data-lenis-prevent>
             {/* Header */}
-            <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-6">
+            <div className="sticky top-0 border-b-2 border-line bg-bg p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Shield className="w-6 h-6 text-orange-500" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  <Shield className="h-6 w-6 text-accent" />
+                  <h2 className="font-display text-2xl font-bold uppercase tracking-tight">
                     Cookie Preferences
                   </h2>
                 </div>
                 <button
                   onClick={() => setShowSettings(false)}
-                  className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                  className="p-2 text-muted transition-colors hover:text-fg"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -186,19 +187,19 @@ export function CookieConsent({
 
             {/* Body */}
             <div className="p-6 space-y-6">
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-muted">
                 Manage your cookie preferences. You can enable or disable
                 different types of cookies below.
               </p>
 
               {/* Necessary Cookies */}
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="border-2 border-line p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                    <h3 className="mb-1 font-display font-bold uppercase tracking-wide">
                       Necessary Cookies
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-muted">
                       Essential for the website to function properly. Cannot be
                       disabled.
                     </p>
@@ -208,20 +209,20 @@ export function CookieConsent({
                       type="checkbox"
                       checked={true}
                       disabled
-                      className="w-5 h-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500 disabled:opacity-50"
+                      className="h-5 w-5 accent-[#ff3d00] disabled:opacity-50"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Analytics Cookies */}
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="border-2 border-line p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                    <h3 className="mb-1 font-display font-bold uppercase tracking-wide">
                       Analytics Cookies
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-muted">
                       Help us understand how visitors interact with our website.
                     </p>
                   </div>
@@ -235,20 +236,20 @@ export function CookieConsent({
                           analytics: e.target.checked,
                         })
                       }
-                      className="w-5 h-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500 cursor-pointer"
+                      className="h-5 w-5 cursor-pointer accent-[#ff3d00]"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Marketing Cookies */}
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="border-2 border-line p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                    <h3 className="mb-1 font-display font-bold uppercase tracking-wide">
                       Marketing Cookies
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-muted">
                       Used to track visitors and display relevant ads.
                     </p>
                   </div>
@@ -262,20 +263,20 @@ export function CookieConsent({
                           marketing: e.target.checked,
                         })
                       }
-                      className="w-5 h-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500 cursor-pointer"
+                      className="h-5 w-5 cursor-pointer accent-[#ff3d00]"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Functional Cookies */}
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="border-2 border-line p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                    <h3 className="mb-1 font-display font-bold uppercase tracking-wide">
                       Functional Cookies
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-muted">
                       Enable enhanced functionality and personalization.
                     </p>
                   </div>
@@ -289,7 +290,7 @@ export function CookieConsent({
                           functional: e.target.checked,
                         })
                       }
-                      className="w-5 h-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500 cursor-pointer"
+                      className="h-5 w-5 cursor-pointer accent-[#ff3d00]"
                     />
                   </div>
                 </div>
@@ -297,17 +298,17 @@ export function CookieConsent({
             </div>
 
             {/* Footer */}
-            <div className="sticky bottom-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-6">
+            <div className="sticky bottom-0 border-t-2 border-line bg-bg p-6">
               <div className="flex flex-wrap gap-3 justify-end">
                 <button
                   onClick={() => setShowSettings(false)}
-                  className="px-6 py-2 border-2 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-900 dark:text-gray-100 rounded-lg font-medium transition-colors"
+                  className="border-2 border-line px-6 py-2 font-display text-sm font-bold uppercase tracking-wider text-fg transition-colors hover:bg-fg hover:text-bg"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={saveCustomPreferences}
-                  className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
+                  className="border-2 border-line bg-fg px-6 py-2 font-display text-sm font-bold uppercase tracking-wider text-bg transition-colors hover:border-accent hover:bg-accent hover:text-accent-ink"
                 >
                   Save Preferences
                 </button>

@@ -11,7 +11,10 @@ export function Prose({
     <div
       className={clsx(
         className,
-        "prose prose-sm prose-blue max-w-none prose-p:text-secondary prose-headings:text-primary prose-headings:dark:text-gray-300 prose-p:dark:text-gray-300"
+        "prose prose-neutral max-w-none dark:prose-invert",
+        "prose-headings:font-display prose-headings:uppercase prose-headings:tracking-tight",
+        "prose-a:decoration-2 prose-a:underline-offset-4 hover:prose-a:decoration-accent",
+        "prose-code:font-mono prose-img:border-2 prose-img:border-line"
       )}
     >
       {children}

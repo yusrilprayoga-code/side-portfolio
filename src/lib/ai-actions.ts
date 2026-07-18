@@ -133,6 +133,8 @@ Based on the context and your general knowledge, please answer the following use
     const modelDef = availableModels.find((m) => m.id === model)
     const isNvidia = modelDef?.gateway === "nvidia"
 
+    // The `as any` on the params object hides the `stream: true` overload from
+    // TS, so pin the streaming return type explicitly.
     const createCompletion = (tokenBudget: number) =>
       openai.chat.completions.create({
         model: modelUsed,
@@ -157,7 +159,9 @@ Based on the context and your general knowledge, please answer the following use
         // Model-specific knobs (e.g. Nemotron's reasoning_budget /
         // chat_template_kwargs) declared alongside the model definition
         ...(modelDef?.requestOverrides ?? {}),
-      } as any)
+      } as any) as unknown as Promise<
+        AsyncIterable<OpenAI.Chat.Completions.ChatCompletionChunk>
+      >
 
     // Make the streaming API call with retry logic
     let completion

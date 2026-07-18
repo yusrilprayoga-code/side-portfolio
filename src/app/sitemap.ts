@@ -14,6 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/resume",
     "/accomplishments",
     "/chatbot",
+    "/privacy-policy",
+    "/blog/clean-code",
+    "/blog/dark-mode-with-nextjs",
+    "/blog/how-to-win-clients",
+    "/blog/tailwindcss-tips-and-tricks",
   ].map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date(),

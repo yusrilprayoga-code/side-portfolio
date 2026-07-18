@@ -4,12 +4,5 @@
     "src/app/api/**/*.ts": {
       "maxDuration": 60
     }
-  },
-  "routes": [
-    {
-      "src": "/api/chat",
-      "dest": "src/app/api/chat/route.ts"
-    }
-  ]
+  }
 }
-  

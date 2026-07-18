@@ -2,126 +2,206 @@
 @tailwind components;
 @tailwind utilities;
 
-/* global.css or similar */
-@custom-variant dark (&:is(.dark *));
-
+/* ---------------------------------------------------------------------------
+   Design tokens — ASAP / Brutalist / Minimal
+   One accent color. Black, white, gray. Nothing else.
+   --------------------------------------------------------------------------- */
 :root {
-  /* Updated color palette to match modern v0.dev aesthetic */
-  --background: #ffffff;
-  --foreground: #475569;
-  --card: #fdf2f8;
-  --card-foreground: #475569;
-  --popover: #ffffff;
-  --popover-foreground: #475569;
-  --primary: #be123c;
-  --primary-foreground: #ffffff;
-  --secondary: #ec4899;
-  --secondary-foreground: #ffffff;
-  --muted: #fdf2f8;
-  --muted-foreground: #475569;
-  --accent: #ec4899;
-  --accent-foreground: #ffffff;
-  --destructive: #be123c;
-  --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #ffffff;
-  --ring: rgba(190, 18, 60, 0.5);
-  --chart-1: #f97316;
-  --chart-2: #ea580c;
-  --chart-3: #a16207;
-  --chart-4: #4b5563;
-  --chart-5: #475569;
-  --radius: 0.5rem;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #475569;
-  --sidebar-primary: #fdf2f8;
-  --sidebar-primary-foreground: #475569;
-  --sidebar-accent: #ec4899;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #e2e8f0;
-  --sidebar-ring: rgba(190, 18, 60, 0.5);
+  --c-bg: #ffffff;
+  --c-fg: #0a0a0a;
+  --c-muted: #595959;
+  --c-line: #0a0a0a;
+  --c-soft: #f0f0f0;
+  --c-accent: #ff3d00;
+  --c-accent-ink: #0a0a0a;
 }
 
 .dark {
-  /* Updated dark mode colors for better contrast and modern look */
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --card: #1e293b;
-  --card-foreground: #f1f5f9;
-  --popover: #1e293b;
-  --popover-foreground: #f1f5f9;
-  --primary: #f43f5e;
-  --primary-foreground: #ffffff;
-  --secondary: #ec4899;
-  --secondary-foreground: #ffffff;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #ec4899;
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #334155;
-  --input: #1e293b;
-  --ring: rgba(244, 63, 94, 0.5);
-  --chart-1: #f97316;
-  --chart-2: #ea580c;
-  --chart-3: #a16207;
-  --chart-4: #64748b;
-  --chart-5: #94a3b8;
-  --sidebar: #0f172a;
-  --sidebar-foreground: #f1f5f9;
-  --sidebar-primary: #1e293b;
-  --sidebar-primary-foreground: #f1f5f9;
-  --sidebar-accent: #ec4899;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #334155;
-  --sidebar-ring: rgba(244, 63, 94, 0.5);
+  --c-bg: #0a0a0a;
+  --c-fg: #f5f5f5;
+  --c-muted: #a3a3a3;
+  --c-line: #f5f5f5;
+  --c-soft: #1a1a1a;
+  --c-accent: #ff4514;
+  --c-accent-ink: #0a0a0a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-  /* Added custom font variables for modern typography */
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+@layer base {
+  html {
+    /* Native fallback (reduced-motion / no-JS) — Lenis overrides this to
+       "auto" at runtime so the two smoothing systems never fight. */
+    scroll-behavior: smooth;
+    /* Anchor targets clear the fixed navbar */
+    scroll-padding-top: 5rem;
+  }
+
+  /* Thin brutalist scrollbar: a bare 4px black bar, no track, no radius.
+     Turns accent on hover/drag. */
+  html {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--c-fg) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--c-fg);
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover,
+  ::-webkit-scrollbar-thumb:active {
+    background: var(--c-accent);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  body {
+    background-color: var(--c-bg);
+    color: var(--c-fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--c-accent);
+    color: var(--c-accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
-/* Added custom animations for modern interactions */
+@layer components {
+  /* Page gutter — one container to rule them all */
+  .container-x {
+    @apply mx-auto w-full max-w-[80rem] px-5 md:px-8;
+  }
+
+  /* Monospace micro-label: "01 — SELECTED WORK" */
+  .label-mono {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-muted;
+  }
+
+  /* Editorial display headline */
+  .headline {
+    @apply font-display font-bold uppercase leading-[0.95] tracking-tight;
+  }
+
+  /* Underline-on-hover link with accent */
+  .link-brutal {
+    @apply underline decoration-transparent decoration-2 underline-offset-4 transition-colors duration-150 hover:decoration-accent;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Portal figure — engraved artwork (Hermès-style reveal + idle loops)
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* SVG strokes (ring, arcs, globe) draw themselves in */
+  .pfig [data-draw] {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .pfig-inview [data-draw] {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.55, 0, 0.15, 1);
+  }
+
+  .pfig-inview .pfd-1 [data-draw], .pfig-inview .pfd-1[data-draw] { transition-delay: 0.1s; }
+  .pfig-inview .pfd-2 [data-draw], .pfig-inview .pfd-2[data-draw] { transition-delay: 0.3s; }
+
+  /* The raster figure wipes in from the bottom */
+  .pfig .pfig-img {
+    clip-path: inset(100% 0 0 0);
+    opacity: 0;
+  }
+
+  .pfig-inview .pfig-img {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transition:
+      clip-path 1.4s cubic-bezier(0.55, 0, 0.15, 1) 0.2s,
+      opacity 0.5s linear 0.2s;
+  }
+
+  /* Idle life after the reveal */
+  .pfig-inview .pfig-float {
+    animation: pfigFloat 7s ease-in-out 2.6s infinite;
+  }
+
+  .pfig-inview .pfig-orb {
+    animation: pfigOrb 4s ease-in-out 2.6s infinite;
+  }
+
+  .pfig-inview .pfig-ring {
+    animation: pfigSpin 90s linear infinite;
+    transform-origin: 980px 430px;
+    transform-box: view-box;
+  }
+
+  /* Plasma orb: scale-in entrance, then a slow continuous spin on the
+     image while the wrapper pulses. */
+  .pfig .pfig-orbwrap {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.55);
+  }
+
+  .pfig-inview .pfig-orbwrap {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition:
+      opacity 0.7s ease 1.2s,
+      transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.1) 1.2s;
+  }
+
+  .pfig-inview .pfig-globe-img {
+    animation: pfigSpin 26s linear infinite;
+  }
+}
+
+@keyframes pfigFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pfigOrb {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-5px) scale(1.03); }
+}
+
+@keyframes pfigSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------------------------------------------------------------------------
+   Legacy keyframes still referenced by transitional components
+   --------------------------------------------------------------------------- */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -152,19 +232,7 @@
   animation: slideUp 0.4s ease-out;
 }
 
-body.dark {
-  background-color: #1a202c;
-  color: #e2e8f0;
-}
-
-.squares-canvas {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-/* Chatbot streaming animations */
+/* Chatbot streaming indicators (functional, recolored to the accent) */
 .chat-fade-in {
   animation: fadeIn 0.3s ease-out;
 }
@@ -175,8 +243,7 @@ body.dark {
   height: 1.1em;
   margin-left: 2px;
   vertical-align: text-bottom;
-  background-color: #f97316; /* orange-500, matches the bot avatar */
-  border-radius: 1px;
+  background-color: var(--c-accent);
   animation: chatBlink 1s steps(2, start) infinite;
 }
 
@@ -195,7 +262,7 @@ body.dark {
   width: 6px;
   height: 6px;
   border-radius: 9999px;
-  background-color: #9ca3af; /* gray-400 */
+  background-color: var(--c-muted);
   animation: chatTypingBounce 1s ease-in-out infinite;
 }
 

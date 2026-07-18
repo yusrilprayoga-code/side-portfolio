@@ -27,9 +27,6 @@ const nextConfig = {
         ? { exclude: ["error", "warn"] }
         : false,
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
 };
 

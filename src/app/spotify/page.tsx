@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "Chatbot | Yusril Prayoga",
+  title: "Spotify — Yusril Prayoga",
   description:
     "Yusril Prayoga is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
   keywords: [
