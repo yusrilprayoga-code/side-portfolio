@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Section } from "@/components/site/Section";
 import { Button } from "@/components/site/Button";
 import { Reveal } from "@/components/site/Reveal";
 import { products } from "@/constants/products";
+import { Safari } from "@/components/ui/safari";
 
 /* ------------------------------------------------------------------------- */
 /* Data selection — curated homepage cut, everything else lives in /projects */
@@ -52,6 +52,15 @@ function stackLabel(raw: string) {
   return STACK_LABELS[raw.toLowerCase()] ?? raw;
 }
 
+function displayUrl(href: string) {
+  try {
+    const { hostname } = new URL(href);
+    return hostname.replace(/^www\./, "");
+  } catch {
+    return href;
+  }
+}
+
 function StackChips({ stack }: { stack: string[] }) {
   return (
     <ul className="flex flex-wrap gap-2">
@@ -84,13 +93,11 @@ export function ProjectsSection() {
       <Reveal>
         <article className="group relative border-2 border-line bg-bg transition-transform duration-150 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-brutal-lg">
           <div className="grid md:grid-cols-2">
-            <div className="relative aspect-[16/10] border-b-2 border-line md:aspect-auto md:border-b-0 md:border-r-2">
-              <Image
-                src={aurora.thumbnail}
-                alt="AURORA platform cover — abstract dashboard artwork standing in for proprietary screenshots"
-                fill
-                sizes="(min-width: 1280px) 620px, (min-width: 768px) 50vw, 100vw"
-                className="object-cover grayscale transition-[filter] duration-300 group-hover:grayscale-0"
+            <div className="flex items-center border-b-2 border-line bg-soft p-4 md:border-b-0 md:border-r-2 md:p-6">
+              <Safari
+                url="aurora.internal — private build"
+                imageSrc={aurora.thumbnail}
+                className="h-auto w-full grayscale transition-[filter] duration-300 group-hover:grayscale-0"
               />
             </div>
 
@@ -139,13 +146,11 @@ export function ProjectsSection() {
         {featuredPair.map((project, i) => (
           <Reveal key={project.slug} delay={i * 0.1}>
             <article className="group relative flex h-full flex-col border-2 border-line bg-bg transition-transform duration-150 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-brutal">
-              <div className="relative aspect-[16/10] border-b-2 border-line">
-                <Image
-                  src={project.thumbnail}
-                  alt={`${project.title} — interface screenshot`}
-                  fill
-                  sizes="(min-width: 1280px) 610px, (min-width: 768px) 50vw, 100vw"
-                  className="object-cover grayscale transition-[filter] duration-300 group-hover:grayscale-0"
+              <div className="border-b-2 border-line bg-soft p-3 md:p-4">
+                <Safari
+                  url={displayUrl(project.href)}
+                  imageSrc={project.thumbnail}
+                  className="h-auto w-full grayscale transition-[filter] duration-300 group-hover:grayscale-0"
                 />
               </div>
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { Section } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
+import { Highlighter } from "@/components/ui/highlighter";
 
 /**
  * 01 — ABOUT. Editorial two-column spread: narrative on the left,
@@ -28,15 +29,25 @@ export function AboutSection() {
           <div className="max-w-2xl space-y-6">
             <p className="text-lg leading-relaxed text-fg md:text-xl">
               I&apos;m a{" "}
-              <span className="border-b-2 border-accent">
-                full-stack engineer from Yogyakarta, Indonesia
-              </span>
-              , and I take products from business requirement to deployed
-              system. Right now that means AURORA — an enterprise SSPE
-              monitoring and FID governance platform for Pertamina Regional 1 —
-              which I&apos;m building end-to-end: architecture, PostgreSQL
-              schema, dashboards, and approval workflows in Next.js 16, React
-              19, TypeScript, and Prisma.
+              <Highlighter action="highlight" color="#ff3d00" isView>
+                <span className="text-accent-ink">
+                  full-stack engineer from Yogyakarta, Indonesia
+                </span>
+              </Highlighter>
+              , and I take products from{" "}
+              <Highlighter
+                action="underline"
+                color="#ff3d00"
+                strokeWidth={2}
+                isView
+              >
+                business requirement to deployed system
+              </Highlighter>
+              . Right now that means AURORA — an enterprise SSPE monitoring
+              and FID governance platform for
+              Pertamina Regional 1 — which I&apos;m building end-to-end:
+              architecture, PostgreSQL schema, dashboards, and approval
+              workflows in Next.js 16, React 19, TypeScript, and Prisma.
             </p>
             <p className="text-base leading-relaxed text-muted md:text-lg">
               I got here by shipping in very different rooms. A backend

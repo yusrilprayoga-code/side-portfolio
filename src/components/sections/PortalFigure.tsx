@@ -4,9 +4,10 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Engraved ink figure (user-supplied artwork on white paper) blended into
- * the black section: CSS invert turns the paper black and the ink warm
- * white, and mix-blend screen melts the background into the section.
+ * Engraved ink figure (artwork on white paper) blended into the black
+ * section: CSS invert turns the paper black and the ink warm white, and
+ * mix-blend screen melts the background away — the figure keeps its
+ * solid white masses (hair, face) this way.
  * The sketched orb in the artwork is masked by a feathered cover, and a
  * rotating plasma orb (public/images/portal-globe.png — drop in any
  * square transparent PNG to swap it) spins in its place above the palm.

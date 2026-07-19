@@ -12,6 +12,8 @@ import { Providers } from "./providers";
 import { Navbar } from "@/components/site/Navbar";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
+import { ScrollToTop } from "@/components/site/ScrollToTop";
 import { CookieConsent } from "@/components/CookieConsent";
 import OnlineStatusIndicator from "@/components/OnlineStatusIndicator";
 
@@ -114,6 +116,7 @@ export default function RootLayout({
 
         <Providers>
           <SmoothScroll />
+          <SmoothCursor />
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border-2 focus:border-line focus:bg-bg focus:px-4 focus:py-2 focus:font-mono focus:text-sm"
@@ -125,6 +128,7 @@ export default function RootLayout({
             {children}
           </main>
           <SiteFooter />
+          <ScrollToTop />
           <OnlineStatusIndicator />
           <CookieConsent
             companyName="Yusril Prayoga Portfolio"

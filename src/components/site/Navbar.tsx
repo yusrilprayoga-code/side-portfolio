@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { navItems, site } from "@/constants/site";
 import { ThemeToggle } from "./ThemeToggle";
+import { ScrollProgress } from "./ScrollProgress";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -26,6 +27,7 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b-2 border-line bg-bg">
+      <ScrollProgress />
       <nav
         aria-label="Main navigation"
         className="container-x flex h-16 items-center justify-between"

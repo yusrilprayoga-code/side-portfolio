@@ -22,9 +22,9 @@ export function SmoothScroll() {
     }
 
     const lenis = new Lenis({
-      // Lower = more float/delay. 0.1 is the sweet spot: satisfying lag
-      // without feeling detached from the wheel.
-      lerp: 0.1,
+      // Lower = more float/delay. 0.07 leans into the dreamy, drawn-out
+      // glide — noticeably softer than the 0.1 default feel.
+      lerp: 0.07,
       wheelMultiplier: 1,
       touchMultiplier: 1.5,
       // Native touch scrolling on phones — synthetic touch smoothing
@@ -38,6 +38,10 @@ export function SmoothScroll() {
       rafId = requestAnimationFrame(raf);
     };
     rafId = requestAnimationFrame(raf);
+
+    // Expose the instance so other components (e.g. the scroll-to-top
+    // button) can animate through Lenis instead of jumping.
+    (window as Window & { __lenis?: Lenis }).__lenis = lenis;
 
     // CSS smooth-scroll must not run underneath Lenis.
     const html = document.documentElement;
@@ -73,6 +77,7 @@ export function SmoothScroll() {
       document.removeEventListener("click", onClick, { capture: true });
       cancelAnimationFrame(rafId);
       html.style.scrollBehavior = prevScrollBehavior;
+      delete (window as Window & { __lenis?: Lenis }).__lenis;
       lenis.destroy();
     };
   }, []);
